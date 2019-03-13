@@ -11,6 +11,6 @@ find_package(SDL2 REQUIRED)
 add_definitions("-Wall")
 include_directories(${SDL2_INCLUDE_DIR})
 
-add_executable(test1 main.c)
+add_executable(test1 main.cpp)
 install(TARGETS test1 DESTINATION bin)
 target_link_libraries(test1 ${SDL2_LIBRARIES})
