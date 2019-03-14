@@ -11,6 +11,12 @@ find_package(SDL2 REQUIRED)
 add_definitions("-Wall")
 include_directories(${SDL2_INCLUDE_DIR})
 
-add_executable(test1 main.cpp)
+file(GLOB test1_SRC
+    "*.h"
+    "*.cpp"
+)
+
+add_executable(test1 ${test1_SRC})
+# add_executable(test1 main.cpp Game.cpp)
 install(TARGETS test1 DESTINATION bin)
 target_link_libraries(test1 ${SDL2_LIBRARIES})
