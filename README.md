@@ -1,2 +1,2 @@
-Currently compile with cmake in /Build, then make from root
+Compile with 'cmake .' then run make
 VERY EARLY ALPHA!

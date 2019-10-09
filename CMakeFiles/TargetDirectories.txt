@@ -1,7 +1,0 @@
-/media/glauz/Metis/Projects/Programming/SDL2/AzuriteEngine/CMakeFiles/install/strip.dir
-/media/glauz/Metis/Projects/Programming/SDL2/AzuriteEngine/CMakeFiles/edit_cache.dir
-/media/glauz/Metis/Projects/Programming/SDL2/AzuriteEngine/CMakeFiles/AzuriteEngine.dir
-/media/glauz/Metis/Projects/Programming/SDL2/AzuriteEngine/CMakeFiles/install.dir
-/media/glauz/Metis/Projects/Programming/SDL2/AzuriteEngine/CMakeFiles/rebuild_cache.dir
-/media/glauz/Metis/Projects/Programming/SDL2/AzuriteEngine/CMakeFiles/list_install_components.dir
-/media/glauz/Metis/Projects/Programming/SDL2/AzuriteEngine/CMakeFiles/install/local.dir

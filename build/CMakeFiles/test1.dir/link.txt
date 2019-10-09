@@ -1,1 +1,0 @@
-/usr/bin/c++    -rdynamic CMakeFiles/test1.dir/Game.cpp.o CMakeFiles/test1.dir/main.cpp.o  -o test1 -lSDL2 -Wl,-Bstatic -lSDL2main -Wl,-Bdynamic -lSDL2_ttf -lSDL2_image 
