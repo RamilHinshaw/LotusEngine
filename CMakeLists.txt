@@ -53,9 +53,9 @@ set (CMAKE_CXX_STANDARD 11)
 # endif()
 
 #Import all source files
-	file(GLOB header_files "src/*.h" "src/*.hpp")
-	file(GLOB src_files "src/*.c" "src/*.cpp")
-	add_executable(${PROJECT_NAME} ${header_files} ${src_files})
+file(GLOB header_files "src/*.h" "src/*.hpp")
+file(GLOB src_files "src/*.c" "src/*.cpp")
+add_executable(${PROJECT_NAME} ${header_files} ${src_files})
 
 # add_executable(${PROJECT_NAME} main.cpp Game.cpp)
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)

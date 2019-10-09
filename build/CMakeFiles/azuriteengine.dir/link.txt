@@ -1,0 +1,1 @@
+/usr/bin/cc   -rdynamic CMakeFiles/azuriteengine.dir/main.c.o  -o azuriteengine -Wl,-Bstatic -lSDL2main -Wl,-Bdynamic -lSDL2 -lpthread 

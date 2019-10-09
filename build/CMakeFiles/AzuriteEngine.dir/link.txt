@@ -1,0 +1,1 @@
+/usr/bin/c++  -g  -rdynamic CMakeFiles/AzuriteEngine.dir/src/Texture2D.c.o CMakeFiles/AzuriteEngine.dir/src/Game.cpp.o CMakeFiles/AzuriteEngine.dir/src/main.cpp.o  -o AzuriteEngine -lSDL2 -Wl,-Bstatic -lSDL2main -Wl,-Bdynamic -lSDL2_ttf -lSDL2_image 

@@ -1,0 +1,7 @@
+/home/glauz/Projects/SDL2/AzuriteEngine/build/CMakeFiles/install/strip.dir
+/home/glauz/Projects/SDL2/AzuriteEngine/build/CMakeFiles/edit_cache.dir
+/home/glauz/Projects/SDL2/AzuriteEngine/build/CMakeFiles/AzuriteEngine.dir
+/home/glauz/Projects/SDL2/AzuriteEngine/build/CMakeFiles/install.dir
+/home/glauz/Projects/SDL2/AzuriteEngine/build/CMakeFiles/rebuild_cache.dir
+/home/glauz/Projects/SDL2/AzuriteEngine/build/CMakeFiles/list_install_components.dir
+/home/glauz/Projects/SDL2/AzuriteEngine/build/CMakeFiles/install/local.dir

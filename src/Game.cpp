@@ -23,15 +23,14 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
 	{	
 		//Initialize timer, audio, video, joystick, haptic (feedback), gamectonrller & event subsystems
 		std::cout << "SDL Initialized Subsytems!" << std::endl;
-		window = SDL_CreateWindow(title, xpos, ypos, width, height, SDL_WINDOW_SHOWN);
 		
+		window = SDL_CreateWindow(title, xpos, ypos, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);		
 		if (window)
 		{
 			std::cout << "Window created!" << std::endl;
 		}
 			
-		renderer = SDL_CreateRenderer(window, -1, 0);
-		
+		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);		
 		if (renderer)
 		{
 			SDL_SetRenderDrawColor(renderer, 0xFF, 255, 255, 255);
@@ -58,23 +57,75 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
 void Game::handleEvents()
 {
 	SDL_Event event;
-	SDL_PollEvent(&event);
-	switch (event.type)
+	
+	while (	SDL_PollEvent(&event) != 0)
 	{
-		case SDL_QUIT:
+		
+		if (event.type == SDL_QUIT)
 			isRunning = false;
-			break;
-			
-		default:
-			break;		
+		
+		else if (event.type == SDL_KEYDOWN)
+		{
+			switch (event.key.keysym.sym)
+			{
+				case SDLK_UP:
+				SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);	
+				scale++;
+				std::cout << "Key Up Pressed!" << std::endl;
+				break;
+					
+				case SDLK_DOWN:
+				SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);	
+				scale--;
+				std::cout << "Key Down Pressed!" << std::endl;
+				break;
+					
+				default:
+					break;		
+			}
+		}
 	}
 }
 
 void Game::update()	
 {
-	destR.h = 32;
-	destR.w = 32;
-	destR.x += 1;
+	destR.h = 32 + scale;
+	destR.w = 32 + scale;
+	destR.x = offsetX;
+	destR.y = offsetY;
+	//destR.x += 1;
+	
+	const Uint8 *state = SDL_GetKeyboardState(NULL);
+	if (state[SDL_SCANCODE_W]) 
+	{
+// 		SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+		offsetY-=4;
+		std::cout << "Key W Pressed!" << std::endl;
+	}
+	
+	if (state[SDL_SCANCODE_S]) 
+	{
+// 		SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);	
+		offsetY+=4;
+		std::cout << "Key S Pressed!" << std::endl;
+	}
+	
+	if (state[SDL_SCANCODE_A]) 
+		offsetX-=4;
+	
+	if (state[SDL_SCANCODE_D]) 
+		offsetX+=4;
+
+	if (state[SDL_SCANCODE_Z]) 
+		scale++;
+	
+	if (state[SDL_SCANCODE_X]) 
+		scale--;
+	
+	
+	state = nullptr;
+	delete state;
+	
 }
 void Game::render()
 {

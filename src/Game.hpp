@@ -3,12 +3,12 @@
 #define GAME_HPP
 
 
-#include "SDL.h"
-#include "SDL_image.h"
-#include "SDL_ttf.h"
-// #include <SDL2/SDL.h>
-// #include <SDL2/SDL_image.h>
-// #include <SDL2/SDL_ttf.h>
+//#include "SDL.h"
+//#include "SDL_image.h"
+//#include "SDL_ttf.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include <iostream>
 // #include <stdio.h>
 
@@ -30,6 +30,10 @@ class Game{
 		bool isRunning;
 		SDL_Window *window;
 		SDL_Renderer *renderer;
+		
+		//TEMP
+		uint32_t scale = 1;
+		int offsetX, offsetY;
 };
 
 #endif
