@@ -1,2 +1,9 @@
-mkdir /build then CD into build and compile with 'cmake .' then run make
-VERY EARLY ALPHA!
+#VERY EARLY ALPHA!
+
+## Build
+
+### Linux
+- git clone this project
+- cd into project and mkdir /build directory
+- cd into /build and compile as cmake ..
+- run make
