@@ -52,9 +52,23 @@ set (CMAKE_CXX_STANDARD 11)
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -pedantic")
 # endif()
 
+
+# DO RECURSION HERE TO KEEP UP WITH FOLDERS like this:
+# https://stackoverflow.com/questions/6921695/how-can-i-build-a-c-project-with-multiple-interdependent-subdirectories
 #Import all source files
-file(GLOB header_files "src/*.h" "src/*.hpp")
-file(GLOB src_files "src/*.c" "src/*.cpp")
+file(GLOB header_files 
+	"src/*.h" 
+	"src/*.hpp" 
+	"src/engine/*.hpp"
+)
+
+#Import all header files
+file(GLOB src_files
+	"src/*.c" 
+	"src/*.cpp" 
+	"src/engine/*.cpp"
+)
+
 add_executable(${PROJECT_NAME} ${header_files} ${src_files})
 
 # add_executable(${PROJECT_NAME} main.cpp Game.cpp)

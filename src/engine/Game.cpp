@@ -12,12 +12,12 @@ Game::~Game()
 void Game::init(const char *title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
 	//uint32_t flags; //4 bytes for hexidecimal
-	int flags = 0;
+	// int flags = 0;
 	
-	if (fullscreen)
-	{
-		flags = SDL_WINDOW_FULLSCREEN;
-	}
+	// if (fullscreen)
+	// {
+	// 	flags = SDL_WINDOW_FULLSCREEN;
+	// }
 	
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
 	{	
