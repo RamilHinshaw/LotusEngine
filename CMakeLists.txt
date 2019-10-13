@@ -2,7 +2,7 @@ project(LotusEngine)
 cmake_minimum_required(VERSION 2.8)
 
 # Point to our own cmake modules
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMakeModules)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake/Modules)
 
 #Required dependencies:
 
@@ -72,3 +72,9 @@ set(
 
 
 target_link_libraries(${PROJECT_NAME} ${target_link_lib})
+
+#Copy Assets
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+                       ${CMAKE_SOURCE_DIR}/assets $<TARGET_FILE_DIR:${PROJECT_NAME}>/assets)
+
