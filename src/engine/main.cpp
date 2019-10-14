@@ -11,8 +11,7 @@ const int SCREEN_HEIGHT= 600;
 Game *game = nullptr;
 
 int main()
-{
-	
+{	
 	const uint8_t FPS = 60;
 	const int frameDelay = 1000 / FPS;
 	
@@ -20,7 +19,8 @@ int main()
 	Uint32 frameTime;
 	
 	game = new Game();
-	game->init("Test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, false);
+	game->init("Lotus Engine", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, false);
+
 	
 	while (game->running())
 	{

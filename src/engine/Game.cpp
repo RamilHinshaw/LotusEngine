@@ -43,7 +43,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
 	else
 		isRunning = false;
 	
-	SDL_Surface *tmpSurface = IMG_Load("assets/player/player1.png");
+	SDL_Surface *tmpSurface = IMG_Load("assets/textures/player/player1.png");
 // 	SDL_Surface *tmpSurface = IMG_Load("assets/player.png");
 	
 	if (tmpSurface == NULL)
@@ -52,6 +52,30 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
 	
 	playerTex = SDL_CreateTextureFromSurface(renderer, tmpSurface);
 	SDL_FreeSurface(tmpSurface);
+
+	//Lua Stuff
+    lua_State *L = luaL_newstate(); //vm
+    luaL_openlibs(L); //Load basic set of libraries to lua
+
+	float deltaTime = 60.0; //FAKE THIS IS TEST FOR FUTURE SINCE I DONT HAVE DELTA TIME YET!
+	// ToDo: Impliment delta time
+
+	if (CheckLua(L, luaL_dofile(L, "assets/main.lua") ))
+	{
+		lua_getglobal(L, "Init"); //ToDo: Check for errors if this function doesnt exist!, adds to stack
+
+		if (lua_isfunction(L, -1))
+		{
+			lua_pushnumber(L, deltaTime); //Push deltatime for the function, adds to stack
+			lua_call(L,1,0); //Execute function passing 1 var 0 then removes off stack of push and function
+		}
+		else
+			std::cout << "Not Function!?" << std::endl;
+	}
+
+	
+	lua_close(L);
+	std::cout << "Lua Done!!!" << std::endl;
 
 }
 void Game::handleEvents()
@@ -71,13 +95,13 @@ void Game::handleEvents()
 				case SDLK_UP:
 				SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);	
 				scale++;
-				std::cout << "Key Up Pressed!" << std::endl;
+				//std::cout << "Key Up Pressed!" << std::endl;
 				break;
 					
 				case SDLK_DOWN:
 				SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);	
 				scale--;
-				std::cout << "Key Down Pressed!" << std::endl;
+				//std::cout << "Key Down Pressed!" << std::endl;
 				break;
 					
 				default:
@@ -100,14 +124,14 @@ void Game::update()
 	{
 // 		SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
 		offsetY-=4;
-		std::cout << "Key W Pressed!" << std::endl;
+		//std::cout << "Key W Pressed!" << std::endl;
 	}
 	
 	if (state[SDL_SCANCODE_S]) 
 	{
 // 		SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);	
 		offsetY+=4;
-		std::cout << "Key S Pressed!" << std::endl;
+		//std::cout << "Key S Pressed!" << std::endl;
 	}
 	
 	if (state[SDL_SCANCODE_A]) 
@@ -151,3 +175,18 @@ void Game::clean()
 }
 
 bool Game::running() { return isRunning;}
+
+bool Game::CheckLua(lua_State *L, int r)
+{
+	if (r != LUA_OK)
+	{
+		std::string errormsg = lua_tostring(L, -1);
+		std::cout << errormsg << std::endl;
+		return false;
+	}
+
+	else
+	{
+		return true;
+	}
+}

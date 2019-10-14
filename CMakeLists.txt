@@ -36,6 +36,13 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 		message(STATUS "SDL2_image Include Dir: " ${SDL2_IMAGE_INCLUDE_DIRS})
 	endif()
 
+	#find_package(LuaREQUIRED)
+	#if(LUA_FOUND)
+	#	include_directories(${LUA_INCLUDE_DIRS})
+	#	message(STATUS "Lua Include Dir: " ${LUA_INCLUDE_DIRS})
+	#endif()
+
+
 
 # Add global definitions
 add_definitions("-Wall -Wno-unused -Werror")
@@ -82,6 +89,8 @@ set(
 	${SDL2_LIBRARIES} 
 	${SDL2_TTF_LIBRARIES} 
 	${SDL2_IMAGE_LIBRARIES}
+	#${LUA_LIBRARIES}
+	"lua5.3"   # HARD CODED FIX IN FindLua.cmake file
 	)
 
 
