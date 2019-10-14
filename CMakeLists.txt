@@ -38,7 +38,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 
 
 # Add global definitions
-add_definitions("-Wall")
+add_definitions("-Wall -Wno-unused -Werror")
 include_directories(${SDL2_INCLUDE_DIR})
 #Set the C++ version
 set (CMAKE_CXX_STANDARD 11)
