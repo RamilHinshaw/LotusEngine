@@ -1,0 +1,11 @@
+Concurrent Work being done
+-------------------------
+
+Calculate update with delta time instead of frame delays of depend on vertical sync
+
+game.cpp when init checks for main.lua
+ - Checks if Init(dt), Update(dt), & Draw(dt) exists
+ - Then when game starts run lua Init function
+ - Run Update(dt), and Draw(dt) in cpp version everyframe
+
+standard entity gameobject that lua scripts can interact with, ECS perhaps with multithreading?
