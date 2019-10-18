@@ -12,7 +12,8 @@ find_path(SDL2_INCLUDE_DIR SDL2/SDL.h
 	include
 	SDL2
 	PATHS
-    ./lib/SDL2
+	./lib/SDL2
+	./lib/
 	/usr/local
 	/usr
 	/opt

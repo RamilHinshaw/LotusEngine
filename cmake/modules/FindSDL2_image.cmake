@@ -8,6 +8,7 @@ find_path(SDL2_IMAGE_INCLUDE_DIR SDL2/SDL_image.h
 	include
 	SDL2
 	PATHS
+	./lib/SDL2
     ./lib/
 	/usr/local
 	/usr
