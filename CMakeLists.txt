@@ -1,6 +1,24 @@
 project(LotusEngine)
 cmake_minimum_required(VERSION 2.8)
 
+# Set Defalt build type
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
+
+# if (WIN32)
+# 	set(CMAKE_GENERATOR "Ninja")
+# endif()
+
+# Compilers
+# SET(CMAKE_C_COMPILER "C:\MinGW\bin\gcc.exe")
+# SET(CMAKE_CXX_COMPILER "C:\MinGW\bin\g++.exe")
+
+# Set Release/Debug Flags
+set(CMAKE_CXX_FLAGS "-Wall -Wextra")
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
+
 # Point to our own cmake modules
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 
@@ -24,11 +42,11 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 		message(STATUS "SDL2 Include Dir: " ${SDL2_INCLUDE_DIRS})
 	endif()
 
-	find_package(SDL2_ttf REQUIRED)
-	if(SDL2_ttf_FOUND)
-		include_directories(${SDL2_TTF_INCLUDE_DIRS})
-		message(STATUS "SDL2_ttf Include Dir: " ${SDL2_TTF_INCLUDE_DIRS})
-	endif()
+	# find_package(SDL2_ttf REQUIRED)
+	# if(SDL2_ttf_FOUND)
+	# 	include_directories(${SDL2_TTF_INCLUDE_DIRS})
+	# 	message(STATUS "SDL2_ttf Include Dir: " ${SDL2_TTF_INCLUDE_DIRS})
+	# endif()
 
 	find_package(SDL2_image REQUIRED)
 	if(SDL2_image_FOUND)
@@ -45,19 +63,20 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 
 
 # Add global definitions
-add_definitions("-Wall -Wno-unused -Werror -Wextra -pedantic -pthread")
-include_directories(${SDL2_INCLUDE_DIR})
+#Compiler Flags
+if (UNIX)
+	add_definitions("-Wall -Wno-unused -Werror -Wextra -pedantic -pthread")
+
+elseif (WIN32)
+	#-IC:\mingw_dev_lib\include\SDL2 -LC:\mingw_dev_lib\lib -w -Wl,-subsystem,windows -lmingw32 -lSDL2main -lSDL2 -o 01_hello_SDL
+	add_definitions("-w -Wl,-subsystem,windows -lmingw32 -lSDL2main -lSDL2")
+endif()
+
+
+
+#include_directories(${SDL2_INCLUDE_DIR})
 #Set the C++ version
 set (CMAKE_CXX_STANDARD 11)
-
-# #Compiler Flags
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14") 
-# if(WIN32)
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -nologo -Gm- -EHa- -Od -Oi -WX -W4 -wd4100 -wd4189")
-# add_definitions(-D_CRT_SECURE_NO_WARNINGS)
-# else()
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -pedantic")
-# endif()
 
 
 # DO RECURSION HERE TO KEEP UP WITH FOLDERS like this:
@@ -90,7 +109,7 @@ set(
 	${SDL2_TTF_LIBRARIES} 
 	${SDL2_IMAGE_LIBRARIES}
 	#${LUA_LIBRARIES}
-	"lua5.3"   # HARD CODED FIX IN FindLua.cmake file
+	# "lua5.3"   # HARD CODED FIX IN FindLua.cmake file
 	)
 
 

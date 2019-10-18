@@ -3,12 +3,12 @@
 #define GAME_HPP
 
 
-extern "C"
-{
-	#include <lua5.3/lua.h>   //Install with liblua5.3
-	#include <lua5.3/lauxlib.h> 
-	#include <lua5.3/lualib.h> 
-}
+// extern "C"
+// {
+// 	#include <lua5.3/lua.h>   //Install with liblua5.3
+// 	#include <lua5.3/lauxlib.h> 
+// 	#include <lua5.3/lualib.h> 
+// }
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -29,7 +29,7 @@ class Game{
 		
 		bool running(); 	//check if running
 
-		bool CheckLua(lua_State *L, int r);
+		//bool CheckLua(lua_State *L, int r);
 		
 		
 	private:

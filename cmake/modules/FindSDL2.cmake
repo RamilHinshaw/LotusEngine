@@ -29,6 +29,7 @@ if(CMAKE_SIZEOF_VOID_P EQUAL 8)
 		lib64 
 		lib
 		lib/x64
+		lib/x64/SDL2
 		PATHS
 		/opt
 	)
@@ -41,6 +42,7 @@ else(CMAKE_SIZEOF_VOID_P EQUAL 8)
 		PATH_SUFFIXES 
 		lib
 		lib/x86
+		lib/x86/SDL2
 		PATHS
 		/opt
 	)
@@ -56,6 +58,7 @@ if(CMAKE_SIZEOF_VOID_P EQUAL 8)
 		lib64
 		lib
 		lib/x64
+		lib/x64/SDL2
 		PATHS
 		/opt
 		)
@@ -68,6 +71,7 @@ else(CMAKE_SIZEOF_VOID_P EQUAL 8)
 		PATH_SUFFIXES 
 		lib
 		lib/x86
+		lib/x86/SDL2_image
 		PATHS
 		/opt
 		)

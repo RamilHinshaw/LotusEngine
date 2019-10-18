@@ -1,0 +1,1 @@
+@cmake.exe -G "MinGW Makefiles" %*
