@@ -14,10 +14,11 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
 	//uint32_t flags; //4 bytes for hexidecimal
 	// int flags = 0;
 	
-	// if (fullscreen)
-	// {
-	// 	flags = SDL_WINDOW_FULLSCREEN;
-	// }
+	if (fullscreen)
+	{
+		//flags = SDL_WINDOW_FULLSCREEN;
+		std::cout << "SDL FULLSCREEN!" << std::endl;
+	}
 	
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
 	{	

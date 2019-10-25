@@ -65,11 +65,16 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 # Add global definitions
 #Compiler Flags
 if (UNIX)
+	message(STATUS "Detected Unix!")
 	add_definitions("-Wall -Wno-unused -Werror -Wextra -pedantic -pthread")
 
 elseif (WIN32)
+	message(STATUS "Detected Windows!")
 	#-IC:\mingw_dev_lib\include\SDL2 -LC:\mingw_dev_lib\lib -w -Wl,-subsystem,windows -lmingw32 -lSDL2main -lSDL2 -o 01_hello_SDL
-	add_definitions("-w -Wl,-subsystem,windows -lmingw32 -lSDL2main -lSDL2")
+	set(INCLUDE_PATHS "-IC:/MinGW/include/SDL2")
+	set(LIBRARY_PATHS "-LC:/MinGW/lib")
+
+	# add_definitions("-w -Wl,-subsystem,windows -lmingw32 -lSDL2main -lSDL2 ")
 endif()
 
 
@@ -106,14 +111,19 @@ set(
 # 	${OPENGL_LIBRARIES}
 # 	${GLEW_LIBRARIES}
 	${SDL2_LIBRARIES} 
-	${SDL2_TTF_LIBRARIES} 
+	# ${SDL2_TTF_LIBRARIES} 
 	${SDL2_IMAGE_LIBRARIES}
 	#${LUA_LIBRARIES}
 	# "lua5.3"   # HARD CODED FIX IN FindLua.cmake file
+
+	# if (WIN32)
+	# "mingw32"
+	# "SDL2main"
+	# endif()
 	)
 
+target_link_libraries(${PROJECT_NAME} "-w -Wl,-subsystem,windows -lmingw32 -lSDL2main" ${target_link_lib})
 
-target_link_libraries(${PROJECT_NAME} ${target_link_lib})
 
 #Copy Assets
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
