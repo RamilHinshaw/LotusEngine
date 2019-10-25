@@ -13,6 +13,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
 {
 	//uint32_t flags; //4 bytes for hexidecimal
 	// int flags = 0;
+	//Testing git changes
 	
 	if (fullscreen)
 	{
