@@ -1,23 +1,19 @@
-project(LotusEngine)
 cmake_minimum_required(VERSION 2.8)
 
-# Set Defalt build type
-if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE Release)
-endif()
+project(LotusEngine)
 
-# if (WIN32)
-# 	set(CMAKE_GENERATOR "Ninja")
+#Set the C++ version
+set (CMAKE_CXX_STANDARD 11)
+
+# Set Defualt build type to Release
+# if(NOT CMAKE_BUILD_TYPE)
+#   set(CMAKE_BUILD_TYPE Release)
 # endif()
 
-# Compilers
-# SET(CMAKE_C_COMPILER "C:\MinGW\bin\gcc.exe")
-# SET(CMAKE_CXX_COMPILER "C:\MinGW\bin\g++.exe")
-
 # Set Release/Debug Flags
-set(CMAKE_CXX_FLAGS "-Wall -Wextra")
-set(CMAKE_CXX_FLAGS_DEBUG "-g")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
+# set(CMAKE_CXX_FLAGS "-Wall -Wextra")
+# set(CMAKE_CXX_FLAGS_DEBUG "-g")
+# set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
 
 # Point to our own cmake modules
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
@@ -40,6 +36,8 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 	if(SDL2_FOUND)
 		include_directories(${SDL2_INCLUDE_DIRS})
 		message(STATUS "SDL2 Include Dir: " ${SDL2_INCLUDE_DIRS})
+		message(STATUS "SDL2 Lib Dir: " ${SDL2_LIBRARY})
+		message(STATUS "SDL2Main Lib Dir: " ${SDL2_MAIN_LIBRARY})
 	endif()
 
 	# find_package(SDL2_ttf REQUIRED)
@@ -66,25 +64,24 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 #Compiler Flags
 if (UNIX)
 	message(STATUS "Detected Unix!")
-	add_definitions("-Wall -Wno-unused -Werror -Wextra -pedantic -pthread")
+	add_definitions("-Wall -Wno-unused -Werror -Wextra -pedantic")
 
 elseif (WIN32)
 	message(STATUS "Detected Windows!")
 	#-IC:\mingw_dev_lib\include\SDL2 -LC:\mingw_dev_lib\lib -w -Wl,-subsystem,windows -lmingw32 -lSDL2main -lSDL2 -o 01_hello_SDL
-	set(INCLUDE_PATHS "-IC:/MinGW/include/SDL2")
-	set(LIBRARY_PATHS "-LC:/MinGW/lib")
+	# set(INCLUDE_PATHS "-IC:/MinGW/include/SDL2")
+	# set(LIBRARY_PATHS "-LC:/MinGW/lib")
 
-	# add_definitions("-w -Wl,-subsystem,windows -lmingw32 -lSDL2main -lSDL2 ")
+	# add_definitions("-w -Wl,-subsystem,windows") # THIS DOES NOt WORK THE WAY I THINK IT DOES!
 endif()
 
 
 
 #include_directories(${SDL2_INCLUDE_DIR})
-#Set the C++ version
-set (CMAKE_CXX_STANDARD 11)
 
 
-# DO RECURSION HERE TO KEEP UP WITH FOLDERS like this:
+
+# ToDo: USE RECURSION HERE TO KEEP UP WITH FOLDERS like this:
 # https://stackoverflow.com/questions/6921695/how-can-i-build-a-c-project-with-multiple-interdependent-subdirectories
 #Import all source files
 file(GLOB header_files 
@@ -92,6 +89,7 @@ file(GLOB header_files
 	"src/*.hpp" 
 	"src/engine/*.hpp"
 )
+message(STATUS "Header: " ${header_files})
 
 #Import all header files
 file(GLOB src_files
@@ -99,18 +97,21 @@ file(GLOB src_files
 	"src/*.cpp" 
 	"src/engine/*.cpp"
 )
+message(STATUS "Sources: " ${src_files})
 
 add_executable(${PROJECT_NAME} ${header_files} ${src_files})
 
 # add_executable(${PROJECT_NAME} main.cpp Game.cpp)
-install(TARGETS ${PROJECT_NAME} DESTINATION bin)
+# install(TARGETS ${PROJECT_NAME} DESTINATION bin)
 
 #Linker
 set(
 	target_link_lib
 # 	${OPENGL_LIBRARIES}
 # 	${GLEW_LIBRARIES}
-	${SDL2_LIBRARIES} 
+
+	${SDL2_LIBRARY} 
+
 	# ${SDL2_TTF_LIBRARIES} 
 	${SDL2_IMAGE_LIBRARIES}
 	#${LUA_LIBRARIES}
@@ -122,7 +123,15 @@ set(
 	# endif()
 	)
 
-target_link_libraries(${PROJECT_NAME} "-w -Wl,-subsystem,windows -lmingw32 -lSDL2main" ${target_link_lib})
+
+# COMPILE
+if (UNIX)
+	target_link_libraries(${PROJECT_NAME} ${target_link_lib})
+elseif (WIN32)
+	target_link_libraries(${PROJECT_NAME} "-w -Wl,-subsystem,windows" "-lmingw32 -lSDL2main" ${target_link_lib})
+endif()
+
+
 
 
 #Copy Assets

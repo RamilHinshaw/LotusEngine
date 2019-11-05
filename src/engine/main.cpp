@@ -10,7 +10,7 @@ const int SCREEN_HEIGHT= 600;
 
 Game *game = nullptr;
 
-int main()
+int main(int argv, char** args)
 {	
 	const uint8_t FPS = 60;
 	const int frameDelay = 1000 / FPS;
