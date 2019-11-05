@@ -13,10 +13,10 @@
 - run make
 
 
-### Windows (WIP)
+### Windows with mingw32/mingw64 (WIP)
 
 - download mingw64 & sdl2 source files
 - add to windows path
 - create build directory
-- copy cmakeW.bat into build
-- run cmakeW.bat in terminal by ".\cmakeW .."
+- compile with "cmake .. -G "MinGW Makefiles"
+- run mingw32-make.exe
