@@ -19,4 +19,4 @@
 - add to windows path
 - create build directory
 - copy cmakeW.bat into build
-- run cmakeW.bat
+- run cmakeW.bat in terminal by ".\cmakeW .."
