@@ -9,4 +9,7 @@ game.cpp when init checks for main.lua
  - Then when game starts run lua Init function
  - Run Update(dt), and Draw(dt) in cpp version everyframe
 
-standard entity gameobject that lua scripts can interact with, ECS perhaps with multithreading?
+Goals:
+  -standard entity gameobject that lua scripts can interact with
+  - ECS?
+  - multithreading job sytem?
