@@ -16,7 +16,7 @@
 ### Windows with mingw32/mingw64 (WIP)
 
 - download mingw64 & sdl2 source files
-- add to windows path
+- add to windows path (recommended to put near top to avoid conflicts)
 - create build directory
-- compile with "cmake .. -G "MinGW Makefiles"
+- compile with cmake .. -G "MinGW Makefiles"
 - run mingw32-make.exe
