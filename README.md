@@ -28,3 +28,7 @@
 - create build directory
 - compile with cmake .. -G "MinGW Makefiles"
 - run mingw32-make.exe
+
+---
+<p align="center">Copyright &copy; 2019-present Ramil Hinshaw</p>
+<p align="center">My Original Source code under MIT & Images under CC BY-SA 4.0 License, Lotus Logo not included.</p>
