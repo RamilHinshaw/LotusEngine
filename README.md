@@ -1,9 +1,14 @@
-# VERY EARLY ALPHA!
+<p align="center"><img src="https://raw.githubusercontent.com/RamilHinshaw/lotusengine/master/img/Logo%20Banner.png"/></p>
 
-## Build
+---
+<p align="center">My work-in-progress hobby game engine primarily used for educational purposes.</p>
+
+---
+
+## Build Instructions
 
 ### Linux
-- download 
+- download:
 	- libsdl2-2.0-dev
 	- libsdl2-image-2.0-dev
 	- liblua-5.3-dev	
@@ -13,8 +18,8 @@
 - run make
 
 
-### Windows with mingw32/mingw64 (WIP)
-- download & add to path
+### Windows with mingw32/mingw64
+- download & add to path:
 	- sdl2 source files
 	- sdl2-image source files
 	- lua5.3 source	
