@@ -11,5 +11,8 @@ game.cpp when init checks for main.lua
 
 Goals:
   -standard entity gameobject that lua scripts can interact with
-  - ECS?
+  - ECS
   - multithreading job sytem?
+  - IMGUI
+  - lua bindings
+  - maybe pythong bindings?
