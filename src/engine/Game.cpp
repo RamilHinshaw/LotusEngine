@@ -32,7 +32,8 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
 			std::cout << "Window created!" << std::endl;
 		}
 			
-		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);		
+		// renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);		
+		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);		
 		if (renderer)
 		{
 			SDL_SetRenderDrawColor(renderer, 0xFF, 255, 255, 255);
@@ -80,7 +81,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
 	// std::cout << "Lua Done!!!" << std::endl;
 
 }
-void Game::handleEvents()
+void Game::handleEvents(float dt)
 {
 	SDL_Event event;
 	
@@ -113,47 +114,45 @@ void Game::handleEvents()
 	}
 }
 
-void Game::update()	
+void Game::update(double dt)	
 {
 	destR.h = 32 + scale;
 	destR.w = 32 + scale;
 	destR.x = offsetX;
 	destR.y = offsetY;
-	//destR.x += 1;
+	double velocity = 4;
 	
 	const Uint8 *state = SDL_GetKeyboardState(NULL);
+
+	//if ((velocity * dt) > velocity)
+		//std::cout << "FAST! " << (velocity * dt) << std::endl;
+
 	if (state[SDL_SCANCODE_W]) 
-	{
-// 		SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
-		offsetY-=4;
-		//std::cout << "Key W Pressed!" << std::endl;
-	}
-	
-	if (state[SDL_SCANCODE_S]) 
-	{
-// 		SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);	
-		offsetY+=4;
-		//std::cout << "Key S Pressed!" << std::endl;
-	}
+		offsetY -= (velocity * dt);
 	
 	if (state[SDL_SCANCODE_A]) 
-		offsetX-=4;
+		offsetX -= (velocity * dt);
+
+	if (state[SDL_SCANCODE_S])	
+		offsetY += (velocity * dt);
 	
 	if (state[SDL_SCANCODE_D]) 
-		offsetX+=4;
+		offsetX += (velocity * dt);
 
-	if (state[SDL_SCANCODE_Z]) 
-		scale++;
+	// if (state[SDL_SCANCODE_Z]) 
+	// 	scale++;
 	
-	if (state[SDL_SCANCODE_X]) 
-		scale--;
+	// if (state[SDL_SCANCODE_X]) 
+	// 	scale--;
 	
 	
 	state = nullptr;
 	delete state;
+
+
 	
 }
-void Game::render()
+void Game::render(float dt)
 {
 // 	SDL_SetRenderDrawColor(renderer, 0xFF, 255, 255, 255); //Drawing Color
 	SDL_RenderClear(renderer); //Clear with drawing color

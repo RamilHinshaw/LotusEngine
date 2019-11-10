@@ -22,9 +22,9 @@ class Game{
 		~Game();
 		
 		void init(const char *title, int xpos, int ypos, int width, int height, bool fullscreen);		
-		void handleEvents();	//IO
-		void update();
-		void render();
+		void handleEvents(float dt);	//IO
+		void update(double dt);
+		void render(float dt);
 		void clean();
 		
 		bool running(); 	//check if running
@@ -38,8 +38,8 @@ class Game{
 		SDL_Renderer *renderer;
 		
 		//TEMP
-		uint32_t scale = 1;
-		int offsetX, offsetY;
+		double scale = 1;
+		double offsetX, offsetY;
 };
 
 #endif
