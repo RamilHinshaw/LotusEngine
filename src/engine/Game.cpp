@@ -32,8 +32,8 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
 			std::cout << "Window created!" << std::endl;
 		}
 			
-		// renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);		
-		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);		
+		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);		
+		//renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);		
 		if (renderer)
 		{
 			SDL_SetRenderDrawColor(renderer, 0xFF, 255, 255, 255);
@@ -139,11 +139,11 @@ void Game::update(double dt)
 	if (state[SDL_SCANCODE_D]) 
 		offsetX += (velocity * dt);
 
-	// if (state[SDL_SCANCODE_Z]) 
-	// 	scale++;
+	if (state[SDL_SCANCODE_Z]) 
+		scale++;
 	
-	// if (state[SDL_SCANCODE_X]) 
-	// 	scale--;
+	if (state[SDL_SCANCODE_X]) 
+		scale--;
 	
 	
 	state = nullptr;
@@ -162,7 +162,7 @@ void Game::render(float dt)
 	
 	SDL_RenderCopy(renderer, playerTex, NULL, &destR);
 	
-	SDL_RenderPresent(renderer); //Draw to screen
+	SDL_RenderPresent(renderer); //Draw to screen | ALSO Halts if VBLANK!
 }
 
 
