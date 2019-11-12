@@ -79,9 +79,9 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
 	
 	// lua_close(L);
 	// std::cout << "Lua Done!!!" << std::endl;
-fps_timer
-}fps_timer
-void Game::handleEvents(float dtfps_timer)
+
+}
+void Game::handleEvents(float dt)
 {
 	SDL_Event event;
 	
