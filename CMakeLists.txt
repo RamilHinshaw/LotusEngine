@@ -75,31 +75,23 @@ elseif (WIN32)
 	# add_definitions("-w -Wl,-subsystem,windows") # THIS DOES NOt WORK THE WAY I THINK IT DOES!
 endif()
 
-
-
-#include_directories(${SDL2_INCLUDE_DIR})
-
-
-
 # ToDo: USE RECURSION HERE TO KEEP UP WITH FOLDERS like this:
 # https://stackoverflow.com/questions/6921695/how-can-i-build-a-c-project-with-multiple-interdependent-subdirectories
-#Import all source files
-file(GLOB header_files 
-	"src/*.h" 
-	"src/*.hpp" 
-	"src/engine/*.hpp"
-)
-message(STATUS "Header: " ${header_files})
 
 #Import all header files
 file(GLOB src_files
 	"src/*.c" 
 	"src/*.cpp" 
 	"src/engine/*.cpp"
+	"src/graphics/*.cpp"
+	"src/input/*.cpp"
+	"src/math/*.cpp"
+	"src/physics/*.cpp"
+	"src/ai/*.cpp"
 )
 message(STATUS "Sources: " ${src_files})
 
-add_executable(${PROJECT_NAME} ${header_files} ${src_files})
+add_executable(${PROJECT_NAME} ${src_files})
 
 # add_executable(${PROJECT_NAME} main.cpp Game.cpp)
 # install(TARGETS ${PROJECT_NAME} DESTINATION bin)
@@ -116,11 +108,6 @@ set(
 	${SDL2_IMAGE_LIBRARIES}
 	#${LUA_LIBRARIES}
 	# "lua5.3"   # HARD CODED FIX IN FindLua.cmake file
-
-	# if (WIN32)
-	# "mingw32"
-	# "SDL2main"
-	# endif()
 	)
 
 
@@ -130,8 +117,6 @@ if (UNIX)
 elseif (WIN32)
 	target_link_libraries(${PROJECT_NAME} "-w -Wl,-subsystem,windows" "-lmingw32 -lSDL2main" ${target_link_lib})
 endif()
-
-
 
 
 #Copy Assets
