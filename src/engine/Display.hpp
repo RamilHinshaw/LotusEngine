@@ -8,10 +8,14 @@
 
 class Display{
 	public:
-		Display(const char *title, int xpos, int ypos, int width, int height, bool fullscreen);
+		Display(const char *title, int width, int height);
 		~Display();		
+
+        void SwapBuffers();
+        void Clear();
 		
 	private:
 		SDL_Window *window;
+        SDL_GLContext glContext;
 
 };

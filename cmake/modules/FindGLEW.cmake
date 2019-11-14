@@ -22,14 +22,15 @@ find_path(GLEW_INCLUDE_DIR GL/glew.h
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
     message(STATUS "GLEW target is 64 bit")
         find_library(GLEW_LIBRARY
-                NAMES glew32 glew32s glew GLEW
+		NAMES glew32 glew32s glew GLEW
 		HINTS
 		${CMAKE_SOURCE_DIR}
 		$ENV{GLEW_DIR}
-                PATH_SUFFIXES
-                lib64
+		PATH_SUFFIXES
+		lib64
 		lib
 		lib/x64
+		lib/x64/glew
 		PATHS
 		/opt
 	)
@@ -37,14 +38,15 @@ if(CMAKE_SIZEOF_VOID_P EQUAL 8)
 else(CMAKE_SIZEOF_VOID_P EQUAL 8)
     message(STATUS "GLEW target is 32 bit")
         find_library(GLEW_LIBRARY
-                NAMES glew32 glew32s glew GLEW
+		NAMES glew32 glew32s glew GLEW
 		HINTS
 		${CMAKE_SOURCE_DIR}
 		$ENV{GLEW_DIR}
-                PATH_SUFFIXES
-                lib32
+		PATH_SUFFIXES
+		lib32
 		lib
 		lib/x86
+		lib/x86/glew
 		PATHS
 		/opt
 	)

@@ -31,7 +31,7 @@ int main(int argv, char** args)
 	
 	//Create Game Object/Game Creates Window also ToDo: *should seperate logic here
 	game = new Game();
-	game->init("Lotus Engine", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, false);
+	game->init("Lotus Engine",SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	
 

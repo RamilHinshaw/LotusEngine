@@ -20,17 +20,17 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 
 #Required dependencies:
 
-	# find_package(OpenGL REQUIRED)
-	# if(OPENGL_FOUND)
-	# 	include_directories(${OPENGL_INCLUDE_DIRS})
-	# 	message(STATUS "OpenGL Include Dir: " ${OPENGL_INCLUDE_DIRS})
-	# endif()
-	# 
-	# find_package(GLEW REQUIRED)
-	# if(GLEW_FOUND)
-	# 	include_directories(${GLEW_INCLUDE_DIRS})
-	# 	message(STATUS "GLEW Include Dir: ${GLEW_INCLUDE_DIRS}")
-	# endif()
+	find_package(OpenGL REQUIRED)
+	if(OPENGL_FOUND)
+		include_directories(${OPENGL_INCLUDE_DIRS})
+		message(STATUS "OpenGL Include Dir: " ${OPENGL_INCLUDE_DIRS})
+	endif()
+	
+	find_package(GLEW REQUIRED)
+	if(GLEW_FOUND)
+		include_directories(${GLEW_INCLUDE_DIRS})
+		message(STATUS "GLEW Include Dir: ${GLEW_INCLUDE_DIRS}")
+	endif()
 
 	find_package(SDL2 REQUIRED)
 	if(SDL2_FOUND)
@@ -46,11 +46,11 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 	# 	message(STATUS "SDL2_ttf Include Dir: " ${SDL2_TTF_INCLUDE_DIRS})
 	# endif()
 
-	find_package(SDL2_image REQUIRED)
-	if(SDL2_image_FOUND)
-		include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
-		message(STATUS "SDL2_image Include Dir: " ${SDL2_IMAGE_INCLUDE_DIRS})
-	endif()
+	# find_package(SDL2_image REQUIRED)
+	# if(SDL2_image_FOUND)
+	# 	include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
+	# 	message(STATUS "SDL2_image Include Dir: " ${SDL2_IMAGE_INCLUDE_DIRS})
+	# endif()
 
 	#find_package(LuaREQUIRED)
 	#if(LUA_FOUND)
@@ -99,13 +99,13 @@ add_executable(${PROJECT_NAME} ${src_files})
 #Linker
 set(
 	target_link_lib
-# 	${OPENGL_LIBRARIES}
-# 	${GLEW_LIBRARIES}
+	${OPENGL_LIBRARIES}
+	${GLEW_LIBRARIES}
 
 	${SDL2_LIBRARY} 
 
 	# ${SDL2_TTF_LIBRARIES} 
-	${SDL2_IMAGE_LIBRARIES}
+	# ${SDL2_IMAGE_LIBRARIES}
 	#${LUA_LIBRARIES}
 	# "lua5.3"   # HARD CODED FIX IN FindLua.cmake file
 	)

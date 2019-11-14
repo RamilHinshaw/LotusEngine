@@ -10,8 +10,9 @@
 ### Linux
 - download:
 	- libsdl2-2.0-dev
-	- libsdl2-image-2.0-dev
-	- liblua-5.3-dev	
+	- liblua-5.3-dev
+	- libglew-dev
+	- libglm-deb
 - git clone this project
 - cd into project and mkdir /build directory
 - cd into /build and compile as cmake ..
@@ -21,8 +22,9 @@
 ### Windows with mingw32/mingw64
 - download & add to path:
 	- sdl2 source files
-	- sdl2-image source files
 	- lua5.3 source	
+	- glew source files
+	- glm header file
 - download mingw64 & sdl2 source files
 - add to windows path (recommended to put near top to avoid conflicts)
 - create build directory
