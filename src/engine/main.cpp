@@ -35,12 +35,12 @@ int main(int argv, char** args)
 
 	
 
-	// double frameStart;
-	// double frameTime;
+	//u_int32_t frameStart;
+	//u_int32_t frameTime;
 	// const double frameDelay = 1000 / FPS;
 
 	uint64_t counterStart = SDL_GetPerformanceCounter();
-	double currentTime = counterStart;
+	double currentTime = 0;
 
 	while (game->running())
 	{
@@ -52,11 +52,12 @@ int main(int argv, char** args)
 		
 		//Delta Time stuff (prolly put in own class)
 		lastTime = currentTime;
+
 		//currentTime = SDL_GetPerformanceCounter();
 
 
 		//Frame ratio to 1 second, divide by 1000 to turn nano secs to sec
-		deltaTime = (currentTime - lastTime);// / 1000000000.0 ;
+		deltaTime = (currentTime - lastTime) / 1000000000.0 ;
 
 		//if (lastTime == 0) continue;
 
@@ -80,7 +81,7 @@ int main(int argv, char** args)
 				
 		game->handleEvents(deltaTime);
 		game->update(1);
-		game->render(deltaTime);
+		game->draw(deltaTime);
 
 
 		
@@ -89,16 +90,16 @@ int main(int argv, char** args)
 		
 		//frameTime = SDL_GetTicks() - frameStart;
 
-		currentTime = SDL_GetPerformanceCounter() - counterStart;
+
 		double test = currentTime - lastTime;
+		currentTime = SDL_GetPerformanceCounter() - counterStart;
 
-
-		std::cout << deltaTime << std::endl;
+		//std::cout << deltaTime << std::endl;
 
 		if (fps_timer >= 1.0 * fps_timer_interval)
 		{			
 			//std::cout << fps_timer << std::endl;
-			std::cout << "Ticks: " << fps_timer << " FPS: " << fpsCounter << " FrameTime: " << deltaTime << " Together: " << ((double)fpsCounter*deltaTime) << std::endl;
+			std::cout << "Ticks: " << fps_timer << " FPS: " << fpsCounter << std::endl;//" FrameTime: " << deltaTime << " Together: " << ((double)fpsCounter*deltaTime) << std::endl;
 
 			fps_timer_interval++;
 			fps_timer = 0;
@@ -119,7 +120,9 @@ int main(int argv, char** args)
 		{
 			//I don't like this simply because wasting cpu potential just to wait, need to find alternative
 			//std::cout << ((targetFPS*1000.0) - deltaTime*1000.0) << " VS " << (frameDelay - frameTime) << std::endl;
-			SDL_Delay( ((targetFPS*1000.0) - deltaTime*1000.0));
+			//std::cout << ((targetFPS*1000.0)) << " VS " << deltaTime*1000.0 << std::endl;
+			//SDL_Delay( (1000/FPS) - frameTime);
+			SDL_Delay( (targetFPS - deltaTime) * 1000.0);
 		}
 
 	}

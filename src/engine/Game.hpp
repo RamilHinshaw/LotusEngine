@@ -24,7 +24,7 @@ class Game{
 		void init(const char *title, int xpos, int ypos, int width, int height, bool fullscreen);		
 		void handleEvents(float dt);	//IO
 		void update(double dt);
-		void render(float dt);
+		void draw(float dt);
 		void clean();
 		
 		bool running(); 	//check if running
