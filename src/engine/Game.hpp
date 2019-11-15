@@ -33,13 +33,7 @@ class Game{
 		
 	private:
 		bool isRunning;
-		//SDL_Window *window;
-		//SDL_Renderer *renderer;
 		Display* display;
-		
-		//TEMP
-		//double scale = 1;
-		//double offsetX, offsetY;
 };
 
 #endif
