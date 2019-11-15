@@ -1,0 +1,6 @@
+A*
+Boiding
+Steering Behaviors
+FSM
+Behavior Trees
+etc
