@@ -33,12 +33,6 @@ int main(int argv, char** args)
 	game = new Game();
 	game->init("Lotus Engine",SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	
-
-	//u_int32_t frameStart;
-	//u_int32_t frameTime;
-	// const double frameDelay = 1000 / FPS;
-
 	uint64_t counterStart = SDL_GetPerformanceCounter();
 	double currentTime = 0;
 
@@ -59,36 +53,11 @@ int main(int argv, char** args)
 		//Frame ratio to 1 second, divide by 1000 to turn nano secs to sec
 		deltaTime = (currentTime - lastTime) / 1000000000.0 ;
 
-		//if (lastTime == 0) continue;
-
-
-
-		//deltaTime = min(deltaTime, targetFPS);
-		//std::cout << "FrameTime: " << deltaTime << std::endl;
-		//deltaTime = ((currentTime - lastTime)*1000 / (doubtargetFPSle)SDL_GetPerformanceFrequency() );
-
-
-		//std::cout << (SDL_GetPerformanceCounter()-counterStart)/ 1000000000.0  << std::endl;
-
-
-		//std::cout << &currentTime << " AND " << &lastTime << std::endl;
-		//std::cout << currentTime << " - " << lastTime << " = " << deltaTime << std::endl;
-		//std::cout << SDL_GetTicks() << std::endl;
-		//std::cout << (SDL_GetPerformanceCounter() - counterStart)/1000000.0 << std::endl;
-
-
 
 				
 		game->handleEvents(deltaTime);
 		game->update(1);
 		game->draw(deltaTime);
-
-
-		
-		//continue;
-
-		
-		//frameTime = SDL_GetTicks() - frameStart;
 
 
 		double test = currentTime - lastTime;
@@ -106,15 +75,7 @@ int main(int argv, char** args)
 			fpsCounter = 0;
 		}
 		
-		//std::cout << SDL_GetTicks() << " - " << frameStart << " = " << frameTime << std::endl;
-		//std::cout << currentTime << " - " << lastTime << " = " << test << std::endl;
 
-		//std::cout << deltaTime*100000.0 << " VS " << frameTime << std::endl;
-		// if (frameDelay > frameTime)
-		// {
-		// 	//I don't like this simply because wasting cpu potential just to wait, need to find alternative
-		// 	SDL_Delay(frameDelay - frameTime);
-		// }
 		
 		if (deltaTime < targetFPS)
 		{
