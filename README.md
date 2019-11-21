@@ -12,7 +12,7 @@
 	- libsdl2-2.0-dev
 	- liblua-5.3-dev
 	- libglew-dev
-	- libglm-deb
+	- libglm-dev
 - git clone this project
 - cd into project and mkdir /build directory
 - cd into /build and compile as cmake ..
