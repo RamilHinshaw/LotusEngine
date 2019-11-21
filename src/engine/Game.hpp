@@ -10,7 +10,11 @@
 // 	#include <lua5.3/lualib.h> 
 // }
 
-#include <SDL2/SDL.h>
+extern "C"
+{ 
+	#include <SDL2/SDL.h>
+}
+
 #include <iostream>
 #include "Display.hpp"
 // #include <stdio.h>

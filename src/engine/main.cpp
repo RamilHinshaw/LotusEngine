@@ -1,5 +1,9 @@
 
-#include <SDL2/SDL.h>
+extern "C"
+{ 
+	#include <SDL2/SDL.h>
+}
+
 #include "Game.hpp"
 #include <iostream>
 
