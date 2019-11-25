@@ -88,6 +88,8 @@ file(GLOB src_files
 	"src/math/*.cpp"
 	"src/physics/*.cpp"
 	"src/core/*.cpp"
+	"src/gui/*.cpp"
+	"src/lua/*.cpp"
 )
 message(STATUS "Sources: " ${src_files})
 
