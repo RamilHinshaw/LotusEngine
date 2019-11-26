@@ -12,9 +12,22 @@ Game::~Game()
 
 void Game::init(const char *title, int width, int height)
 {
-	display = new Display(title, width, height);
+	//Initialize subsytems, if cant initialize there is an error!
+    if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
+	{	
+		//Initialize timer, audio, video, joystick, haptic (feedback), gamecontroller & event subsystems
+		std::cout << "SDL Initialized Subsytems!" << std::endl;
 
-	isRunning = true;
+		display = new Display(title, width, height);
+
+		isRunning = true;
+
+	}
+
+    else
+    {
+        std::cerr << "SDL2 failed to initialize!" << std::endl;
+    }
 
 	//uint32_t flags; //4 bytes for hexidecimal
 	// int flags = 0;
@@ -121,64 +134,17 @@ void Game::handleEvents(float dt)
 
 void Game::update(double dt)	
 {
-	// destR.h = 32 + scale;
-	// destR.w = 32 + scale;
-	// destR.x = offsetX;
-	// destR.y = offsetY;
-	// double velocity = 4;
-	
-	// const Uint8 *state = SDL_GetKeyboardState(NULL);
 
-	// //if ((velocity * dt) > velocity)
-	// 	//std::cout << "FAST! " << (velocity * dt) << std::endl;
-
-	// if (state[SDL_SCANCODE_W]) 
-	// 	offsetY -= (velocity * dt);
-	
-	// if (state[SDL_SCANCODE_A]) 
-	// 	offsetX -= (velocity * dt);
-
-	// if (state[SDL_SCANCODE_S])	
-	// 	offsetY += (velocity * dt);
-	
-	// if (state[SDL_SCANCODE_D]) 
-	// 	offsetX += (velocity * dt);
-
-	// if (state[SDL_SCANCODE_Z]) 
-	// 	scale++;
-	
-	// if (state[SDL_SCANCODE_X]) 
-	// 	scale--;
-	
-	
-	// state = nullptr;
-	// delete state;
-
-	
 }
 void Game::draw(float dt)
 {
-// 	SDL_SetRenderDrawColor(renderer, 0xFF, 255, 255, 255); //Drawing Color
-	// SDL_RenderClear(renderer); //Clear with drawing color
-	// //Add stuff to renderer
-
-
-	
-	// SDL_RenderCopy(renderer, playerTex, NULL, &destR);
-	
-	// SDL_RenderPresent(renderer); //Draw to screen | ALSO Halts if VBLANK!
-
 	glClearColor(0.0f,0.15f,0.3f,1.0f); //Clear with this color
 	glClear(GL_COLOR_BUFFER_BIT); //Clears colors and fill
-	display->SwapBuffers();
+	display->swapBuffers();
 }
-
-
 
 void Game::clean()
 {
-	//SDL_DestroyWindow(window);
-	//SDL_DestroyRenderer(renderer);
 	display->~Display();
 	SDL_Quit();
 	std::cout << "Game Cleaned" << std::endl;
