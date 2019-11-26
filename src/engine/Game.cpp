@@ -2,6 +2,7 @@
 #include "Game.hpp"
 #include <GL/glew.h>
 
+
 SDL_Texture *playerTex;
 SDL_Rect srcR, destR;
 
@@ -16,9 +17,12 @@ void Game::init(const char *title, int width, int height)
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
 	{	
 		//Initialize timer, audio, video, joystick, haptic (feedback), gamecontroller & event subsystems
-		std::cout << "SDL Initialized Subsytems!" << std::endl;
+		std::cout << "SDL Initialized Subsystems!" << std::endl;
 
-		display = new Display(title, width, height);
+		//Function here to Create Window then bind to display
+		
+		display = new Display(title, width, height); //Window also created here
+		shader = new Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
 
 		isRunning = true;
 
@@ -138,8 +142,17 @@ void Game::update(double dt)
 }
 void Game::draw(float dt)
 {
+	//Clear Screen
 	glClearColor(0.0f,0.15f,0.3f,1.0f); //Clear with this color
 	glClear(GL_COLOR_BUFFER_BIT); //Clears colors and fill
+	//-----------------------------------------
+
+	shader->bind();
+
+
+
+
+	// Swap | --------------------------------
 	display->swapBuffers();
 }
 

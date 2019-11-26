@@ -17,6 +17,8 @@ extern "C"
 
 #include <iostream>
 #include "Display.hpp"
+#include "Shader.hpp"
+
 // #include <stdio.h>
 
 class Game{
@@ -38,6 +40,7 @@ class Game{
 	private:
 		bool isRunning;
 		Display* display;
+		Shader* shader;
 };
 
 #endif

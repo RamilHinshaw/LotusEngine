@@ -63,7 +63,7 @@ int main(int argv, char** args)
 		if (fps_timer >= 1.0 * fps_timer_interval + 1)
 		{			
 			std::cout << "Ticks: " << fps_timer_interval << " Time: " << fps_timer << " FPS: " << fpsCounter << std::endl;
-			std::cout << "TEST " << SDL_GetPerformanceCounter() - counterStart << std::endl;
+			//std::cout << "TEST " << SDL_GetPerformanceCounter() - counterStart << std::endl;
 			fps_timer_interval++;
 			fps_timer = 0;
 			fpsCounter = 0;

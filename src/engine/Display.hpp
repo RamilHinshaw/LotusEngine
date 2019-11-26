@@ -7,7 +7,6 @@ extern "C"
 
 #include <iostream>
 
-
 class Display{
 	public:
 		Display(const char *title, int width, int height);	
