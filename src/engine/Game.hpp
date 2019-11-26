@@ -17,7 +17,7 @@ extern "C"
 
 #include <iostream>
 #include "Display.hpp"
-#include "Shader.hpp"
+#include "../graphics/Shader.hpp"
 
 // #include <stdio.h>
 
