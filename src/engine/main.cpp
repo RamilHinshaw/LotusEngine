@@ -50,19 +50,22 @@ int main(int argv, char** args)
 		deltaTime = (currentTime - lastTime) / 1000000000.0 ;
 
 		//MAIN LOGIC
-		game->handleEvents(deltaTime);
-		game->update(1);
-		game->draw(deltaTime);
-
-
+		if (fps_timer_interval >= 1) //To prevent massive framecount at beginning (must settle before determining frames) (LOSES 1 SECOND OF LOAD TIME THOUGH!)
+		{
+			game->handleEvents(deltaTime);
+			game->update(1);
+			game->draw(deltaTime);
+		}
 		
 		currentTime = SDL_GetPerformanceCounter() - counterStart;
 
 
 		//Count FPS
-		if (fps_timer >= 1.0 * fps_timer_interval + 1)
+		if (fps_timer >= 1.0 * fps_timer_interval)
 		{			
-			std::cout << "Ticks: " << fps_timer_interval << " Time: " << fps_timer << " FPS: " << fpsCounter << std::endl;
+			if (fps_timer_interval != 0)
+				std::cout << "Ticks: " << fps_timer_interval << " Time: " << fps_timer << " FPS: " << fpsCounter << std::endl;
+
 			//std::cout << "TEST " << SDL_GetPerformanceCounter() - counterStart << std::endl;
 			fps_timer_interval++;
 			fps_timer = 0;
@@ -81,8 +84,6 @@ int main(int argv, char** args)
 	
 	unsigned int n = std::thread::hardware_concurrency();
     std::cout << n << " concurrent threads are supported.\n";
-    std::cout << n << " TEST.\n";
-	
 
 	return 0;
 }
