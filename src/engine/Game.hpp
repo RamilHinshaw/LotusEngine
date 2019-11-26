@@ -18,6 +18,7 @@ extern "C"
 #include <iostream>
 #include "Display.hpp"
 #include "../graphics/Shader.hpp"
+#include "../graphics/Mesh.hpp"
 
 // #include <stdio.h>
 
@@ -40,7 +41,8 @@ class Game{
 	private:
 		bool isRunning;
 		Display* display;
-		Shader* shader;
+		Shader* basicShader;
+		Mesh* triangleMesh;
 };
 
 #endif

@@ -22,7 +22,19 @@ void Game::init(const char *title, int width, int height)
 		//Function here to Create Window then bind to display
 		
 		display = new Display(title, width, height); //Window also created here
-		shader = new Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
+
+		//TEST
+		basicShader = new Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
+
+		Vertex vertices[] = {
+							Vertex(glm::vec3(-0.5,	-0.5,	0)),
+							Vertex(glm::vec3(0,		0.5,	0)),
+							Vertex(glm::vec3(0.5,	-0.5,	0))
+							};
+
+		triangleMesh = new Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]));
+
+		//------------------------------------------------------
 
 		isRunning = true;
 
@@ -147,8 +159,11 @@ void Game::draw(float dt)
 	glClear(GL_COLOR_BUFFER_BIT); //Clears colors and fill
 	//-----------------------------------------
 
-	shader->bind();
+	//Selects shader
+	basicShader->bind();
 
+	//Selects Buffer & DRAW
+	triangleMesh->Draw();
 
 
 
