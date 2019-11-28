@@ -22,7 +22,7 @@ public:
 
     protected:
     private:
-        static const unsigned int NUM_SHADERS = 2;
+        static const unsigned int NUM_SHADERS = 2; //Vertex Shader & Fragment Shader
         Shader(const Shader& other);
         void operator=(const Shader& other);
 

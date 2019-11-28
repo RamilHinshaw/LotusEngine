@@ -10,6 +10,8 @@ Mesh::Mesh(Vertex* vertices, unsigned int numVertices)
     //Move array buffer onto GPU
     glGenBuffers(NUM_BUFFERS, m_vertexArrayBuffers);
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexArrayBuffers[POSITION_VB]);
+
+    //Tell OpenGL how the Data is layed out
     glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(vertices[0]), vertices, GL_STATIC_DRAW);
 
     //Interpret Data on GPU
