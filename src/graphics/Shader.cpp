@@ -37,12 +37,12 @@ Shader::~Shader()
 {
     for (unsigned int i = 0; i < NUM_SHADERS; i++) 
     {
-        glDetachShader(m_program, m_shaders[i]); //Detaches both vertex and fragment shader from program
+        //glDetachShader(m_program, m_shaders[i]); //Detaches both vertex and fragment shader from program
         glDeleteShader(m_shaders[i]); //Delete both vertex and fragment shader from gpu memory
     }
 
     glDeleteProgram(m_program); //Delete program
-}
+} 
 
 static GLuint CreateShader(const std::string& text, GLenum shaderType)
 {

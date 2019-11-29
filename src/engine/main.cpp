@@ -1,7 +1,7 @@
 
 extern "C"
 { 
-	#include <SDL2/SDL.h>
+	#include <SDL2/SDL.h> //Should not being seeing this in main
 }
 
 #include "Game.hpp"

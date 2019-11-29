@@ -1,6 +1,6 @@
 
 #include "Game.hpp"
-#include <GL/glew.h>
+#include <glm/glm.hpp>
 
 
 SDL_Texture *playerTex;
@@ -31,6 +31,14 @@ void Game::init(const char *title, int width, int height)
 							Vertex(glm::vec3(0,		0.5,	0)),
 							Vertex(glm::vec3(0.5,	-0.5,	0))
 							};
+
+		
+		//Vertex test = Vertex(glm::vec3(-0.5,	-0.5,	0));
+
+
+		//std::cout << sizeof(Vertex) << " VS " << sizeof(vertices)/sizeof(vertices[0]) << std::endl;
+		//std::cout << sizeof(vertices) << " / " << sizeof(vertices[0]) << " = " << sizeof(vertices)/sizeof(vertices[0]) << std::endl;
+		//std::cout << "Test: " << sizeof(test) << std::endl;
 
 		triangleMesh = new Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]));
 
@@ -176,6 +184,10 @@ void Game::clean()
 	display->~Display();
 	SDL_Quit();
 	std::cout << "Game Cleaned" << std::endl;
+
+	//TEST
+	delete triangleMesh;
+	delete basicShader;
 }
 
 bool Game::running() { return isRunning;}

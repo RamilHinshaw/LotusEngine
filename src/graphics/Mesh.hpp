@@ -1,27 +1,18 @@
 #pragma once
 
-#include <glm/glm.hpp>
-#include <GL/glew.h>
 
-//Make into a seperate file
-class Vertex
-{
-    public:
-        Vertex(const glm::vec3& pos)
-        {
-            this->pos = pos;
-        }
+extern "C"
+{ 
+	#include <GL/glew.h>
+}
 
-    private:
-        glm::vec3 pos;
-
-};
+#include "Vertex.hpp"
 
 class Mesh
-{
-    
+{    
     public:
-        Mesh(Vertex* vertices, unsigned int numVertices);
+        Mesh(Vertex vertices[], unsigned int arraySize);
+        //Mesh(Vertex* vertices, unsigned int numVertices);
         virtual ~Mesh();
 
         void Draw();

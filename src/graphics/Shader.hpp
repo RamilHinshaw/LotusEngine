@@ -1,7 +1,11 @@
 #pragma once
 
+extern "C"
+{ 
+	#include <GL/glew.h>
+}
+
 #include <string>
-#include <GL/glew.h>
 #include <fstream>
 #include <iostream>
 
