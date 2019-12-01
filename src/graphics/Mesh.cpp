@@ -35,8 +35,11 @@ void Mesh::Draw()
     //Select buffer to draw on
     glBindVertexArray(m_vertexArrayObject);
 
+    glEnable(GL_PROGRAM_POINT_SIZE);
+    glPointSize(10.0);
+
     //Triangle mode, start, and endDrawCount
-    glDrawArrays(GL_TRIANGLES, 0, m_drawCount);
+    glDrawArrays(GL_POINTS, 0, m_drawCount);
 
     glBindVertexArray(0); //Release
 }

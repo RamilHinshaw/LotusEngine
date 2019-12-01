@@ -26,11 +26,22 @@ void Game::init(const char *title, int width, int height)
 		//TEST
 		basicShader = new Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
 
-		Vertex vertices[] = {
+		Vertex vertices1[] = {
+							Vertex(glm::vec3(-0.5,	0.5,	0)),
 							Vertex(glm::vec3(-0.5,	-0.5,	0)),
-							Vertex(glm::vec3(0,		0.5,	0)),
+							Vertex(glm::vec3(0.5,	0.5,	0)),
+			
+
+							Vertex(glm::vec3(0.5,	0.5,	0)),
+							Vertex(glm::vec3(-0.5,	-0.5,	0)),
 							Vertex(glm::vec3(0.5,	-0.5,	0))
 							};
+
+		Vertex vertices2[] = {
+					Vertex(glm::vec3(0.5,	0.5,	0)),
+					Vertex(glm::vec3(0.5,	-0.5,	0)),
+					Vertex(glm::vec3(-0.5,	-0.5,	0))
+					};
 
 		
 		//Vertex test = Vertex(glm::vec3(-0.5,	-0.5,	0));
@@ -40,7 +51,11 @@ void Game::init(const char *title, int width, int height)
 		//std::cout << sizeof(vertices) << " / " << sizeof(vertices[0]) << " = " << sizeof(vertices)/sizeof(vertices[0]) << std::endl;
 		//std::cout << "Test: " << sizeof(test) << std::endl;
 
-		triangleMesh = new Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]));
+		triangleMesh1 = new Mesh(vertices1, sizeof(vertices1)/sizeof(vertices1[0]));
+		triangleMesh2 = new Mesh(vertices2, sizeof(vertices2)/sizeof(vertices2[0]));
+
+
+
 
 		//------------------------------------------------------
 
@@ -53,74 +68,7 @@ void Game::init(const char *title, int width, int height)
         std::cerr << "SDL2 failed to initialize!" << std::endl;
     }
 
-	//uint32_t flags; //4 bytes for hexidecimal
-	// int flags = 0;
-	//Testing git changes
-	
-// 	if (fullscreen)
-// 	{
-// 		//flags = SDL_WINDOW_FULLSCREEN;
-// 		std::cout << "SDL FULLSCREEN!" << std::endl;
-// 	}
-	
-// 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
-// 	{	
-// 		//Initialize timer, audio, video, joystick, haptic (feedback), gamectonrller & event subsystems
-// 		std::cout << "SDL Initialized Subsytems!" << std::endl;
-		
-// 		window = SDL_CreateWindow(title, xpos, ypos, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);		
-// 		if (window)
-// 		{
-// 			std::cout << "Window created!" << std::endl;
-// 		}
-			
-// 		// renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);		
-// 		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);		
-// 		if (renderer)
-// 		{
-// 			SDL_SetRenderDrawColor(renderer, 0xFF, 255, 255, 255);
-// 			std::cout << "Renderer created!" << std::endl;
-// 		}
-		
-// 		isRunning = true;
-// 	}
-	
-// 	else
-// 		isRunning = false;
-	
-// 	SDL_Surface *tmpSurface = IMG_Load("assets/textures/player/player1.png");
-// // 	SDL_Surface *tmpSurface = IMG_Load("assets/player.png");
-	
-// 	if (tmpSurface == NULL)
-// 		std::cout << "Can't Find Image!" << std::endl;
-	
-	
-// 	playerTex = SDL_CreateTextureFromSurface(renderer, tmpSurface);
-// 	SDL_FreeSurface(tmpSurface);
 
-	//Lua Stuff
-    // lua_State *L = luaL_newstate(); //vm
-    // luaL_openlibs(L); //Load basic set of libraries to lua
-
-	// float deltaTime = 60.0; //FAKE THIS IS TEST FOR FUTURE SINCE I DONT HAVE DELTA TIME YET!
-	// // ToDo: Impliment delta time
-
-	// if (CheckLua(L, luaL_dofile(L, "assets/main.lua") ))
-	// {
-	// 	lua_getglobal(L, "Init"); //ToDo: Check for errors if this function doesnt exist!, adds to stack
-
-	// 	if (lua_isfunction(L, -1))
-	// 	{
-	// 		lua_pushnumber(L, deltaTime); //Push deltatime for the function, adds to stack
-	// 		lua_call(L,1,0); //Execute function passing 1 var 0 then removes off stack of push and function
-	// 	}
-	// 	else
-	// 		std::cout << "Not Function!?" << std::endl;
-	// }
-
-	
-	// lua_close(L);
-	// std::cout << "Lua Done!!!" << std::endl;
 
 }
 void Game::handleEvents(float dt)
@@ -171,7 +119,9 @@ void Game::draw(float dt)
 	basicShader->bind();
 
 	//Selects Buffer & DRAW
-	triangleMesh->Draw();
+	triangleMesh1->Draw();
+	//triangleMesh2->Draw();
+	
 
 
 
@@ -186,7 +136,8 @@ void Game::clean()
 	std::cout << "Game Cleaned" << std::endl;
 
 	//TEST
-	delete triangleMesh;
+	delete triangleMesh1;
+	delete triangleMesh2;
 	delete basicShader;
 }
 

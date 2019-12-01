@@ -29,6 +29,8 @@ class Mesh
 
         GLuint m_vertexArrayObject; //VAO
         GLuint m_vertexArrayBuffers[NUM_BUFFERS]; //VAB
+        GLuint m_indexBufferObject; //Remove duplicates
+
         unsigned int m_drawCount;
 };
 

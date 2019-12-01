@@ -44,7 +44,8 @@ class Game{
 		bool isRunning;
 		Display* display;
 		Shader* basicShader;
-		Mesh* triangleMesh;
+		Mesh* triangleMesh1;
+		Mesh* triangleMesh2;
 };
 
 #endif
