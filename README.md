@@ -10,7 +10,6 @@
 ### Linux
 - download:
 	- libsdl2-2.0-dev
-	- liblua-5.3-dev
 	- libglew-dev
 	- libglm-dev
 - git clone this project
@@ -22,7 +21,6 @@
 ### Windows with mingw32/mingw64
 - download & add to path:
 	- sdl2 source files
-	- lua5.3 source	
 	- glew source files
 	- glm header file
 - download mingw64 & sdl2 source files
