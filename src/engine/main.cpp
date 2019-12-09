@@ -50,7 +50,9 @@ int main(int argv, char** args)
 		deltaTime = (currentTime - lastTime) / 1000000000.0 ;
 
 		//MAIN LOGIC
-		if (fps_timer_interval >= 1) //To prevent massive framecount at beginning (must settle before determining frames) (LOSES 1 SECOND OF LOAD TIME THOUGH!)
+		//To prevent massive framecount at beginning (must settle before determining frames) (LOSES 1 SECOND OF LOAD TIME THOUGH!)
+		//IN THEORY NEED TO LOOP AT LEAST ONCE TO LEARN FRAME TIME
+		if (fps_timer >= targetFPS) 
 		{
 			game->handleEvents(deltaTime);
 			game->update(1);
