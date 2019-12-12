@@ -1,4 +1,4 @@
-<p align="center"><img src="https://raw.githubusercontent.com/RamilHinshaw/lotusengine/master/img/Logo%20Banner.png"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/RamilHinshaw/lotusengine/master/logo/Logo%20Banner.png"/></p>
 
 ---
 <p align="center">My work-in-progress hobby game engine primarily used for educational purposes.</p>
