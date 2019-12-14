@@ -11,6 +11,7 @@ extern "C"
 class Mesh
 {    
     public:
+        Mesh();
         Mesh(Vertex vertices[], unsigned int arraySize);
         //Mesh(Vertex* vertices, unsigned int numVertices);
         virtual ~Mesh();
@@ -18,8 +19,8 @@ class Mesh
         void Draw();
 
     private:
-        Mesh(const Mesh& other);
-        void operator=(const Mesh& other);
+        // Mesh(const Mesh& other);
+        // void operator=(const Mesh& other);
 
         enum
         {

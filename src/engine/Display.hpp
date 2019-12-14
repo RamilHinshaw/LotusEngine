@@ -9,11 +9,12 @@ extern "C"
 
 class Display{
 	public:
+		Display();
 		Display(const char *title, int width, int height);	
 		~Display();	
 
         void swapBuffers();
-        //void clean();
+        void Clean();
 		
 	private:
 		void createWindow(const char *title, int width, int height); //ToDo: Create in own class

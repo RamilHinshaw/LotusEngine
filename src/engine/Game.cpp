@@ -2,7 +2,6 @@
 #include "Game.hpp"
 #include <glm/glm.hpp>
 
-
 SDL_Texture *playerTex;
 SDL_Rect srcR, destR;
 
@@ -16,12 +15,9 @@ Game::Game(const char *title, int width, int height)
 
 		//Function here to Create Window then bind to display
 		
-		display = new Display(title, width, height); //Window also created here
-
-		//------------------------------------------------------
+		display = Display(title, width, height); //Window also created here
 
 		isRunning = true;
-
 	}
 
     else
@@ -35,25 +31,26 @@ Game::~Game()
 
 void Game::init()
 {
-
 	//TEST
 	basicShader = new Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
 
 	Vertex vertices1[] = {
-						Vertex(glm::vec3(-0.5,	0.5,	0)),
-						Vertex(glm::vec3(-0.5,	-0.5,	0)),
-						Vertex(glm::vec3(0.5,	0.5,	0)),
-		
 
-						Vertex(glm::vec3(0.5,	0.5,	0)),
-						Vertex(glm::vec3(-0.5,	-0.5,	0)),
-						Vertex(glm::vec3(0.5,	-0.5,	0))
-						};
+					Vertex(glm::vec3(-0.5,	0.5,	0)),
+					Vertex(glm::vec3(-0.5,	-0.5,	0)),
+					Vertex(glm::vec3(0.5,	0.5,	0)),
+
+
+					Vertex(glm::vec3(0.5,	0.5,	0)),
+					Vertex(glm::vec3(-0.5,	-0.5,	0)),
+					Vertex(glm::vec3(0.5,	-0.5,	0))
+				};
 
 	Vertex vertices2[] = {
-				Vertex(glm::vec3(0.5,	0.5,	0)),
-				Vertex(glm::vec3(0.5,	-0.5,	0)),
-				Vertex(glm::vec3(-0.5,	-0.5,	0))
+
+					Vertex(glm::vec3(0.5,	0.5,	0)),
+					Vertex(glm::vec3(0.5,	-0.5,	0)),
+					Vertex(glm::vec3(-0.5,	-0.5,	0))
 				};
 
 	
@@ -115,29 +112,29 @@ void Game::draw(float dt)
 	//-----------------------------------------
 
 	//Selects shader
-	basicShader->bind();
+	//basicShader->bind();
 
 	//Selects Buffer & DRAW
-	triangleMesh1->Draw();
+	//triangleMesh1->Draw();
 	//triangleMesh2->Draw();
 	
 
 
 
 	// Swap | --------------------------------
-	display->swapBuffers();
+	display.swapBuffers();
 }
 
 void Game::clean()
 {
-	display->~Display();
+	display.Clean();
 	SDL_Quit();
 	std::cout << "Game Cleaned" << std::endl;
 
 	//TEST
-	delete triangleMesh1;
-	delete triangleMesh2;
-	delete basicShader;
+	//delete triangleMesh1;
+	//delete triangleMesh2;
+	//delete basicShader;
 }
 
 bool Game::running() { return isRunning;}

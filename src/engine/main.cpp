@@ -32,7 +32,7 @@ int main(int argv, char** args)
 	
 	//Create Game Object/Game Creates Window also ToDo: *should seperate logic here
 	Game game = Game("Lotus Engine",SCREEN_WIDTH, SCREEN_HEIGHT);
-	game.init();
+	//game.init();
 
 	uint64_t counterStart = SDL_GetPerformanceCounter();
 	double currentTime = 0;

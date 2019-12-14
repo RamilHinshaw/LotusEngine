@@ -4,6 +4,11 @@ static void CheckShaderError(GLuint shader, GLuint flag, bool isProgram, const s
 static std::string LoadShader(const std::string& fileName);
 static GLuint CreateShader(const std::string& text, GLenum shaderType);
 
+Shader::Shader()
+{
+    
+}
+
 Shader::Shader(const std::string& fileName)
 {
     m_program = glCreateProgram();

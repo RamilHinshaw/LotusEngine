@@ -1,7 +1,11 @@
 #include "Display.hpp"
 #include <GL/glew.h>
 
-        
+Display::Display()
+{
+
+}
+
 Display::Display(const char *title, int width, int height)
 {		
     //Create Window
@@ -29,8 +33,14 @@ Display::Display(const char *title, int width, int height)
 
 Display::~Display()
 {
+
+}	
+
+void Display::Clean()
+{
     SDL_GL_DeleteContext(glContext);
     SDL_DestroyWindow(window);
+    std::cout << "Display destroyed!" << std::endl;
 }		
 
 void Display::swapBuffers()
@@ -45,7 +55,7 @@ void Display::createWindow(const char *title, int width, int height)
 
     if (window) //Check if window was created successfully
     {
-        std::cout << "Window created!" << std::endl;
+        std::cout << "Display created!" << std::endl;
     }
 }
 

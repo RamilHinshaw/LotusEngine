@@ -2,6 +2,11 @@
 
 #include <iostream>
 
+Mesh::Mesh()
+{
+    
+}
+
 Mesh::Mesh(Vertex vertices[], unsigned int arraySize)
 {
     m_drawCount = arraySize;

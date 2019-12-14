@@ -42,7 +42,7 @@ class Game{
 		
 	private:
 		bool isRunning;
-		Display* display;
+		Display display;
 		Shader* basicShader;
 		Mesh* triangleMesh1;
 		Mesh* triangleMesh2;
