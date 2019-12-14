@@ -33,12 +33,12 @@ Mesh::~Mesh()
 {
 }
 
-void Mesh::Clean()
+void Mesh::dispose()
 {
     glDeleteVertexArrays(1, &m_vertexArrayObject);
 }
 
-void Mesh::Draw()
+void Mesh::draw()
 {
     //Select buffer to draw on
     glBindVertexArray(m_vertexArrayObject);

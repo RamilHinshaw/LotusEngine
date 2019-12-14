@@ -43,7 +43,7 @@ Shader::~Shader()
     
 } 
 
-void Shader::Clean()
+void Shader::dispose()
 {
     for (unsigned int i = 0; i < NUM_SHADERS; i++) 
     {

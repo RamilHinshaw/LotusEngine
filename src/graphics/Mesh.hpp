@@ -16,8 +16,8 @@ class Mesh
         //Mesh(Vertex* vertices, unsigned int numVertices);
         virtual ~Mesh();
 
-        void Draw();
-        void Clean(); //Refactor from some interface (common pattern)
+        void draw();
+        void dispose(); //Refactor from some interface (common pattern)
 
     private:
         // Mesh(const Mesh& other);

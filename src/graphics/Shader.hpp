@@ -24,7 +24,7 @@ public:
     //std::string Shader::LoadShader(const std::string& fileName);
     //GLuint CreateShader(const std::string& text, GLenum shaderType);
 
-    void Clean(); //Refactor from some interface (common pattern)
+    void dispose(); //Refactor from some interface (common pattern)
 
     protected:
     private:

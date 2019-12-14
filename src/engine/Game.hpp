@@ -33,7 +33,7 @@ class Game{
 		void handleEvents(float dt);	//IO
 		void update(double dt);
 		void draw(float dt);
-		void clean();
+		void dispose();
 		
 		bool running(); 	//check if running
 
@@ -43,7 +43,7 @@ class Game{
 	private:
 		bool isRunning;
 		Display display;
-		Shader* basicShader;
+		Shader basicShader;
 		Mesh* triangleMesh1;
 		Mesh* triangleMesh2;
 };

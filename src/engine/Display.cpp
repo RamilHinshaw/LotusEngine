@@ -36,7 +36,7 @@ Display::~Display()
 
 }	
 
-void Display::Clean()
+void Display::dispose()
 {
     SDL_GL_DeleteContext(glContext);
     SDL_DestroyWindow(window);

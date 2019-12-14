@@ -81,7 +81,7 @@ int main(int argv, char** args)
 
 	}
 		
-	game.clean();
+	game.dispose();
 	
 	unsigned int n = std::thread::hardware_concurrency();
     std::cout << n << " concurrent threads are supported.\n";

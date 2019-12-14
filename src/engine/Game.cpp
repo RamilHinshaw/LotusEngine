@@ -32,7 +32,7 @@ Game::~Game()
 void Game::init()
 {
 	//TEST
-	basicShader = new Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
+	basicShader = Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
 
 	Vertex vertices1[] = {
 
@@ -112,7 +112,7 @@ void Game::draw(float dt)
 	//-----------------------------------------
 
 	//Selects shader
-	//basicShader->bind();
+	basicShader.bind();
 
 	//Selects Buffer & DRAW
 	//triangleMesh1->Draw();
@@ -125,11 +125,13 @@ void Game::draw(float dt)
 	display.swapBuffers();
 }
 
-void Game::clean()
+void Game::dispose()
 {
-	display.Clean();
+	display.dispose();
 	SDL_Quit();
 	std::cout << "Game Cleaned" << std::endl;
+
+	basicShader.dispose();
 
 	//TEST
 	//delete triangleMesh1;

@@ -14,7 +14,7 @@ class Display{
 		~Display();	
 
         void swapBuffers();
-        void Clean();
+        void dispose();
 		
 	private:
 		void createWindow(const char *title, int width, int height); //ToDo: Create in own class
