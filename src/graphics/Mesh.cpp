@@ -4,7 +4,7 @@
 
 Mesh::Mesh()
 {
-    
+
 }
 
 Mesh::Mesh(Vertex vertices[], unsigned int arraySize)
@@ -31,9 +31,12 @@ Mesh::Mesh(Vertex vertices[], unsigned int arraySize)
 
 Mesh::~Mesh()
 {
-    glDeleteVertexArrays(1, &m_vertexArrayObject);
 }
 
+void Mesh::Clean()
+{
+    glDeleteVertexArrays(1, &m_vertexArrayObject);
+}
 
 void Mesh::Draw()
 {

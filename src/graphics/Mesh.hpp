@@ -17,6 +17,7 @@ class Mesh
         virtual ~Mesh();
 
         void Draw();
+        void Clean(); //Refactor from some interface (common pattern)
 
     private:
         // Mesh(const Mesh& other);

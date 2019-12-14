@@ -6,7 +6,7 @@ static GLuint CreateShader(const std::string& text, GLenum shaderType);
 
 Shader::Shader()
 {
-    
+
 }
 
 Shader::Shader(const std::string& fileName)
@@ -40,6 +40,11 @@ void Shader::bind()
 
 Shader::~Shader()
 {
+    
+} 
+
+void Shader::Clean()
+{
     for (unsigned int i = 0; i < NUM_SHADERS; i++) 
     {
         //glDetachShader(m_program, m_shaders[i]); //Detaches both vertex and fragment shader from program
@@ -47,7 +52,7 @@ Shader::~Shader()
     }
 
     glDeleteProgram(m_program); //Delete program
-} 
+}
 
 static GLuint CreateShader(const std::string& text, GLenum shaderType)
 {
