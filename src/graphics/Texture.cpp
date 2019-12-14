@@ -2,9 +2,9 @@
 
 Texture::Texture(const std::string& fileName)
 {
-    stbi_load();
+    //stbi_load();
 
-    stbi_image_free();
+    //stbi_image_free();
 }
 
 Texture::~Texture()
