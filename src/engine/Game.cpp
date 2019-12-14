@@ -61,7 +61,7 @@ void Game::init()
 	//std::cout << sizeof(vertices) << " / " << sizeof(vertices[0]) << " = " << sizeof(vertices)/sizeof(vertices[0]) << std::endl;
 	//std::cout << "Test: " << sizeof(test) << std::endl;
 
-	triangleMesh1 = new Mesh(vertices1, sizeof(vertices1)/sizeof(vertices1[0]));
+	triangleMesh1 = Mesh(vertices1, sizeof(vertices1)/sizeof(vertices1[0]));
 	triangleMesh2 = new Mesh(vertices2, sizeof(vertices2)/sizeof(vertices2[0]));
 
 
@@ -115,7 +115,7 @@ void Game::draw(float dt)
 	basicShader.bind();
 
 	//Selects Buffer & DRAW
-	//triangleMesh1->Draw();
+	triangleMesh1.draw();
 	//triangleMesh2->Draw();
 	
 
@@ -131,6 +131,7 @@ void Game::dispose()
 	SDL_Quit();
 	std::cout << "Game Cleaned" << std::endl;
 
+	triangleMesh1.dispose();
 	basicShader.dispose();
 
 	//TEST

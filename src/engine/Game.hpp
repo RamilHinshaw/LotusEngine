@@ -44,7 +44,7 @@ class Game{
 		bool isRunning;
 		Display display;
 		Shader basicShader;
-		Mesh* triangleMesh1;
+		Mesh triangleMesh1;
 		Mesh* triangleMesh2;
 };
 
