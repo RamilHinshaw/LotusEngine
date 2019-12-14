@@ -12,7 +12,6 @@ extern "C"
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT= 600;
 
-Game *game = nullptr;
 
 double min(double frameTime, double minDelta) { return (frameTime < minDelta)? minDelta : frameTime; }
 
@@ -32,13 +31,13 @@ int main(int argv, char** args)
 	int fpsCounter;
 	
 	//Create Game Object/Game Creates Window also ToDo: *should seperate logic here
-	game = new Game();
-	game->init("Lotus Engine",SCREEN_WIDTH, SCREEN_HEIGHT);
+	Game game = Game("Lotus Engine",SCREEN_WIDTH, SCREEN_HEIGHT);
+	game.init();
 
 	uint64_t counterStart = SDL_GetPerformanceCounter();
 	double currentTime = 0;
 
-	while (game->running())
+	while (game.running())
 	{
 		fps_timer = (SDL_GetPerformanceCounter()-counterStart)/ 1000000000.0;
 		fpsCounter++;
@@ -54,9 +53,9 @@ int main(int argv, char** args)
 		//IN THEORY NEED TO LOOP AT LEAST ONCE TO LEARN FRAME TIME
 		if (fps_timer >= targetFPS) 
 		{
-			game->handleEvents(deltaTime);
-			game->update(1);
-			game->draw(deltaTime);
+			game.handleEvents(deltaTime);
+			game.update(1);
+			game.draw(deltaTime);
 		}
 		
 		currentTime = SDL_GetPerformanceCounter() - counterStart;
@@ -82,7 +81,7 @@ int main(int argv, char** args)
 
 	}
 		
-	game->clean();
+	game.clean();
 	
 	unsigned int n = std::thread::hardware_concurrency();
     std::cout << n << " concurrent threads are supported.\n";

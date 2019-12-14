@@ -6,13 +6,8 @@
 SDL_Texture *playerTex;
 SDL_Rect srcR, destR;
 
-Game::Game()
-{	}
-Game::~Game()
-{	}
-
-void Game::init(const char *title, int width, int height)
-{
+Game::Game(const char *title, int width, int height)
+{	
 	//Initialize subsytems, if cant initialize there is an error!
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
 	{	
@@ -22,40 +17,6 @@ void Game::init(const char *title, int width, int height)
 		//Function here to Create Window then bind to display
 		
 		display = new Display(title, width, height); //Window also created here
-
-		//TEST
-		basicShader = new Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
-
-		Vertex vertices1[] = {
-							Vertex(glm::vec3(-0.5,	0.5,	0)),
-							Vertex(glm::vec3(-0.5,	-0.5,	0)),
-							Vertex(glm::vec3(0.5,	0.5,	0)),
-			
-
-							Vertex(glm::vec3(0.5,	0.5,	0)),
-							Vertex(glm::vec3(-0.5,	-0.5,	0)),
-							Vertex(glm::vec3(0.5,	-0.5,	0))
-							};
-
-		Vertex vertices2[] = {
-					Vertex(glm::vec3(0.5,	0.5,	0)),
-					Vertex(glm::vec3(0.5,	-0.5,	0)),
-					Vertex(glm::vec3(-0.5,	-0.5,	0))
-					};
-
-		
-		//Vertex test = Vertex(glm::vec3(-0.5,	-0.5,	0));
-
-
-		//std::cout << sizeof(Vertex) << " VS " << sizeof(vertices)/sizeof(vertices[0]) << std::endl;
-		//std::cout << sizeof(vertices) << " / " << sizeof(vertices[0]) << " = " << sizeof(vertices)/sizeof(vertices[0]) << std::endl;
-		//std::cout << "Test: " << sizeof(test) << std::endl;
-
-		triangleMesh1 = new Mesh(vertices1, sizeof(vertices1)/sizeof(vertices1[0]));
-		triangleMesh2 = new Mesh(vertices2, sizeof(vertices2)/sizeof(vertices2[0]));
-
-
-
 
 		//------------------------------------------------------
 
@@ -67,6 +28,44 @@ void Game::init(const char *title, int width, int height)
     {
         std::cerr << "SDL2 failed to initialize!" << std::endl;
     }
+}
+
+Game::~Game()
+{	}
+
+void Game::init()
+{
+
+	//TEST
+	basicShader = new Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
+
+	Vertex vertices1[] = {
+						Vertex(glm::vec3(-0.5,	0.5,	0)),
+						Vertex(glm::vec3(-0.5,	-0.5,	0)),
+						Vertex(glm::vec3(0.5,	0.5,	0)),
+		
+
+						Vertex(glm::vec3(0.5,	0.5,	0)),
+						Vertex(glm::vec3(-0.5,	-0.5,	0)),
+						Vertex(glm::vec3(0.5,	-0.5,	0))
+						};
+
+	Vertex vertices2[] = {
+				Vertex(glm::vec3(0.5,	0.5,	0)),
+				Vertex(glm::vec3(0.5,	-0.5,	0)),
+				Vertex(glm::vec3(-0.5,	-0.5,	0))
+				};
+
+	
+	//Vertex test = Vertex(glm::vec3(-0.5,	-0.5,	0));
+
+
+	//std::cout << sizeof(Vertex) << " VS " << sizeof(vertices)/sizeof(vertices[0]) << std::endl;
+	//std::cout << sizeof(vertices) << " / " << sizeof(vertices[0]) << " = " << sizeof(vertices)/sizeof(vertices[0]) << std::endl;
+	//std::cout << "Test: " << sizeof(test) << std::endl;
+
+	triangleMesh1 = new Mesh(vertices1, sizeof(vertices1)/sizeof(vertices1[0]));
+	triangleMesh2 = new Mesh(vertices2, sizeof(vertices2)/sizeof(vertices2[0]));
 
 
 

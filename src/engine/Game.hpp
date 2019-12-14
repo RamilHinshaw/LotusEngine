@@ -26,10 +26,10 @@ extern "C" //Should not being seeing this in game
 
 class Game{
 	public:
-		Game();
+		Game(const char *title, int width, int height);
 		~Game();
 		
-		void init(const char *title, int width, int height);		
+		void init();		
 		void handleEvents(float dt);	//IO
 		void update(double dt);
 		void draw(float dt);
