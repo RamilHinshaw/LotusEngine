@@ -104,6 +104,7 @@ void Game::update(double dt)
 {
 
 }
+
 void Game::draw(float dt)
 {
 	//Clear Screen
