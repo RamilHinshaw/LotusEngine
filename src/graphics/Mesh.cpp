@@ -12,6 +12,7 @@ Mesh::Mesh(Vertex vertices[], unsigned int arraySize)
     m_drawCount = arraySize;
     //std::cout << sizeof(vertices) << " / " << sizeof(Vertex) << " = " << sizeof(vertices)/sizeof(Vertex) << std::endl;
 
+    //VAO
     glGenVertexArrays(1, &m_vertexArrayObject); //Created space on gpu for VAO of 1 dimension
     glBindVertexArray(m_vertexArrayObject); //Let the gpu use the VAO to allow gpu functions onto it
 
