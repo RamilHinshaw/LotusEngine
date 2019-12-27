@@ -1,6 +1,7 @@
 #include "Mesh.hpp"
 
 #include <iostream>
+#include <glm/glm.hpp>
 
 Mesh::Mesh()
 {
@@ -23,11 +24,21 @@ Mesh::Mesh(Vertex vertices[], unsigned int arraySize)
     //Move data into recent new buffer
     glBufferData(GL_ARRAY_BUFFER, m_drawCount * sizeof(Vertex), vertices, GL_STATIC_DRAW);
 
-    //Interpret Data on GPU
-    glEnableVertexAttribArray(0);  //how to read the attributes of the array of what index
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0); //This set attribute of first var, vec3 = x,y,z for position
+    //Interpret Data on GPU |   how to read the attributes of the array of what index
 
-    glBindVertexArray(0); //Release
+    //Position
+    glEnableVertexAttribArray(0);  
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0); //This set attribute of first var, vec3 = x,y,z for position
+
+    //Texture Coord
+    glEnableVertexAttribArray(1);  
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*) (sizeof(GL_FLOAT) * 3) ); 
+
+    //Color
+    glEnableVertexAttribArray(1);  
+    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*) (sizeof(GL_FLOAT) * 6) ); 
+
+    glBindVertexArray(0); //Release    
 }
 
 Mesh::~Mesh()
