@@ -3,9 +3,6 @@
 extern "C"
 { 
 	#include <SDL2/SDL.h>
-	// #include <GL/glew.h>
-	//#include "../../thirdparty/glad/glad.h" //ToDo: Remove relative pathing!
-	// #include "glad/glad.h" //ToDo: Remove relative pathing!
 	#include "glad.h"
 }
 

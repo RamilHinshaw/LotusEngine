@@ -13,7 +13,7 @@
 extern "C" //Should not being seeing this in game
 { 
 	#include <SDL2/SDL.h>
-	#include <GL/glew.h>
+	#include "glad.h"
 }
 
 #include <iostream>
