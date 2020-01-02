@@ -1,6 +1,11 @@
 #include "Display.hpp"
 #include <GL/glew.h>
 
+extern "C"
+{ 
+    #include "../../thirdparty/glad/glad.h" //ToDo: Remove relative pathing!
+}
+
 Display::Display()
 {
 
@@ -12,8 +17,8 @@ Display::Display(const char *title, int width, int height)
     Display::createWindow(title, width, height);
 
     //Use OpenGL 3.1 core
-    // SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 3 );
-    // SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 1 );
+    // SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 4 );
+    // SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 0 );
     // SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );
 
     //Setup OpenGL
@@ -29,6 +34,9 @@ Display::Display(const char *title, int width, int height)
     {
         std::cerr << "Glew failed to initialize!" << std::endl;
     }
+
+    // Use v-sync
+    SDL_GL_SetSwapInterval(1);
 }
 
 Display::~Display()
