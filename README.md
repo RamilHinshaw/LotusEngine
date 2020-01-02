@@ -13,6 +13,7 @@
 	- libglew-dev
 	- libglm-dev
 - git clone this project
+- git submodule init & git submodule update
 - cd into project and mkdir /build directory
 - cd into /build and compile as cmake ..
 - run make
@@ -25,9 +26,12 @@
 	- glm header file
 - download mingw64 & sdl2 source files
 - add to windows path (recommended to put near top to avoid conflicts)
+- git clone this project
+- git submodule init & git submodule update
 - create build directory
 - compile with cmake .. -G "MinGW Makefiles"
-- run mingw32-make.exe
+OR
+- copy mingw32 into build then run mingw32-make.exe
 
 ---
 <p align="center">Copyright &copy; 2019-present Ramil Hinshaw</p>
