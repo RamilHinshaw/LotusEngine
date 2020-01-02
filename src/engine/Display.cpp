@@ -38,13 +38,14 @@ Display::Display(const char *title, int width, int height)
 
     // INITIALIZE GLAD:
     #if defined(__arm__)
+        std::cout << "Init Glad for ARM Device" << std::endl;
         if (gladLoadGLES2Loader((GLADloadproc)SDL_GL_GetProcAddress))    
             throw(std::string("Failed to initialize GLAD ES"));
-        std::cout << "Init Glad for ARM Device" << std::endl;
     #else
+        std::cout << "Init Glad for Desktop Device" << std::endl;
         if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress)) 
             throw(std::string("Failed to initialize GLAD"));
-            std::cout << "Init Glad for Desktop Device" << std::endl;
+
     #endif
     
 
