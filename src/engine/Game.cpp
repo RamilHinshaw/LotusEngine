@@ -1,6 +1,7 @@
 
 #include "Game.hpp"
 #include <glm/glm.hpp>
+// #include "glad.h"
 
 SDL_Texture *playerTex;
 SDL_Rect srcR, destR;

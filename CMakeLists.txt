@@ -26,11 +26,17 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 		message(STATUS "OpenGL Include Dir: " ${OPENGL_INCLUDE_DIRS})
 	endif()
 	
-	find_package(GLEW REQUIRED)
-	if(GLEW_FOUND)
-		include_directories(${GLEW_INCLUDE_DIRS})
-		message(STATUS "GLEW Include Dir: ${GLEW_INCLUDE_DIRS}")
-	endif()
+	# find_package(GLEW REQUIRED)
+	# if(GLEW_FOUND)
+	# 	include_directories(${GLEW_INCLUDE_DIRS})
+	# 	message(STATUS "GLEW Include Dir: ${GLEW_INCLUDE_DIRS}")
+	# endif()
+
+	# find_package(GLAD REQUIRED)
+	# if(GLAD)
+	# 	include_directories(${GLAD_INCLUDE_DIRS})
+	# 	message(STATUS "GLAD Include Dir: ${GLAD_INCLUDE_DIRS}")
+	# endif()
 
 	find_package(SDL2 REQUIRED)
 	if(SDL2_FOUND)
@@ -64,7 +70,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 #Compiler Flags
 if (UNIX)
 	message(STATUS "Detected Unix!")
-	add_definitions("-Wall -Wno-unused -Werror -Wextra -pedantic")
+	add_definitions("-Wall -Wno-unused  -Wextra ") # -Werror -pedantic
 
 elseif (WIN32)
 	message(STATUS "Detected Windows!")
@@ -83,6 +89,9 @@ file(GLOB src_files
 	"src/*.c" 
 	"src/*.cpp" 
 	"src/engine/*.cpp"
+
+	"src/engine/*.c"
+
 	"src/graphics/*.cpp"
 	"src/input/*.cpp"
 	"src/math/*.cpp"
@@ -90,6 +99,7 @@ file(GLOB src_files
 	"src/core/*.cpp"
 	"src/gui/*.cpp"
 	"src/lua/*.cpp"
+	# "thirdparty/glad/*.cpp"
 )
 message(STATUS "Sources: " ${src_files})
 
@@ -98,12 +108,15 @@ add_executable(${PROJECT_NAME} ${src_files})
 # add_executable(${PROJECT_NAME} main.cpp Game.cpp)
 # install(TARGETS ${PROJECT_NAME} DESTINATION bin)
 
+# add_subdirectory(thirdparty/glad)
+
 #Linker
 set(
 	target_link_lib
 	${OPENGL_LIBRARIES}
-	${GLEW_LIBRARIES}
-
+	# ${GLAD_LIBRARIES}
+	# ${GLEW_LIBRARIES}
+	# ${Glad}
 	${SDL2_LIBRARY} 
 
 	# ${SDL2_TTF_LIBRARIES} 
@@ -115,7 +128,7 @@ set(
 
 # COMPILE
 if (UNIX)
-	target_link_libraries(${PROJECT_NAME} ${target_link_lib})
+	target_link_libraries(${PROJECT_NAME} ${CMAKE_DL_LIBS} ${target_link_lib})
 elseif (WIN32)
 	target_link_libraries(${PROJECT_NAME} "-w -Wl,-subsystem,windows" "-lmingw32 -lSDL2main" ${target_link_lib})
 endif()

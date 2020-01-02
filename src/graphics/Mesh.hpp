@@ -3,7 +3,9 @@
 
 extern "C"
 { 
-	#include <GL/glew.h>
+	// #include <GL/glew.h>
+    #include "../engine/glad.h"
+    //#include "../../thirdparty/glad/glad.h" //ToDo: Remove relative pathing!
 }
 
 #include "Vertex.hpp"

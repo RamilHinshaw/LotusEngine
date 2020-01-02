@@ -1,10 +1,5 @@
 #include "Display.hpp"
-#include <GL/glew.h>
 
-extern "C"
-{ 
-    #include "../../thirdparty/glad/glad.h" //ToDo: Remove relative pathing!
-}
 
 Display::Display()
 {
@@ -28,12 +23,18 @@ Display::Display(const char *title, int width, int height)
     glContext = SDL_GL_CreateContext(window);
 
     // glewExperimental = GL_TRUE; //Use Latest Features
-    GLenum status = glewInit(); //Finds opengl functions 
+    
+    // GLenum status = glewInit(); //Finds opengl functions 
+    // if (status != GLEW_OK)
+    //     std::cerr << "Glew failed to initialize!" << std::endl;
 
-    if (status != GLEW_OK)
-    {
-        std::cerr << "Glew failed to initialize!" << std::endl;
-    }
+    // INITIALIZE GLAD:
+    // if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress)) 
+    //     throw(std::string("Failed to initialize GLAD"));
+
+    gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress);
+    
+
 
     // Use v-sync
     SDL_GL_SetSwapInterval(1);
