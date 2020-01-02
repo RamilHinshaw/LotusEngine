@@ -11,11 +11,6 @@ Display::Display(const char *title, int width, int height)
     //Create Window
     Display::createWindow(title, width, height);
 
-    //Use OpenGL 3.1 core
-    // SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 4 );
-    // SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 0 );
-    // SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );
-
     //Setup OpenGL
     Display::setOpenGLAttributes();
 
@@ -27,6 +22,18 @@ Display::Display(const char *title, int width, int height)
     // GLenum status = glewInit(); //Finds opengl functions 
     // if (status != GLEW_OK)SDL_GL_CONTEXT_PROFILE_MASK
     //     std::cerr << "Glew failed to initialize!" << std::endl;
+
+        //Use OpenGL 3.1 core
+    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 3 );
+    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 0 );
+    SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );
+
+    // SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
+    // SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+    // SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+    // // Also request a depth buffer
+    // SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 0);
+    // SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 0);
 
     // INITIALIZE GLAD:
     if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress)) 
