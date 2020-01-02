@@ -25,16 +25,16 @@ Display::Display(const char *title, int width, int height)
     // glewExperimental = GL_TRUE; //Use Latest Features
     
     // GLenum status = glewInit(); //Finds opengl functions 
-    // if (status != GLEW_OK)
+    // if (status != GLEW_OK)SDL_GL_CONTEXT_PROFILE_MASK
     //     std::cerr << "Glew failed to initialize!" << std::endl;
 
     // INITIALIZE GLAD:
-    // if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress)) 
-    //     throw(std::string("Failed to initialize GLAD"));
+    if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress)) 
+        throw(std::string("Failed to initialize GLAD"));
 
-    gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress);
-    
+    //std::cout << ("OpenGL Version %d.%d loaded", GLVersion.major, GLVersion.minor) << std::endl;
 
+    //gladLo
 
     // Use v-sync
     SDL_GL_SetSwapInterval(1);
