@@ -24,11 +24,12 @@ Display::Display(const char *title, int width, int height)
     //     std::cerr << "Glew failed to initialize!" << std::endl;
 
         //Use OpenGL 3.1 core
-    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 3 );
-    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 0 );
-    SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );
+    // SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 4 );
+    // SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 0 );
+    // SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );
 
     // SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
+
     // SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     // SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
     // // Also request a depth buffer
@@ -36,8 +37,16 @@ Display::Display(const char *title, int width, int height)
     // SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 0);
 
     // INITIALIZE GLAD:
-    if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress)) 
-        throw(std::string("Failed to initialize GLAD"));
+    #if defined(__arm__)
+        if (gladLoadGLES2Loader((GLADloadproc)SDL_GL_GetProcAddress))    
+            throw(std::string("Failed to initialize GLAD ES"));
+        std::cout << "Init Glad for ARM Device" << std::endl;
+    #else
+        if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress)) 
+            throw(std::string("Failed to initialize GLAD"));
+            std::cout << "Init Glad for Desktop Device" << std::endl;
+    #endif
+    
 
     //std::cout << ("OpenGL Version %d.%d loaded", GLVersion.major, GLVersion.minor) << std::endl;
 
