@@ -2,7 +2,7 @@
 
 extern "C"
 { 
-	#include <GL/glew.h>
+    #include "../engine/glad.h"
     #include "../../thirdparty/stb/stb_image.h"
 }
 
