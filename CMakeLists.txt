@@ -130,7 +130,7 @@ set(
 if (UNIX)
 	target_link_libraries(${PROJECT_NAME} ${CMAKE_DL_LIBS} ${target_link_lib})
 elseif (WIN32)
-	target_link_libraries(${PROJECT_NAME} "-w -Wl,-subsystem,windows" "-lmingw32 -lSDL2main" ${target_link_lib})
+	target_link_libraries(${PROJECT_NAME} "-w -Wl,-subsystem,windows" "-static -lmingw32 -lSDL2main" ${target_link_lib})
 endif()
 
 
