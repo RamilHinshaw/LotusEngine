@@ -55,7 +55,7 @@ int main(int argv, char** args)
 		//MAIN LOGIC
 		//To prevent massive framecount at beginning (must settle before determining frames) (LOSES 1 SECOND OF LOAD TIME THOUGH!)
 		//IN THEORY NEED TO LOOP AT LEAST ONCE TO LEARN FRAME TIME
-		if (SDL_GetTicks()/1000.0 >= targetFPS) 
+		if (SDL_GetTicks()/1000.0f >= targetFPS) 
 		{
 			// if (!firstFrame)
 				// std::cout << "First Frame Init" << std::endl;
@@ -70,7 +70,7 @@ int main(int argv, char** args)
 		//std::cout << "Time: " <<  SDL_GetTicks() << " VS " << fps_timer*100000 << std::endl;
 
 		//Count FPS
-		if (SDL_GetTicks()/1000.0 >= 1.0 * fps_timer_interval)
+		if (SDL_GetTicks()/1000.0f >= 1.0 * fps_timer_interval)
 		{			
 			if (fps_timer_interval != 0)
 				std::cout << "Ticks: " << fps_timer_interval << " Time: " << SDL_GetTicks()/1000 << " FPS: " << fpsCounter << std::endl;
