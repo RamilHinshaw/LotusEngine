@@ -1,5 +1,8 @@
 #include "Shader.hpp"
 
+//Test
+#include <SDL2/SDL.h>
+
 static void CheckShaderError(GLuint shader, GLuint flag, bool isProgram, const std::string& errorMessage);
 static std::string LoadShader(const std::string& fileName);
 static GLuint CreateShader(const std::string& text, GLenum shaderType);
@@ -13,7 +16,7 @@ Shader::Shader(const std::string& fileName)
 {
     m_program = glCreateProgram();
 
-    //Building shader
+    //Load shader
     m_shaders[0] = CreateShader(LoadShader(fileName + ".vs"), GL_VERTEX_SHADER);    //Load Vertex Shader
     m_shaders[1] = CreateShader(LoadShader(fileName + ".fs"), GL_FRAGMENT_SHADER);  //Load Fragment Shader
 
@@ -22,7 +25,7 @@ Shader::Shader(const std::string& fileName)
         glAttachShader(m_program, m_shaders[i]);
     
     //Tells opengl what part of the data to read and variable in shader program
-    glBindAttribLocation(m_program, 0, "position");
+    glBindAttribLocation(m_program, 0, "position");// Saves OpenGL the headache don't need this though
 
     //Link Shaders
     glLinkProgram(m_program);
@@ -42,6 +45,11 @@ Shader::~Shader()
 {
     
 } 
+
+GLuint Shader::GetProgram()
+{
+    return m_program;
+}
 
 void Shader::dispose()
 {

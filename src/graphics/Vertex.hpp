@@ -6,9 +6,28 @@ class Vertex
 {
     public:
 
-        Vertex(const glm::vec3& position) //Use member initialization
+        Vertex(const glm::vec3& position) //ToDo: Use member initialization & put into cpp instead!
         {
             this->position = position;
+        }
+
+        Vertex(const glm::vec3& position, const glm::vec4& color) //Use member initialization
+        {
+            this->position = position;
+            this->color = color;
+        }
+
+        Vertex(const glm::vec3& position, const glm::vec3& texCoords) //Use member initialization
+        {
+            this->position = position;
+            this->texCoords = texCoords;
+        }
+
+        Vertex(const glm::vec3& position, const glm::vec4& color, const glm::vec3& texCoords) //Use member initialization
+        {
+            this->position = position;
+            this->color = color;
+            this->texCoords = texCoords;
         }
 
     //Attributes for OpenGL

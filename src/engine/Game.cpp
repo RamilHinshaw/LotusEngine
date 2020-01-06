@@ -25,11 +25,16 @@ Game::Game(const char *title, int width, int height)
     {
         std::cerr << "SDL2 failed to initialize!" << std::endl;
     }
+
+	int nrAttributes;
+	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
+	std::cout << "Maximum nr of vertex attributes supported: " << nrAttributes << std::endl;
 }
 
 Game::~Game()
 {	}
 
+//GAME START CODE HERE!
 void Game::init()
 {
 	//TEST
@@ -64,9 +69,6 @@ void Game::init()
 
 	triangleMesh1 = Mesh(vertices1, sizeof(vertices1)/sizeof(vertices1[0]));
 	triangleMesh2 = new Mesh(vertices2, sizeof(vertices2)/sizeof(vertices2[0]));
-
-
-
 }
 void Game::handleEvents(float dt)
 {
@@ -101,9 +103,14 @@ void Game::handleEvents(float dt)
 	}
 }
 
+//GAME CODE HERE
 void Game::update(double dt)	
 {
-
+    //UNIFORM COLOR TEST
+    float timeValue = SDL_GetTicks()/1000.0;
+    float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
+    int vertexColorLocation = glGetUniformLocation(basicShader.GetProgram(), "ourColor"); //Can error check this
+    glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
 }
 
 void Game::draw(float dt)
