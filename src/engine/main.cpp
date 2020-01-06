@@ -37,6 +37,10 @@ int main(int argv, char** args)
 	uint64_t counterStart = SDL_GetPerformanceCounter();
 	double currentTime = 0;
 
+	// bool firstFrame = false;
+
+
+
 	while (game.running())
 	{
 		fps_timer = (SDL_GetPerformanceCounter()-counterStart)/ 1000000000.0;
@@ -51,8 +55,11 @@ int main(int argv, char** args)
 		//MAIN LOGIC
 		//To prevent massive framecount at beginning (must settle before determining frames) (LOSES 1 SECOND OF LOAD TIME THOUGH!)
 		//IN THEORY NEED TO LOOP AT LEAST ONCE TO LEARN FRAME TIME
-		if (fps_timer >= targetFPS) 
+		if (SDL_GetTicks()/1000 >= targetFPS) 
 		{
+			// if (!firstFrame)
+				// std::cout << "First Frame Init" << std::endl;
+
 			game.handleEvents(deltaTime);
 			game.update(1);
 			game.draw(deltaTime);
@@ -60,12 +67,13 @@ int main(int argv, char** args)
 		
 		currentTime = SDL_GetPerformanceCounter() - counterStart;
 
+		//std::cout << "Time: " <<  SDL_GetTicks() << " VS " << fps_timer*100000 << std::endl;
 
 		//Count FPS
-		if (fps_timer >= 1.0 * fps_timer_interval)
+		if (SDL_GetTicks()/1000 >= 1.0 * fps_timer_interval)
 		{			
 			if (fps_timer_interval != 0)
-				std::cout << "Ticks: " << fps_timer_interval << " Time: " << fps_timer << " FPS: " << fpsCounter << std::endl;
+				std::cout << "Ticks: " << fps_timer_interval << " Time: " << SDL_GetTicks()/1000 << " FPS: " << fpsCounter << std::endl;
 
 			//std::cout << "TEST " << SDL_GetPerformanceCounter() - counterStart << std::endl;
 			fps_timer_interval++;
