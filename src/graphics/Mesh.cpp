@@ -16,6 +16,7 @@ Mesh::Mesh(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], 
 
     //VAO
     glGenVertexArrays(1, &m_VAO); //Created space on gpu for VAO of 1 dimension
+
     glBindVertexArray(m_VAO); //Let the gpu use the VAO to allow gpu functions onto it
 
     //VBO                      | Create Empty spot in VRAM
@@ -34,17 +35,20 @@ Mesh::Mesh(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], 
     //Interpret Data on GPU |   how to read the attributes of the array of what index
 
     //Position
-    glEnableVertexAttribArray(0);  
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0); //This set attribute of first var, vec3 = x,y,z for position   
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0); //This set attribute of first var, vec3 = x,y,z for position  
+    glEnableVertexAttribArray(0);   
 
     //Color
-    glEnableVertexAttribArray(1);  
     glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*) (sizeof(GL_FLOAT) * 3) ); 
+    glEnableVertexAttribArray(1);  
 
     //Texture Coord
-    glEnableVertexAttribArray(2);  
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*) (sizeof(GL_FLOAT) * 7) ); 
+    glEnableVertexAttribArray(2);  
 
+    // **********************
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0); //Can safetly unbound this but keep EBO
     glBindVertexArray(0); //Release    
 }
 

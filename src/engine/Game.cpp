@@ -45,11 +45,12 @@ void Game::init()
 
 					//Positions								//Colors						//Texture Coordinates
 					Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f)),
-					Vertex(glm::vec3(-0.5,	0.5,	0), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 1.0f)),
+					Vertex(glm::vec3(0.5,	-0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f)),
 					Vertex(glm::vec3(-0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 0.0f)),
 
 
-					Vertex(glm::vec3(-0.5,	-0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 0.0f)),
+
+					Vertex(glm::vec3(-0.5,	0.5,	0), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 1.0f)),
 
 
 					//Vertex(glm::vec3(0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f)),
@@ -61,8 +62,8 @@ void Game::init()
 
 	//Turn into class container (indice holding 3 ints)
 	unsigned int indices[] = {
-		0, 1, 2,	//first triangle
-		1, 2, 3		//second triangle
+		0, 2, 3,	//first triangle
+		0, 1, 2		//second triangle
 	};
 
 	// Vertex vertices2[] = {
