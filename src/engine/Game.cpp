@@ -39,20 +39,31 @@ void Game::init()
 {
 	//TEST
 	basicShader = Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
-	basicTexture = Texture("./assets/textures/floor2.png");
+	basicTexture = Texture("./assets/textures/crate.png");
 
 	Vertex vertices1[] = {
 
 					//Positions								//Colors						//Texture Coordinates
-					Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 0.1f), 	glm::vec2(0.0f, 0.0f)),
-					Vertex(glm::vec3(-0.5,	0.5,	0), glm::vec4(1.0f, 1.0f, 1.0f, 0.1f), 	glm::vec2(1.0f, 0.0f)),
-					Vertex(glm::vec3(-0.5,	-0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 0.1f), 	glm::vec2(1.0f, 1.0f)),
+					Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f)),
+					Vertex(glm::vec3(-0.5,	0.5,	0), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 1.0f)),
+					Vertex(glm::vec3(-0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 0.0f)),
 
-					Vertex(glm::vec3(-0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 0.1f), 	glm::vec2(0.0f, 0.0f)),
-					Vertex(glm::vec3(0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 0.1f), 	glm::vec2(1.0f, 0.0f)),
-					Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 0.1f), 	glm::vec2(1.0f, 1.0f))
+
+					Vertex(glm::vec3(-0.5,	-0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 0.0f)),
+
+
+					//Vertex(glm::vec3(0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f)),
+					//Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f))
 
 				};
+	
+
+
+	//Turn into class container (indice holding 3 ints)
+	unsigned int indices[] = {
+		0, 1, 2,	//first triangle
+		1, 2, 3		//second triangle
+	};
 
 	// Vertex vertices2[] = {
 
@@ -69,7 +80,7 @@ void Game::init()
 	//std::cout << sizeof(vertices) << " / " << sizeof(vertices[0]) << " = " << sizeof(vertices)/sizeof(vertices[0]) << std::endl;
 	//std::cout << "Test: " << sizeof(test) << std::endl;
 
-	triangleMesh1 = Mesh(vertices1, sizeof(vertices1)/sizeof(vertices1[0]));
+	triangleMesh1 = Mesh(vertices1, sizeof(vertices1)/sizeof(vertices1[0]), indices, sizeof(indices)/sizeof(indices[0]));
 
 	//triangleMesh2 = new Mesh(vertices2, sizeof(vertices2)/sizeof(vertices2[0]));
 }

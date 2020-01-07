@@ -14,7 +14,7 @@ class Mesh
 {    
     public:
         Mesh();
-        Mesh(Vertex vertices[], unsigned int arraySize);
+        Mesh(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize);
         //Mesh(Vertex vertices[], unsigned int arraySize, Texture texture);
         //Mesh(Vertex* vertices, unsigned int numVertices);
         virtual ~Mesh();
@@ -32,9 +32,9 @@ class Mesh
             NUM_BUFFERS
         };
 
-        GLuint m_VAO; //VAO
-        GLuint m_VBO[NUM_BUFFERS]; //VAB
-        GLuint m_indexBufferObject; //Remove duplicates
+        GLuint m_VAO; //Vertex Array Objects
+        GLuint m_VBO[NUM_BUFFERS]; //Vertex Buffer Object
+        GLuint m_EBO;   // Element buffer Object
 
         unsigned int m_drawCount;
 };

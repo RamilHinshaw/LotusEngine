@@ -8,22 +8,29 @@ Mesh::Mesh()
 
 }
 
-Mesh::Mesh(Vertex vertices[], unsigned int arraySize)
+Mesh::Mesh(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize)
 {
-    m_drawCount = arraySize;
+    m_drawCount = verticeSize;
+    //m_indices = indices;
     //std::cout << sizeof(vertices) << " / " << sizeof(Vertex) << " = " << sizeof(vertices)/sizeof(Vertex) << std::endl;
 
     //VAO
     glGenVertexArrays(1, &m_VAO); //Created space on gpu for VAO of 1 dimension
     glBindVertexArray(m_VAO); //Let the gpu use the VAO to allow gpu functions onto it
 
-    //Create Empty spot in VRAM
+    //VBO                      | Create Empty spot in VRAM
     glGenBuffers(NUM_BUFFERS, m_VBO); //ID the buffer
     glBindBuffer(GL_ARRAY_BUFFER, m_VBO[POSITION_VB]); //tell opengl to select the buffer
+    glBufferData(GL_ARRAY_BUFFER, m_drawCount * sizeof(Vertex), vertices, GL_STATIC_DRAW);   //Move data into recent new buffer
 
-    //Move data into recent new buffer
-    glBufferData(GL_ARRAY_BUFFER, m_drawCount * sizeof(Vertex), vertices, GL_STATIC_DRAW);
+    //EBO
+    m_drawCount = indiceSize;
+    glGenBuffers(1, &m_EBO); // Pointer to buffer
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO); //Use buffer
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_drawCount * sizeof(unsigned int), indices, GL_STATIC_DRAW);
 
+
+    // ***** ATTRIBUTES *****
     //Interpret Data on GPU |   how to read the attributes of the array of what index
 
     //Position
@@ -59,7 +66,8 @@ void Mesh::draw()
     //glPointSize(10.0);
 
     //Triangle mode, start, and endDrawCount
-    glDrawArrays(GL_TRIANGLES, 0, m_drawCount);
+    //glDrawArrays(GL_TRIANGLES, 0, m_drawCount); //Deprecated for indices
+    glDrawElements(GL_TRIANGLES, m_drawCount, GL_UNSIGNED_INT, 0);
 
     glBindVertexArray(0); //Release
 }
