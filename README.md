@@ -29,7 +29,7 @@
 - git clone this project
 - git submodule init & git submodule update
 - create build directory
-- compile with cmake .. -G "MinGW Makefiles"
+- compile with "cmake .. -G "MinGW Makefiles"
 OR
 - copy mingw32 into build then run mingw32-make.exe
 
