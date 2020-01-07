@@ -39,14 +39,14 @@ void Game::init()
 {
 	//TEST
 	basicShader = Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
-	basicTexture = Texture("./assets/textures/floor1.png");
+	basicTexture = Texture("./assets/textures/floor2.png");
 
 	Vertex vertices1[] = {
 
 					//Positions								//Colors						//Texture Coordinates
-					Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f, 0.0f, 0.0f, 0.1f), 	glm::vec2(1.0f, 1.0f)),
-					Vertex(glm::vec3(-0.5,	0.5,	0), glm::vec4(0.0f,	1.0f, 0.0f, 0.1f), 	glm::vec2(0.0f, 1.0f)),
-					Vertex(glm::vec3(-0.5,	-0.5,	0),	glm::vec4(0.0f, 0.0f, 1.0f, 0.1f), 	glm::vec2(0.0f, 1.0f)),
+					Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 0.1f), 	glm::vec2(0.0f, 0.0f)),
+					Vertex(glm::vec3(-0.5,	0.5,	0), glm::vec4(1.0f, 1.0f, 1.0f, 0.1f), 	glm::vec2(1.0f, 0.0f)),
+					Vertex(glm::vec3(-0.5,	-0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 0.1f), 	glm::vec2(1.0f, 1.0f)),
 
 					Vertex(glm::vec3(-0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 0.1f), 	glm::vec2(0.0f, 0.0f)),
 					Vertex(glm::vec3(0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 0.1f), 	glm::vec2(1.0f, 0.0f)),
