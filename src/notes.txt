@@ -2,6 +2,11 @@ Concurrent Work being done
 -------------------------
 Refactor a lot!
 
+ToDo Now:
+  Copy Constructor
+  inline when necessary
+  smart pointers
+
 Calculate update with delta time instead of frame delays of depend on vertical sync
 
 game.cpp when init checks for main.lua

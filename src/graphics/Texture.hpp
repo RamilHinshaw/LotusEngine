@@ -13,15 +13,18 @@ extern "C"
 class Texture
 {
     public:
+        Texture();
         Texture(const std::string& fileName);
         virtual ~Texture();
 
         //Should have this inherent from some class since this is common
-        void Bind(unsigned int unit); //Unit for multiple textures
+        void bind(unsigned int unit); //Unit for multiple textures
+        void dispose();
         //SetMipMap();
 
     private:
-        Texture(const Texture& other) {}
+
+        //Texture(const Texture& other) {} copy constructor
         GLuint m_texture;
 
         //void operator={const Texture& other) {}

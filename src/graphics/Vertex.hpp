@@ -17,13 +17,13 @@ class Vertex
             this->color = color;
         }
 
-        Vertex(const glm::vec3& position, const glm::vec3& texCoords) //Use member initialization
+        Vertex(const glm::vec3& position, const glm::vec2& texCoords) //Use member initialization
         {
             this->position = position;
             this->texCoords = texCoords;
         }
 
-        Vertex(const glm::vec3& position, const glm::vec4& color, const glm::vec3& texCoords) //Use member initialization
+        Vertex(const glm::vec3& position, const glm::vec4& color, const glm::vec2& texCoords) //Use member initialization
         {
             this->position = position;
             this->color = color;
@@ -33,8 +33,8 @@ class Vertex
     //Attributes for OpenGL
     private:
         glm::vec3 position;
-        glm::vec3 texCoords;
         glm::vec4 color;
+        glm::vec2 texCoords;
         //normal
         //tangent
 

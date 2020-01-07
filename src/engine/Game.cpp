@@ -3,8 +3,8 @@
 #include <glm/glm.hpp>
 // #include "glad.h"
 
-SDL_Texture *playerTex;
-SDL_Rect srcR, destR;
+// SDL_Texture *playerTex;
+// SDL_Rect srcR, destR;
 
 Game::Game(const char *title, int width, int height)
 {	
@@ -39,25 +39,27 @@ void Game::init()
 {
 	//TEST
 	basicShader = Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
+	basicTexture = Texture("./assets/textures/floor1.png");
 
 	Vertex vertices1[] = {
 
-					Vertex(glm::vec3(-0.5,	0.5,	0)),
-					Vertex(glm::vec3(-0.5,	-0.5,	0)),
-					Vertex(glm::vec3(0.5,	0.5,	0)),
+					//Positions								//Colors						//Texture Coordinates
+					Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f, 0.0f, 0.0f, 0.1f), 	glm::vec2(1.0f, 1.0f)),
+					Vertex(glm::vec3(-0.5,	0.5,	0), glm::vec4(0.0f,	1.0f, 0.0f, 0.1f), 	glm::vec2(0.0f, 1.0f)),
+					Vertex(glm::vec3(-0.5,	-0.5,	0),	glm::vec4(0.0f, 0.0f, 1.0f, 0.1f), 	glm::vec2(0.0f, 1.0f)),
 
+					Vertex(glm::vec3(-0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 0.1f), 	glm::vec2(0.0f, 0.0f)),
+					Vertex(glm::vec3(0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 0.1f), 	glm::vec2(1.0f, 0.0f)),
+					Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 0.1f), 	glm::vec2(1.0f, 1.0f))
 
-					Vertex(glm::vec3(0.5,	0.5,	0)),
-					Vertex(glm::vec3(-0.5,	-0.5,	0)),
-					Vertex(glm::vec3(0.5,	-0.5,	0))
 				};
 
-	Vertex vertices2[] = {
+	// Vertex vertices2[] = {
 
-					Vertex(glm::vec3(0.5,	0.5,	0)),
-					Vertex(glm::vec3(0.5,	-0.5,	0)),
-					Vertex(glm::vec3(-0.5,	-0.5,	0))
-				};
+	// 				Vertex(glm::vec3(0.5,	0.5,	0)),
+	// 				Vertex(glm::vec3(0.5,	-0.5,	0)),
+	// 				Vertex(glm::vec3(-0.5,	-0.5,	0))
+	// 			};
 
 	
 	//Vertex test = Vertex(glm::vec3(-0.5,	-0.5,	0));
@@ -68,7 +70,8 @@ void Game::init()
 	//std::cout << "Test: " << sizeof(test) << std::endl;
 
 	triangleMesh1 = Mesh(vertices1, sizeof(vertices1)/sizeof(vertices1[0]));
-	triangleMesh2 = new Mesh(vertices2, sizeof(vertices2)/sizeof(vertices2[0]));
+
+	//triangleMesh2 = new Mesh(vertices2, sizeof(vertices2)/sizeof(vertices2[0]));
 }
 void Game::handleEvents(float dt)
 {
@@ -120,11 +123,17 @@ void Game::draw(float dt)
 	glClear(GL_COLOR_BUFFER_BIT); //Clears colors and fill
 	//-----------------------------------------
 
+
+
 	//Selects shader
 	basicShader.bind();
 
+	//Selects texture
+	basicTexture.bind(0);
+
 	//Selects Buffer & DRAW
 	triangleMesh1.draw();
+
 	//triangleMesh2->Draw();
 	
 
@@ -142,6 +151,7 @@ void Game::dispose()
 
 	triangleMesh1.dispose();
 	basicShader.dispose();
+	basicTexture.dispose();
 
 	//TEST
 	//delete triangleMesh1;

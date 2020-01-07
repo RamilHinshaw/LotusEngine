@@ -21,6 +21,7 @@ extern "C" //Should not being seeing this in game
 #include "../graphics/Shader.hpp"
 #include "../graphics/Mesh.hpp"
 #include "../graphics/Vertex.hpp"
+// #include "../graphics/Texture.hpp"
 
 // #include <stdio.h>
 
@@ -45,6 +46,8 @@ class Game{
 		Display display;
 		Shader basicShader;
 		Mesh triangleMesh1;
+		Texture basicTexture;
+
 		Mesh* triangleMesh2;
 };
 

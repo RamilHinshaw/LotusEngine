@@ -8,12 +8,14 @@ extern "C"
 }
 
 #include "Vertex.hpp"
+#include "Texture.hpp"
 
 class Mesh
 {    
     public:
         Mesh();
         Mesh(Vertex vertices[], unsigned int arraySize);
+        //Mesh(Vertex vertices[], unsigned int arraySize, Texture texture);
         //Mesh(Vertex* vertices, unsigned int numVertices);
         virtual ~Mesh();
 
@@ -30,8 +32,8 @@ class Mesh
             NUM_BUFFERS
         };
 
-        GLuint m_vertexArrayObject; //VAO
-        GLuint m_vertexArrayBuffers[NUM_BUFFERS]; //VAB
+        GLuint m_VAO; //VAO
+        GLuint m_VBO[NUM_BUFFERS]; //VAB
         GLuint m_indexBufferObject; //Remove duplicates
 
         unsigned int m_drawCount;

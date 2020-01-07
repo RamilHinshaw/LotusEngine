@@ -24,8 +24,9 @@ Shader::Shader(const std::string& fileName)
     for (unsigned int i = 0; i < NUM_SHADERS; i++) 
         glAttachShader(m_program, m_shaders[i]);
     
-    //Tells opengl what part of the data to read and variable in shader program
-    glBindAttribLocation(m_program, 0, "position");// Saves OpenGL the headache don't need this though
+    //Tells opengl what part of the data to read and variable in shader program *I really dont know about these functions
+    // glBindAttribLocation(m_program, 0, "position");// Saves OpenGL the headache don't need this though
+    // glBindAttribLocation(m_program, 1, "color");
 
     //Link Shaders
     glLinkProgram(m_program);
@@ -78,7 +79,7 @@ static GLuint CreateShader(const std::string& text, GLenum shaderType)
     glShaderSource(shader, 1, shaderSourceStrings, shaderSourcesStringLengths);
     glCompileShader(shader); 
 
-    CheckShaderError(shader, GL_COMPILE_STATUS, false, "Error: Shader compliation failed: ");
+    CheckShaderError(shader, GL_COMPILE_STATUS, false, "Error: Shader compliation failed in " + text + " : ");
 
     return shader;
 }
