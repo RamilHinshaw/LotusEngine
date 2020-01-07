@@ -1,10 +1,13 @@
 
 #include "Game.hpp"
 #include <glm/glm.hpp>
-// #include "glad.h"
 
-// SDL_Texture *playerTex;
-// SDL_Rect srcR, destR;
+extern "C"
+{
+	#include <lua5.1/lua.h>
+	#include <lua5.1/lauxlib.h>
+	#include <lua5.1/lualib.h>
+}
 
 Game::Game(const char *title, int width, int height)
 {	

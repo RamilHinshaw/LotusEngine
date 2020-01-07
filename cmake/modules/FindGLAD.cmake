@@ -12,7 +12,7 @@ find_path(GLAD_INCLUDE_DIR glad.h
 	include
 	GL
 	PATHS
-	thirdparty/glad
+	./thirdparty/glad
     ./lib/
 	/usr/local
 	/usr
@@ -28,7 +28,7 @@ if(CMAKE_SIZEOF_VOID_P EQUAL 8)
 		${CMAKE_SOURCE_DIR}
 		$ENV{GLAD_DIR}
 		PATH_SUFFIXES
-		thirdparty/glad
+		./thirdparty/glad
 		lib64
 		lib
 		lib/x64
@@ -45,7 +45,7 @@ else(CMAKE_SIZEOF_VOID_P EQUAL 8)
 		${CMAKE_SOURCE_DIR}
 		$ENV{GLAD_DIR}
 		PATH_SUFFIXES
-		thirdparty/glad
+		./thirdparty/glad
 		lib32
 		lib
 		lib/x86

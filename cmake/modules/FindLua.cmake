@@ -63,7 +63,9 @@ FIND_PATH(LUA_INCLUDE_DIRS lua.h
   PATHS
   ~/Library/Frameworks
   /Library/Frameworks
+  ./thirdparty/lua51
   /usr/local
+  /usr/${_POSSIBLE_LUA_INCLUDE}
   /usr
   /sw # Fink
   /opt/local # DarwinPorts
@@ -80,6 +82,7 @@ FIND_LIBRARY(LUA_LIBRARY
   PATHS
   ~/Library/Frameworks
   /Library/Frameworks
+  ./thirdparty/lua51
   /usr/local
   /usr
   /sw
