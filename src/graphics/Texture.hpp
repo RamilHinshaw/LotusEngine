@@ -2,7 +2,7 @@
 
 extern "C"
 { 
-    #include "../engine/glad.h"
+	#include "../thirdparty/glad/glad.h"
     #include "../../thirdparty/stb/stb_image.h"
 }
 

@@ -13,7 +13,7 @@
 extern "C" //Should not being seeing this in game.hpp (lower level functions)
 { 
 	#include <SDL2/SDL.h>
-	#include "glad.h"
+	#include "../thirdparty/glad/glad.h"
 
 	#include <lua5.1/lua.h>
 	#include <lua5.1/lauxlib.h>

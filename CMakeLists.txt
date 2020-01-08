@@ -99,7 +99,8 @@ file(GLOB src_files
 	"src/core/*.cpp"
 	"src/gui/*.cpp"
 	"src/lua/*.cpp"
-	# "thirdparty/glad/*.cpp"
+
+	"src/thirdparty/glad/*.c"
 )
 message(STATUS "Sources: " ${src_files})
 
