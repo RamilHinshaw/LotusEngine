@@ -3,7 +3,7 @@
 extern "C"
 { 
 	#include "../thirdparty/glad/glad.h"
-    #include "../../thirdparty/stb/stb_image.h"
+    #include "../thirdparty/stb/stb_image.h"
 }
 
 #include <string>

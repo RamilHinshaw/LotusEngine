@@ -24,17 +24,17 @@
 #define __glad_h_
 
 #ifdef __gl_h_
-#error OpenGL header already included, remove this include, glad already provides it
+// #error OpenGL header already included, remove this include, glad already provides it
 #endif
 #define __gl_h_
 
 #ifdef __gl2_h_
-#error OpenGL ES 2 header already included, remove this include, glad already provides it
+// #error OpenGL ES 2 header already included, remove this include, glad already provides it
 #endif
 #define __gl2_h_
 
 #ifdef __gl3_h_
-#error OpenGL ES 3 header already included, remove this include, glad already provides it
+// #error OpenGL ES 3 header already included, remove this include, glad already provides it
 #endif
 #define __gl3_h_
 
