@@ -2,11 +2,25 @@
 #include "Game.hpp"
 #include <glm/glm.hpp>
 
-extern "C"
+#define LUA_OK 0
+
+bool Game::CheckLua(lua_State *L, int r)
 {
-	#include <lua5.1/lua.h>
-	#include <lua5.1/lauxlib.h>
-	#include <lua5.1/lualib.h>
+	if (r != LUA_OK)
+	{
+		std::string errormsg = lua_tostring(L, -1);
+		std::cout << errormsg << std::endl;
+		return false;
+	}
+
+	return true;
+}
+
+int LUA_Double(lua_State *S)
+{
+  int x = lua_tonumber(S,1); //take the first element off the stack
+  lua_pushnumber(S, x*2); //Push onto stack
+  return 1;  //Return ontop of stack
 }
 
 Game::Game(const char *title, int width, int height)
@@ -60,8 +74,6 @@ void Game::init()
 					//Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f))
 
 				};
-	
-
 
 	//Turn into class container (indice holding 3 ints)
 	unsigned int indices[] = {
@@ -69,24 +81,42 @@ void Game::init()
 		0, 1, 2		//second triangle
 	};
 
-	// Vertex vertices2[] = {
-
-	// 				Vertex(glm::vec3(0.5,	0.5,	0)),
-	// 				Vertex(glm::vec3(0.5,	-0.5,	0)),
-	// 				Vertex(glm::vec3(-0.5,	-0.5,	0))
-	// 			};
-
-	
-	//Vertex test = Vertex(glm::vec3(-0.5,	-0.5,	0));
-
-
-	//std::cout << sizeof(Vertex) << " VS " << sizeof(vertices)/sizeof(vertices[0]) << std::endl;
-	//std::cout << sizeof(vertices) << " / " << sizeof(vertices[0]) << " = " << sizeof(vertices)/sizeof(vertices[0]) << std::endl;
-	//std::cout << "Test: " << sizeof(test) << std::endl;
 
 	triangleMesh1 = Mesh(vertices1, sizeof(vertices1)/sizeof(vertices1[0]), indices, sizeof(indices)/sizeof(indices[0]));
 
 	//triangleMesh2 = new Mesh(vertices2, sizeof(vertices2)/sizeof(vertices2[0]));
+
+	//LUA
+	lua_State *L = luaL_newstate();
+	luaL_openlibs(L);
+
+	lua_register(L, "Double", LUA_Double);
+
+	luaL_dofile(L, "assets/main.lua");
+
+	// if (CheckLua(L, luaL_dofile(L, "assets/main.lua")))
+	// {
+	// 	lua_getglobal(L, "a");	//Add to stack
+	// 	std::cout << "PASSED!" << std::endl;
+
+	// 	if (lua_isnumber(L, -1))	//Read top of stack
+	// 	{
+	// 		float a_in_cpp = (float)lua_tonumber(L, -1);
+	// 		std::cout << "a_in_cpp = " << a_in_cpp << std::endl;
+	// 	}
+	// 	else
+	// 		std::cout << "NOT NUMBER!" << std::endl;
+	// }
+	// else
+	// {
+	// 	std::cout << "FAILED!" << std::endl;
+	// }
+
+	//lua_call(L,0,0);
+
+
+	lua_close(L);	
+
 }
 void Game::handleEvents(float dt)
 {

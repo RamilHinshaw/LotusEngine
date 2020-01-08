@@ -1,7 +1,0 @@
-#[submodule "thirdparty/stb"]
-#path = thirdparty/stb
-#url = https://github.com/nothings/stb
-
-[submodule "thirdparty/nativefiledialog"]
-path = thirdparty/nativefiledialog
-url = https://github.com/mlabbe/nativefiledialog

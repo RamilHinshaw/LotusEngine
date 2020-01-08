@@ -10,13 +10,19 @@
 // 	#include <lua5.3/lualib.h> 
 // }
 
-extern "C" //Should not being seeing this in game
+extern "C" //Should not being seeing this in game.hpp (lower level functions)
 { 
 	#include <SDL2/SDL.h>
 	#include "glad.h"
+
+	#include <lua5.1/lua.h>
+	#include <lua5.1/lauxlib.h>
+	#include <lua5.1/lualib.h>
 }
 
 #include <iostream>
+#include <string>
+
 #include "Display.hpp"
 #include "../graphics/Shader.hpp"
 #include "../graphics/Mesh.hpp"
@@ -38,7 +44,7 @@ class Game{
 		
 		bool running(); 	//check if running
 
-		//bool CheckLua(lua_State *L, int r);
+		bool CheckLua(lua_State *L, int r);
 		
 		
 	private:
@@ -47,8 +53,6 @@ class Game{
 		Shader basicShader;
 		Mesh triangleMesh1;
 		Texture basicTexture;
-
-		Mesh* triangleMesh2;
 };
 
 #endif
