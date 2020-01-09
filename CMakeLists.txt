@@ -26,11 +26,11 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 		message(STATUS "OpenGL Include Dir: " ${OPENGL_INCLUDE_DIRS})
 	endif()
 	
-	# find_package(GLEW REQUIRED)
-	# if(GLEW_FOUND)
-	# 	include_directories(${GLEW_INCLUDE_DIRS})
-	# 	message(STATUS "GLEW Include Dir: ${GLEW_INCLUDE_DIRS}")
-	# endif()
+	find_package(GLEW REQUIRED)
+	if(GLEW_FOUND)
+		include_directories(${GLEW_INCLUDE_DIRS})
+		message(STATUS "GLEW Include Dir: ${GLEW_INCLUDE_DIRS}")
+	endif()
 
 	# find_package(GLAD REQUIRED)
 	# if(GLAD)
@@ -101,7 +101,7 @@ file(GLOB src_files
 	"src/gui/*.cpp"
 	"src/lua/*.cpp"
 
-	"src/thirdparty/glad/*.c"
+	# "src/thirdparty/glad/*.c"
 )
 message(STATUS "Sources: " ${src_files})
 
@@ -116,9 +116,7 @@ add_executable(${PROJECT_NAME} ${src_files})
 set(
 	target_link_lib
 	${OPENGL_LIBRARIES}
-	# ${GLAD_LIBRARIES}
-	# ${GLEW_LIBRARIES}
-	# ${Glad}
+	${GLEW_LIBRARIES}
 	${SDL2_LIBRARY} 
 
 	# ${SDL2_TTF_LIBRARIES} 

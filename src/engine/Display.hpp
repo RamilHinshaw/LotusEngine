@@ -3,7 +3,8 @@
 extern "C"
 { 
 	#include <SDL2/SDL.h>
-	#include "../thirdparty/glad/glad.h"
+	#include <GL/glew.h>
+	//#include "../thirdparty/glad/glad.h"
 }
 
 #include <iostream>

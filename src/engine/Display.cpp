@@ -37,16 +37,21 @@ Display::Display(const char *title, int width, int height)
     // SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 0);
 
     // INITIALIZE GLAD:
-    #if defined(__arm__)
-        std::cout << "Init Glad for ARM Device" << std::endl;
-        if (gladLoadGLES2Loader((GLADloadproc)SDL_GL_GetProcAddress))    
-            throw(std::string("Failed to initialize GLAD ES"));
-    #else
-        std::cout << "Init Glad for Desktop Device" << std::endl;
-        if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress)) 
-            throw(std::string("Failed to initialize GLAD"));
+    //#if defined(__arm__)
+    //GLAD
+        //std::cout << "Init Glad for Desktop Device" << std::endl;
+        //if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress)) 
+          //  throw(std::string("Failed to initialize GLAD"));
+    //#else
+    
+    GLenum status = glewInit(); //Finds opengl functions 
 
-    #endif
+    if (status != GLEW_OK)
+    {
+        std::cerr << "Glew failed to initialize!" << std::endl;
+    }
+
+    //#endif
     
 
     //std::cout << ("OpenGL Version %d.%d loaded", GLVersion.major, GLVersion.minor) << std::endl;
