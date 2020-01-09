@@ -34,6 +34,8 @@ extern "C" //Should not being seeing this in game.hpp (lower level functions)
 
 // #include <stdio.h>
 
+static Quad quadTest;
+
 class Game{
 	public:
 		Game(const char *title, int width, int height);
@@ -48,6 +50,10 @@ class Game{
 		bool running(); 	//check if running
 
 		bool CheckLua(lua_State *L, int r);
+
+
+		//Lua thing
+		static int LUA_CreateQuad(lua_State *S);
 		
 		
 	private:
@@ -57,7 +63,7 @@ class Game{
 		Mesh triangleMesh1;
 		Texture basicTexture;
 
-		Quad quadTest;
+
 };
 
 #endif

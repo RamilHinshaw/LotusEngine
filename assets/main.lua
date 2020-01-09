@@ -12,6 +12,9 @@ end
 
 person:display()
 print(Double(100))
+CreateQuad();
+
+
 
 --------------------------------------
 

@@ -18,9 +18,16 @@ bool Game::CheckLua(lua_State *L, int r)
 
 int LUA_Double(lua_State *S)
 {
-  int x = lua_tonumber(S,1); //take the first element off the stack
+  int x = lua_tonumber(S,1); //take the first element off the stack to read from lua
   lua_pushnumber(S, x*2); //Push onto stack
-  return 1;  //Return ontop of stack
+  return 1;  //Return ontop of stack for lua to retrieve
+}
+
+int Game::LUA_CreateQuad(lua_State *S)
+{
+	std::cout << "[C++] Created Quad" << std::endl;
+	quadTest = Quad(Rect(0,0,32,32));
+	return 0;
 }
 
 Game::Game(const char *title, int width, int height)
@@ -81,7 +88,7 @@ void Game::init()
 
 	triangleMesh1 = Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
 
-	quadTest = Quad(Rect(0,0,32,32));
+	// quadTest = Quad(Rect(0,0,32,32));
 
 
 	//LUA
@@ -89,8 +96,10 @@ void Game::init()
 	luaL_openlibs(L);
 
 	lua_register(L, "Double", LUA_Double);
+	lua_register(L, "CreateQuad", LUA_CreateQuad);
 
 	luaL_dofile(L, "assets/main.lua");
+	std::cout << "[C++] ENDED Quad?" << std::endl;
 
 	// if (CheckLua(L, luaL_dofile(L, "assets/main.lua")))
 	// {
