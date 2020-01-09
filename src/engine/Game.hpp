@@ -29,6 +29,9 @@ extern "C" //Should not being seeing this in game.hpp (lower level functions)
 #include "../graphics/opengl/Vertex.hpp"
 // #include "../graphics/Texture.hpp"
 
+#include "../graphics/Quad.hpp"
+#include "../common/Rect.hpp"
+
 // #include <stdio.h>
 
 class Game{
@@ -53,6 +56,8 @@ class Game{
 		Shader basicShader;
 		Mesh triangleMesh1;
 		Texture basicTexture;
+
+		Quad quadTest;
 };
 
 #endif

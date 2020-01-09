@@ -3,11 +3,11 @@ Concurrent Work being done
 Refactor a lot!
 
 ToDo Now:
+  interface for common functions (dispose, draw, etc [for shader, mesh, texture])
   Copy Constructor
   inline when necessary
-  smart pointers
-  
-  a manager to bound same shaders once (instead of individual class)
+  smart pointers  
+  !!! A manager to bound same shaders once (instead of individual class)
   the same for textures also
   use instancing for similar mesh types for one draw call
 

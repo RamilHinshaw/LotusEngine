@@ -8,17 +8,18 @@
 #include "opengl/Texture.hpp"
 #include "opengl/Vertex.hpp"
 
-class Sprite
+class Sprite : Quad
 {
 
     public:
         Sprite(const Rect &rect, const std::string texturePath);
+        Sprite(const Rect &rect, const std::string texturePath, const Shader shader);
         ~Sprite();
+    
+    protected:
+    //void draw() override;
 
     private:
-        Rect rect;
-
-        Shader shader;
         Texture texture;
         Quad quad;
 

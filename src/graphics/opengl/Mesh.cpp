@@ -25,11 +25,14 @@ Mesh::Mesh(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], 
     glBufferData(GL_ARRAY_BUFFER, m_drawCount * sizeof(Vertex), vertices, GL_STATIC_DRAW);   //Move data into recent new buffer
 
     //EBO
-    m_drawCount = indiceSize;
-    glGenBuffers(1, &m_EBO); // Pointer to buffer
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO); //Use buffer
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_drawCount * sizeof(unsigned int), indices, GL_STATIC_DRAW);
-
+    if (indiceSize != 0)    //Todo: Refactor
+    {
+        m_useElementBuffer = true;
+        m_drawCount = indiceSize;
+        glGenBuffers(1, &m_EBO); // Pointer to buffer
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO); //Use buffer
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_drawCount * sizeof(unsigned int), indices, GL_STATIC_DRAW);
+    }
 
     // ***** ATTRIBUTES *****
     //Interpret Data on GPU |   how to read the attributes of the array of what index
@@ -52,6 +55,18 @@ Mesh::Mesh(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], 
     glBindVertexArray(0); //Release    
 }
 
+Mesh::Mesh(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize, GLenum glDrawType) 
+: Mesh(vertices, verticeSize, indices, indiceSize)  //Constructor Delegate
+{
+    m_GLDrawType = glDrawType;
+}
+
+Mesh::Mesh(Vertex vertices[], unsigned int verticeSize, GLenum glDrawType) 
+: Mesh(vertices, verticeSize, 0, 0)  //Constructor Delegate
+{
+    m_GLDrawType = glDrawType;
+}
+
 Mesh::~Mesh()
 {
 }
@@ -70,8 +85,16 @@ void Mesh::draw()
     //glPointSize(10.0);
 
     //Triangle mode, start, and endDrawCount
-    //glDrawArrays(GL_TRIANGLES, 0, m_drawCount); //Deprecated for indices
-    glDrawElements(GL_TRIANGLES, m_drawCount, GL_UNSIGNED_INT, 0);
+
+    if (m_useElementBuffer == false) 
+    {
+        glDrawArrays(GL_TRIANGLES, 0, m_drawCount);
+    }
+    
+    else
+    {
+        glDrawElements(m_GLDrawType, m_drawCount, GL_UNSIGNED_INT, 0);
+    }
 
     glBindVertexArray(0); //Release
 }

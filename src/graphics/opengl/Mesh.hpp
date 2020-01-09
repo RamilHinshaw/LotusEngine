@@ -14,8 +14,10 @@ class Mesh
 {    
     public:
         Mesh();
+        Mesh(Vertex vertices[], unsigned int verticeSize);
         Mesh(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize);
-        //Mesh(Vertex vertices[], unsigned int arraySize, Texture texture);
+        Mesh(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize, GLenum glDrawType);
+        Mesh(Vertex vertices[], unsigned int verticeSize, GLenum glDrawType);
         //Mesh(Vertex* vertices, unsigned int numVertices);
         virtual ~Mesh();
 
@@ -35,6 +37,9 @@ class Mesh
         GLuint m_VAO; //Vertex Array Objects
         GLuint m_VBO[NUM_BUFFERS]; //Vertex Buffer Object
         GLuint m_EBO;   // Element buffer Object
+        GLenum m_GLDrawType = GL_TRIANGLES;
+
+        bool m_useElementBuffer; 
 
         unsigned int m_drawCount;
 };

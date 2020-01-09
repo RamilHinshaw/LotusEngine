@@ -56,17 +56,14 @@ void Game::init()
 {
 	//TEST
 	basicShader = Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
-	basicTexture = Texture("./assets/textures/bomb.png");
+	//basicTexture = Texture("./assets/textures/bomb.png");
 
-	Vertex vertices1[] = {
+	Vertex vertices[] = {
 
 					//Positions								//Colors						//Texture Coordinates
 					Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f)),
 					Vertex(glm::vec3(0.5,	-0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f)),
 					Vertex(glm::vec3(-0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 0.0f)),
-
-
-
 					Vertex(glm::vec3(-0.5,	0.5,	0), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 1.0f)),
 
 
@@ -82,9 +79,10 @@ void Game::init()
 	};
 
 
-	triangleMesh1 = Mesh(vertices1, sizeof(vertices1)/sizeof(vertices1[0]), indices, sizeof(indices)/sizeof(indices[0]));
+	triangleMesh1 = Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
 
-	//triangleMesh2 = new Mesh(vertices2, sizeof(vertices2)/sizeof(vertices2[0]));
+	quadTest = Quad(Rect(0,0,32,32));
+
 
 	//LUA
 	lua_State *L = luaL_newstate();
@@ -155,10 +153,10 @@ void Game::handleEvents(float dt)
 void Game::update(double dt)	
 {
     //UNIFORM COLOR TEST
-    float timeValue = SDL_GetTicks()/1000.0;
-    float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
-    int vertexColorLocation = glGetUniformLocation(basicShader.GetProgram(), "ourColor"); //Can error check this
-    glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
+    // float timeValue = SDL_GetTicks()/1000.0;
+    // float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
+    // int vertexColorLocation = glGetUniformLocation(basicShader.GetProgram(), "ourColor"); //Can error check this
+    // glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
 }
 
 void Game::draw(float dt)
@@ -168,18 +166,18 @@ void Game::draw(float dt)
 	glClear(GL_COLOR_BUFFER_BIT); //Clears colors and fill
 	//-----------------------------------------
 
+	
 
+	// //Selects shader
+	// basicShader.bind();
 
-	//Selects shader
-	basicShader.bind();
+	// //Selects texture
+	// basicTexture.bind(0);
 
-	//Selects texture
-	basicTexture.bind(0);
+	// //Selects Buffer & DRAW
+	// triangleMesh1.draw();
 
-	//Selects Buffer & DRAW
-	triangleMesh1.draw();
-
-	//triangleMesh2->Draw();
+	quadTest.draw();
 	
 
 
@@ -190,18 +188,23 @@ void Game::draw(float dt)
 
 void Game::dispose()
 {
-	display.dispose();
-	SDL_Quit();
-	std::cout << "Game Cleaned" << std::endl;
 
-	triangleMesh1.dispose();
-	basicShader.dispose();
-	basicTexture.dispose();
+	quadTest.dispose();
+	// triangleMesh1.dispose();
+	// basicTexture.dispose();
+	// basicShader.dispose();
+
 
 	//TEST
 	//delete triangleMesh1;
 	//delete triangleMesh2;
 	//delete basicShader;
+
+
+
+	display.dispose();
+	SDL_Quit();
+	std::cout << "Game Cleaned" << std::endl;
 }
 
 bool Game::running() { return isRunning;}

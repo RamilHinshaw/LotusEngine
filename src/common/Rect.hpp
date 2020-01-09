@@ -3,6 +3,8 @@
 class Rect
 {
     public:
+        
+        Rect(){}
 
         Rect(float x, float y, float width, float height) //ToDo: Use member initialization & put into cpp instead!
         {
