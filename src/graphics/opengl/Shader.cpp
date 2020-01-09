@@ -16,9 +16,15 @@ Shader::Shader(const std::string& fileName)
 {
     m_program = glCreateProgram();
 
+    std::string esFileSuffix = "";
+
+    #if defined(__arm__)
+        esFileSuffix = "ES";
+    #endif
+
     //Load shader
-    m_shaders[0] = CreateShader(LoadShader(fileName + ".vs"), GL_VERTEX_SHADER);    //Load Vertex Shader
-    m_shaders[1] = CreateShader(LoadShader(fileName + ".fs"), GL_FRAGMENT_SHADER);  //Load Fragment Shader
+    m_shaders[0] = CreateShader(LoadShader(fileName + esFileSuffix + ".vs"), GL_VERTEX_SHADER);    //Load Vertex Shader
+    m_shaders[1] = CreateShader(LoadShader(fileName + esFileSuffix + ".fs"), GL_FRAGMENT_SHADER);  //Load Fragment Shader
 
     //Takes program and adds a shader to it
     for (unsigned int i = 0; i < NUM_SHADERS; i++) 
