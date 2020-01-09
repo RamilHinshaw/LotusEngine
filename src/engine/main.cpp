@@ -12,6 +12,9 @@ extern "C"
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT= 600;
 
+//Virtual Width = 432
+//Virtual Height = 243
+
 
 double min(double frameTime, double minDelta) { return (frameTime < minDelta)? minDelta : frameTime; }
 

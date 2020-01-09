@@ -2,7 +2,7 @@
 
 extern "C"
 { 
-	#include "../thirdparty/glad/glad.h"
+	#include "../../thirdparty/glad/glad.h"
     //#include "../../thirdparty/glad/glad.h" //ToDo: Remove relative pathing!
 }
 

@@ -56,7 +56,7 @@ void Game::init()
 {
 	//TEST
 	basicShader = Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
-	basicTexture = Texture("./assets/textures/crate.png");
+	basicTexture = Texture("./assets/textures/bomb.png");
 
 	Vertex vertices1[] = {
 

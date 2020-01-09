@@ -6,6 +6,10 @@ ToDo Now:
   Copy Constructor
   inline when necessary
   smart pointers
+  
+  a manager to bound same shaders once (instead of individual class)
+  the same for textures also
+  use instancing for similar mesh types for one draw call
 
 Calculate update with delta time instead of frame delays of depend on vertical sync
 
@@ -13,6 +17,8 @@ game.cpp when init checks for main.lua
  - Checks if Init(dt), Update(dt), & Draw(dt) exists if not error out
  - Then when game starts run lua Init function
  - Run Update(dt), and Draw(dt) in cpp version everyframe
+
+
 
 Goals:
   -standard entity gameobject that lua scripts can interact with

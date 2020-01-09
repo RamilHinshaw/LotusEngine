@@ -93,6 +93,7 @@ file(GLOB src_files
 	"src/engine/*.c"
 
 	"src/graphics/*.cpp"
+	"src/graphics/opengl/*.cpp"
 	"src/input/*.cpp"
 	"src/math/*.cpp"
 	"src/physics/*.cpp"

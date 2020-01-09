@@ -24,9 +24,9 @@ extern "C" //Should not being seeing this in game.hpp (lower level functions)
 #include <string>
 
 #include "Display.hpp"
-#include "../graphics/Shader.hpp"
-#include "../graphics/Mesh.hpp"
-#include "../graphics/Vertex.hpp"
+#include "../graphics/opengl/Shader.hpp"
+#include "../graphics/opengl/Mesh.hpp"
+#include "../graphics/opengl/Vertex.hpp"
 // #include "../graphics/Texture.hpp"
 
 // #include <stdio.h>
