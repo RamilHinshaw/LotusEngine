@@ -12,6 +12,7 @@
 	- libsdl2-2.0-dev
 	- libglm-dev
 	- liblua5.1
+	- libglew-dev
 - git clone this project
 - git submodule init & git submodule update
 - cd into project and mkdir /build directory
@@ -23,13 +24,14 @@
 - download & add to path:
 	- sdl2 source files
 	- glm header file
-	- liblua5.1
+	- lua 5.1
+	- glew source files
 - download mingw64 & sdl2 source files
 - add to windows path (recommended to put near top to avoid conflicts)
 - git clone this project
 - git submodule init & git submodule update
 - create build directory
-- compile with "cmake -G "MinGW Makefiles" .."
+- compile with " cmake.exe -G "MinGW Makefiles" % .. "
 OR
 - copy mingw32 into build then run "mingw32-make.exe .."
 
