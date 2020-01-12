@@ -1,3 +1,5 @@
+//Fragment Shader
+
 #version 330 core
 
 out vec4 FragColor;
@@ -6,15 +8,24 @@ in vec4 outColor;
 in vec2 outTexCoord;
 
 uniform sampler2D ourTexture;
+uniform bool showTexture;
 
 void main()
-{
-    FragColor = outColor;
-    // vec4 texColor = outColor * texture(ourTexture, outTexCoord);
+{   
+    if (showTexture)
+    {
+        FragColor = outColor;
+    }
 
-    // //Tranparency
-    // if (texColor.a < 0.1)
-    //     discard;
+    else
+    {
+        vec4 texColor = outColor * texture(ourTexture, outTexCoord);
 
-    // FragColor = texColor;
+        //Tranparency
+        if (texColor.a < 0.1)
+            discard;
+
+        FragColor = texColor;
+    }
+
 }

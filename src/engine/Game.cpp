@@ -63,7 +63,7 @@ void Game::init()
 {
 	//TEST
 	basicShader = Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
-	//basicTexture = Texture("./assets/textures/bomb.png");
+	basicTexture = Texture("./assets/textures/floor1.png");
 
 	Vertex vertices[] = {
 
@@ -124,10 +124,16 @@ void Game::init()
 
 	lua_close(L);	
 
+	//CAMERA STUFF
+	model = glm::rotate(model, SDL_GetTicks() * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f)); 
+	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); 
+	projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+
 }
 void Game::handleEvents(float dt)
 {
 	SDL_Event event;
+	int shaderID;
 	
 	while (	SDL_PollEvent(&event) != 0)
 	{
@@ -135,37 +141,48 @@ void Game::handleEvents(float dt)
 		if (event.type == SDL_QUIT)
 			isRunning = false;
 		
-		// else if (event.type == SDL_KEYDOWN)
-		// {
-		// 	switch (event.key.keysym.sym)
-		// 	{
-		// 		case SDLK_UP:
-		// 		SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);	
-		// 		scale++;
-		// 		//std::cout << "Key Up Pressed!" << std::endl;
-		// 		break;
+		else if (event.type == SDL_KEYDOWN)
+		{
+			switch (event.key.keysym.sym)
+			{
+				case SDLK_UP:
+					glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+				break;
 					
-		// 		case SDLK_DOWN:
-		// 		SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);	
-		// 		scale--;
-		// 		//std::cout << "Key Down Pressed!" << std::endl;
-		// 		break;
+				case SDLK_DOWN:
+					glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+				break;
+
+				case SDLK_LEFT:
+					quadTest.getShader().setBool("showTexture", false);
+				break;
+
+				case SDLK_RIGHT:
+					quadTest.getShader().setBool("showTexture", true);
+				break;
 					
-		// 		default:
-		// 			break;		
-		// 	}
-		// }
+				default:
+					break;		
+			}
+		}
 	}
 }
 
 //GAME CODE HERE
-void Game::update(double dt)	
+void Game::update(float dt)	
 {
     //UNIFORM COLOR TEST
     // float timeValue = SDL_GetTicks()/1000.0;
     // float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
     // int vertexColorLocation = glGetUniformLocation(basicShader.GetProgram(), "ourColor"); //Can error check this
     // glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
+
+	model = glm::rotate(model, glm::sin( SDL_GetTicks()/1000.0f) * 0.5f * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f)); 
+	//view = glm::translate(view, glm::sin( SDL_GetTicks()/1000.0f) * 0.5f * glm::vec3(0.0f, 0.0f, -1.0f)); 
+
+	quadTest.getShader().setMat4("model", model);
+	quadTest.getShader().setMat4("view", view);
+	quadTest.getShader().setMat4("projection", projection);
 }
 
 void Game::draw(float dt)

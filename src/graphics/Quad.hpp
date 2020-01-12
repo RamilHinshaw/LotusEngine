@@ -15,6 +15,9 @@ class Quad
         Quad();
         Quad(const Rect rect);
         Quad(const Rect rect, const Shader &shader);
+
+        Shader getShader();
+
         ~Quad();
 
         void virtual draw();

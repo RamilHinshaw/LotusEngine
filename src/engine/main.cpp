@@ -55,6 +55,8 @@ int main(int argv, char** args)
 		//Frame ratio to 1 second, divide by 1000 to turn nano secs to sec
 		deltaTime = (currentTime - lastTime) / 1000000000.0 ;
 
+		std::cout << "DeltaTime: " << deltaTime << std::endl;
+
 		//MAIN LOGIC
 		//To prevent massive framecount at beginning (must settle before determining frames) (LOSES 1 SECOND OF LOAD TIME THOUGH!)
 		//IN THEORY NEED TO LOOP AT LEAST ONCE TO LEARN FRAME TIME
@@ -64,7 +66,7 @@ int main(int argv, char** args)
 				// std::cout << "First Frame Init" << std::endl;
 
 			game.handleEvents(deltaTime);
-			game.update(1);
+			game.update(deltaTime);
 			game.draw(deltaTime);
 		}
 		

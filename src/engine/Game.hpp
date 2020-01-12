@@ -31,6 +31,10 @@ extern "C" //Should not being seeing this in game.hpp (lower level functions)
 #include "../graphics/Quad.hpp"
 #include "../common/Rect.hpp"
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 // #include <stdio.h>
 
 static Quad quadTest;
@@ -42,7 +46,7 @@ class Game{
 		
 		void init();		
 		void handleEvents(float dt);	//IO
-		void update(double dt);
+		void update(float dt);
 		void draw(float dt);
 		void dispose();
 		
@@ -62,6 +66,9 @@ class Game{
 		Mesh triangleMesh1;
 		Texture basicTexture;
 
+		glm::mat4 model = glm::mat4(1.0f);
+		glm::mat4 view = glm::mat4(1.0f);
+		glm::mat4 projection;
 
 };
 

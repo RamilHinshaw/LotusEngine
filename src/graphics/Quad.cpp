@@ -48,16 +48,21 @@ Quad::Quad(const Rect rect, const Shader &shader) : rect(rect), shader(shader)
     mesh = generatePrimative();
 }
 
+Shader Quad::getShader()
+{
+	return shader;
+}
+
 Quad::~Quad()
 {
-    std::cout << "AM I BEING DELETED!?" << std::endl;
+    std::cout << "2 Triangles Deleted!" << std::endl;
 }
 
 void Quad::dispose()
 {
     mesh.dispose();
     shader.dispose();    
-    std::cout << "Quad DISPOSED!" << std::endl;
+    // std::cout << "Quad DISPOSED!" << std::endl;
 }
 
 Mesh Quad::generatePrimative()
