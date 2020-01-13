@@ -34,9 +34,10 @@ int main(int argv, char** args)
 		game.handleEvents(dt);
 		game.update(dt);
 		game.draw(dt);
-
-		Time::step();
-		Time::delay();
+		
+		Time::printFPS();	//Debug
+		Time::step(); 		//FPS Calculations
+		Time::delay();		//Delay to target FPS
 	}
 		
 	game.dispose();

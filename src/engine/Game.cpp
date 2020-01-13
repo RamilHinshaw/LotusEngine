@@ -62,31 +62,8 @@ Game::~Game()
 void Game::init()
 {
 	//TEST
-	basicShader = Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
+	// basicShader = Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
 	basicTexture = Texture("./assets/textures/floor1.png");
-
-	Vertex vertices[] = {
-
-					//Positions								//Colors						//Texture Coordinates
-					Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f)),
-					Vertex(glm::vec3(0.5,	-0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f)),
-					Vertex(glm::vec3(-0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 0.0f)),
-					Vertex(glm::vec3(-0.5,	0.5,	0), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 1.0f)),
-
-
-					//Vertex(glm::vec3(0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f)),
-					//Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f))
-
-				};
-
-	//Turn into class container (indice holding 3 ints)
-	unsigned int indices[] = {
-		0, 2, 3,	//first triangle
-		0, 1, 2		//second triangle
-	};
-
-
-	triangleMesh1 = Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
 
 	// quadTest = Quad(Rect(0,0,32,32));
 
@@ -171,11 +148,6 @@ void Game::handleEvents(float dt)
 //GAME CODE HERE
 void Game::update(float dt)	
 {
-    //UNIFORM COLOR TEST
-    // float timeValue = SDL_GetTicks()/1000.0;
-    // float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
-    // int vertexColorLocation = glGetUniformLocation(basicShader.GetProgram(), "ourColor"); //Can error check this
-    // glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
 
 	model = glm::rotate(model, dt * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f)); 
 	//view = glm::translate(view, glm::sin( SDL_GetTicks()/1000.0f) * 0.5f * glm::vec3(0.0f, 0.0f, -1.0f)); 

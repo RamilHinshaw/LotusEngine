@@ -1,3 +1,5 @@
+-- local quad = require("scripts.Lotus.quad")
+
 print ("Hello World!")
 
 local person = {}
@@ -13,8 +15,6 @@ end
 person:display()
 print(Double(100))
 CreateQuad();
-
-
 
 --------------------------------------
 
