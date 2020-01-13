@@ -23,8 +23,7 @@ int main(int argv, char** args)
 	//const uint8_t FPS = 60;
 	//const int frameDelay = 1000 / FPS;	
 
-	double lastTime = 0;
-	double deltaTime = 0;
+
 
 	const double FPS = 60.0;
 	double targetFPS = 1/FPS;
@@ -38,7 +37,9 @@ int main(int argv, char** args)
 	game.init();
 
 	uint64_t counterStart = SDL_GetPerformanceCounter();
-	double currentTime = 0;
+	uint64_t currentTime = 0;
+	uint64_t lastTime = 0;
+	float deltaTime = 0;
 
 	// bool firstFrame = false;
 
@@ -46,20 +47,12 @@ int main(int argv, char** args)
 
 	while (game.running())
 	{
-		fps_timer = (SDL_GetPerformanceCounter()-counterStart)/ 1000000000.0;
+		//fps_timer = (SDL_GetPerformanceCounter()-counterStart)/ 1000000000.0;
 		fpsCounter++;
 		
 		//Delta Time stuff (prolly put in own class)
 		lastTime = currentTime;
 
-		//Frame ratio to 1 second, divide by 1000 to turn nano secs to sec
-		deltaTime = (currentTime - lastTime) / 1000000000.0 ;
-
-		std::cout << "DeltaTime: " << deltaTime << std::endl;
-
-		//MAIN LOGIC
-		//To prevent massive framecount at beginning (must settle before determining frames) (LOSES 1 SECOND OF LOAD TIME THOUGH!)
-		//IN THEORY NEED TO LOOP AT LEAST ONCE TO LEARN FRAME TIME
 		if (SDL_GetTicks()/1000.0f >= targetFPS) 
 		{
 			// if (!firstFrame)
@@ -70,15 +63,11 @@ int main(int argv, char** args)
 			game.draw(deltaTime);
 		}
 		
-		currentTime = SDL_GetPerformanceCounter() - counterStart;
-
-		//std::cout << "Time: " <<  SDL_GetTicks() << " VS " << fps_timer*100000 << std::endl;
-
 		//Count FPS
 		if (SDL_GetTicks()/1000.0f >= 1.0 * fps_timer_interval)
 		{			
 			if (fps_timer_interval != 0)
-				std::cout << "Ticks: " << fps_timer_interval << " Time: " << SDL_GetTicks()/1000 << " FPS: " << fpsCounter << std::endl;
+				std::cout << "Ticks: " << fps_timer_interval << " dt: " << deltaTime << " FPS: " << fpsCounter << std::endl;
 
 			//std::cout << "TEST " << SDL_GetPerformanceCounter() - counterStart << std::endl;
 			fps_timer_interval++;
@@ -86,10 +75,12 @@ int main(int argv, char** args)
 			fpsCounter = 0;
 		}		
 
-		//DELAY (deltaTime is time between frames)
+		currentTime = SDL_GetPerformanceCounter() - counterStart;
+		deltaTime = (currentTime - lastTime) / 1000000000.0 ;
+
 		if (deltaTime < targetFPS)
 		{	
-			SDL_Delay( (targetFPS - deltaTime) * 1000.0);
+			SDL_Delay( (targetFPS - (deltaTime / 100.0) ) * 1000.0);
 		}
 
 	}

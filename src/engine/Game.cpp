@@ -177,7 +177,7 @@ void Game::update(float dt)
     // int vertexColorLocation = glGetUniformLocation(basicShader.GetProgram(), "ourColor"); //Can error check this
     // glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
 
-	model = glm::rotate(model, glm::sin( SDL_GetTicks()/1000.0f) * 0.5f * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f)); 
+	model = glm::rotate(model, dt * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f)); 
 	//view = glm::translate(view, glm::sin( SDL_GetTicks()/1000.0f) * 0.5f * glm::vec3(0.0f, 0.0f, -1.0f)); 
 
 	quadTest.getShader().setMat4("model", model);

@@ -60,6 +60,7 @@ Display::Display(const char *title, int width, int height)
 
     // Use v-sync
     SDL_GL_SetSwapInterval(1);
+
 }
 
 Display::~Display()
