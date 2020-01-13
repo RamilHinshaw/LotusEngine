@@ -13,8 +13,9 @@ function person:display()
 end
 
 person:display()
-print(Double(100))
-CreateQuad();
+-- print(Double(100))
+-- CreateQuad();
+PrintTest();
 
 --------------------------------------
 

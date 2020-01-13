@@ -37,7 +37,11 @@ extern "C" //Should not being seeing this in game.hpp (lower level functions)
 
 // #include <stdio.h>
 
-static Quad quadTest;
+//TEST
+#include <vector>
+#include "../thirdparty/sol/sol.hpp"
+
+
 
 class Game{
 	public:
@@ -56,7 +60,8 @@ class Game{
 
 
 		//Lua thing
-		static int LUA_CreateQuad(lua_State *S);
+		void LUA_CreateQuad();
+		void LUA_PrintTest();
 		
 		
 	private:
@@ -69,6 +74,8 @@ class Game{
 		glm::mat4 model = glm::mat4(1.0f);
 		glm::mat4 view = glm::mat4(1.0f);
 		glm::mat4 projection;
+
+		std::vector<Quad> quads;
 
 };
 

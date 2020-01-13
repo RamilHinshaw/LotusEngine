@@ -16,18 +16,15 @@ bool Game::CheckLua(lua_State *L, int r)
 	return true;
 }
 
-int LUA_Double(lua_State *S)
-{
-  int x = lua_tonumber(S,1); //take the first element off the stack to read from lua
-  lua_pushnumber(S, x*2); //Push onto stack
-  return 1;  //Return ontop of stack for lua to retrieve
-}
-
-int Game::LUA_CreateQuad(lua_State *S)
+void Game::LUA_CreateQuad()
 {
 	std::cout << "[C++] Created Quad" << std::endl;
-	quadTest = Quad(Rect(0,0,32,32));
-	return 0;
+	quads.push_back( Quad(Rect(0,0,32,32)));
+}
+
+void Game::LUA_PrintTest()
+{
+	std::cout << "[C++] Test Print" << std::endl;
 }
 
 Game::Game(const char *title, int width, int height)
@@ -69,14 +66,14 @@ void Game::init()
 
 
 	//LUA
-	lua_State *L = luaL_newstate();
-	luaL_openlibs(L);
+	// lua_State *L = luaL_newstate();
+	// luaL_openlibs(L);
 
-	lua_register(L, "Double", LUA_Double);
-	lua_register(L, "CreateQuad", LUA_CreateQuad);
+	// lua_register(L, "Double", LUA_Double);
+	// lua_register(L, "CreateQuad", LUA_CreateQuad);
 
-	luaL_dofile(L, "assets/main.lua");
-	std::cout << "[C++] ENDED Quad?" << std::endl;
+	// luaL_dofile(L, "assets/main.lua");
+	// std::cout << "[C++] ENDED Quad?" << std::endl;
 
 	// if (CheckLua(L, luaL_dofile(L, "assets/main.lua")))
 	// {
@@ -99,10 +96,20 @@ void Game::init()
 	//lua_call(L,0,0);
 
 
-	lua_close(L);	
+	// lua_close(L);	
+
+	sol::state lua;
+	lua.open_libraries(sol::lib::base);
+
+	//lua.set_function("CreateQuad", LUA_CreateQuad);
+	lua.set_function("PrintTest", &Game::LUA_PrintTest, this);
+
+	lua.do_file("assets/main.lua");
 
 	//CAMERA STUFF
 	model = glm::rotate(model, SDL_GetTicks() * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f)); 
+	//model = glm::translate(model, glm::vec3(-1.0f,0.0f,0.0f));
+
 	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); 
 	projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 
@@ -131,11 +138,11 @@ void Game::handleEvents(float dt)
 				break;
 
 				case SDLK_LEFT:
-					quadTest.getShader().setBool("showTexture", false);
+					// quadTest.getShader().setBool("showTexture", false);
 				break;
 
 				case SDLK_RIGHT:
-					quadTest.getShader().setBool("showTexture", true);
+					// quadTest.getShader().setBool("showTexture", true);
 				break;
 					
 				default:
@@ -148,13 +155,16 @@ void Game::handleEvents(float dt)
 //GAME CODE HERE
 void Game::update(float dt)	
 {
-
+	float modifier = (glm::sin(SDL_GetTicks()/1000.0f));
+	model = glm::translate(model,  modifier * glm::vec3(-1.0f,0.0f,0.0f) * dt);
 	model = glm::rotate(model, dt * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f)); 
 	//view = glm::translate(view, glm::sin( SDL_GetTicks()/1000.0f) * 0.5f * glm::vec3(0.0f, 0.0f, -1.0f)); 
 
-	quadTest.getShader().setMat4("model", model);
-	quadTest.getShader().setMat4("view", view);
-	quadTest.getShader().setMat4("projection", projection);
+	// std::cout << (glm::sin(SDL_GetTicks()/1000.0f)) << std::endl;
+
+	// quadTest.getShader().setMat4("model", model);
+	// quadTest.getShader().setMat4("view", view);
+	// quadTest.getShader().setMat4("projection", projection);
 }
 
 void Game::draw(float dt)
@@ -175,7 +185,7 @@ void Game::draw(float dt)
 	// //Selects Buffer & DRAW
 	// triangleMesh1.draw();
 
-	quadTest.draw();
+	// quadTest.draw();
 	
 
 
@@ -187,7 +197,7 @@ void Game::draw(float dt)
 void Game::dispose()
 {
 
-	quadTest.dispose();
+	// quadTest.dispose();
 	// triangleMesh1.dispose();
 	// basicTexture.dispose();
 	// basicShader.dispose();
