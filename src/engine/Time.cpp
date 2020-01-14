@@ -3,7 +3,7 @@
 void Time::init(int targetFPS)
 {
     m_counterStart = SDL_GetPerformanceCounter();
-    m_targetFPS = targetFPS;
+    m_targetFPS = 1.0/targetFPS;
 }
 
 void Time::setTargetFPS(int fps)
@@ -19,11 +19,13 @@ void Time::step()
     m_currentTime = SDL_GetPerformanceCounter() - m_counterStart;
     m_deltaTime = (m_currentTime - m_lastTime) / 1000000000.0 ;
 
-    updateFPSCounter();
+    updateFrameCounter();
 }
 
 void Time::delay()
 {
+    // std::cout << "dt: " << m_deltaTime << " VS tFPS " << m_targetFPS << std::endl;
+
     if (m_deltaTime < m_targetFPS)
     {	
         SDL_Delay( (m_targetFPS - (m_deltaTime / 100.0) ) * 1000.0);
@@ -35,7 +37,7 @@ int Time::getFPS()
     return 	m_calculated_fps;
 }
 
-void Time::updateFPSCounter()
+void Time::updateFrameCounter()   //count frames
 {
     m_fpsCounter++;
 

@@ -40,6 +40,7 @@ extern "C" //Should not being seeing this in game.hpp (lower level functions)
 //TEST
 #include <vector>
 #include "../thirdparty/sol/sol.hpp"
+#include <memory>
 
 
 
@@ -76,6 +77,11 @@ class Game{
 		glm::mat4 projection;
 
 		std::vector<Quad> quads;
+		//std::vector<std::make_unique<Quad>> quads;	//Look into using make_unique to encapsulate objects
+
+		//LUA / SOL
+		//ToDo swap with sol::protected_function
+		sol::function lua_init, lua_update, lua_draw;
 
 };
 

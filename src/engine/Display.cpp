@@ -17,12 +17,6 @@ Display::Display(const char *title, int width, int height)
     //OPENGL Context
     glContext = SDL_GL_CreateContext(window);
 
-    // glewExperimental = GL_TRUE; //Use Latest Features
-    
-    // GLenum status = glewInit(); //Finds opengl functions 
-    // if (status != GLEW_OK)SDL_GL_CONTEXT_PROFILE_MASK
-    //     std::cerr << "Glew failed to initialize!" << std::endl;
-
     //Use OpenGL 3.1 core
     SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 3 );
     SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 0 );
@@ -45,6 +39,7 @@ Display::Display(const char *title, int width, int height)
     //#else
     
     GLenum status = glewInit(); //Finds opengl functions 
+    // glewExperimental = GL_TRUE; //Use Latest Features
 
     if (status != GLEW_OK)
     {

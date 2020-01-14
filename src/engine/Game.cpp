@@ -19,7 +19,9 @@ bool Game::CheckLua(lua_State *L, int r)
 void Game::LUA_CreateQuad()
 {
 	std::cout << "[C++] Created Quad" << std::endl;
-	quads.push_back( Quad(Rect(0,0,32,32)));
+	Quad quad = Quad();
+	quads.push_back(quad);
+	std::cout << "End Quad Func" << std::endl;
 }
 
 void Game::LUA_PrintTest()
@@ -38,7 +40,10 @@ Game::Game(const char *title, int width, int height)
 		//Function here to Create Window then bind to display
 		
 		display = Display(title, width, height); //Window also created here
-
+    // if (outColor == 0)
+    // {
+    //     outColor = vec4(1.0,1.0,1.0,1.0);
+    // }
 		isRunning = true;
 	}
 
@@ -101,17 +106,35 @@ void Game::init()
 	sol::state lua;
 	lua.open_libraries(sol::lib::base);
 
-	//lua.set_function("CreateQuad", LUA_CreateQuad);
+	lua.set_function("CreateQuad", &Game::LUA_CreateQuad, this);
 	lua.set_function("PrintTest", &Game::LUA_PrintTest, this);
 
 	lua.do_file("assets/main.lua");
 
+	lua_init = lua["Init"];
+	// lua_update = lua["update"];
+	// lua_draw = lua["draw"];
+
+
+	// lua["PrintTest"] = LUA_PrintTest;
+	// lua.set_function("CreateQuad",&LUA_CreateQuad);
+
+
+
+
+	// std::cout << "A" << std::endl;
+	// LUA_CreateQuad();
+	// std::cout << "B" << std::endl;
+
 	//CAMERA STUFF
-	model = glm::rotate(model, SDL_GetTicks() * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f)); 
+	// model = glm::rotate(model, SDL_GetTicks() * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f)); 
 	//model = glm::translate(model, glm::vec3(-1.0f,0.0f,0.0f));
 
 	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); 
 	projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+
+	//Call Init
+	lua_init();
 
 }
 void Game::handleEvents(float dt)
@@ -139,10 +162,19 @@ void Game::handleEvents(float dt)
 
 				case SDLK_LEFT:
 					// quadTest.getShader().setBool("showTexture", false);
+					// glActiveTexture(GL_TEXTURE_2D); glDisable(GL_TEXTURE_2D);
+
+					for (unsigned int i = 0; i < quads.size(); i++)
+						quads[i].getShader().setBool("showTexture", false);
 				break;
 
 				case SDLK_RIGHT:
 					// quadTest.getShader().setBool("showTexture", true);
+					// glActiveTexture(GL_TEXTURE_2D); glDisable(GL_TEXTURE_2D);
+
+					for (unsigned int i = 0; i < quads.size(); i++)
+						quads[i].getShader().setBool("showTexture", true);
+
 				break;
 					
 				default:
@@ -156,9 +188,16 @@ void Game::handleEvents(float dt)
 void Game::update(float dt)	
 {
 	float modifier = (glm::sin(SDL_GetTicks()/1000.0f));
-	model = glm::translate(model,  modifier * glm::vec3(-1.0f,0.0f,0.0f) * dt);
-	model = glm::rotate(model, dt * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f)); 
+	//model = glm::translate(model,  modifier * glm::vec3(-1.0f,0.0f,0.0f) * dt);
+	model = glm::rotate(model, dt * glm::radians(-55.0f), glm::vec3(0.0f, 0.0f, 1.0f)); 
 	//view = glm::translate(view, glm::sin( SDL_GetTicks()/1000.0f) * 0.5f * glm::vec3(0.0f, 0.0f, -1.0f)); 
+
+	for (unsigned int i = 0; i < quads.size(); i++)
+	{
+		quads[i].getShader().setMat4("model", model);
+		quads[i].getShader().setMat4("view", view);
+		quads[i].getShader().setMat4("projection", projection);
+	}
 
 	// std::cout << (glm::sin(SDL_GetTicks()/1000.0f)) << std::endl;
 
@@ -174,6 +213,10 @@ void Game::draw(float dt)
 	glClear(GL_COLOR_BUFFER_BIT); //Clears colors and fill
 	//-----------------------------------------
 
+	for (unsigned int i = 0; i < quads.size(); i++)
+	{
+		quads[i].draw();
+	}
 	
 
 	// //Selects shader
@@ -208,6 +251,10 @@ void Game::dispose()
 	//delete triangleMesh2;
 	//delete basicShader;
 
+	for (unsigned int i = 0; i < quads.size(); i++)
+	{
+		quads[i].dispose();
+	}
 
 
 	display.dispose();

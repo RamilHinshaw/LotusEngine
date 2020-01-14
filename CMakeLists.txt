@@ -131,11 +131,12 @@ if (UNIX)
 	target_link_libraries(${PROJECT_NAME} ${CMAKE_DL_LIBS} ${target_link_lib})
 elseif (WIN32)
 	target_link_libraries(${PROJECT_NAME} "-w -Wl,-subsystem,windows" "-static -lmingw32 -lSDL2main" ${target_link_lib})
+	# Also copy appropriate libs for windows folder
 endif()
 
 
 #Copy Assets
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
-                       ${CMAKE_SOURCE_DIR}/assets $<TARGET_FILE_DIR:${PROJECT_NAME}>/assets)
+                       ${CMAKE_SOURCE_DIR}/examples/benchmark/assets $<TARGET_FILE_DIR:${PROJECT_NAME}>/assets)
 

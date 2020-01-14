@@ -4,7 +4,8 @@
 
 Quad::Quad()
 {
-
+	shader = generateShader(); 
+    mesh = generatePrimative();
 }
 
 Quad::Quad(const Rect rect) : rect(rect)
@@ -55,7 +56,7 @@ Shader Quad::getShader()
 
 Quad::~Quad()
 {
-    std::cout << "2 Triangles Deleted!" << std::endl;
+    std::cout << "DELETED QUAD!" << std::endl;
 }
 
 void Quad::dispose()

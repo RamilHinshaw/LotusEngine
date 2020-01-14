@@ -23,8 +23,7 @@ int main(int argv, char** args)
 	game.init();	
 
 	const double FPS = 60.0;
-	double targetFPS = 1/FPS;
-	Time::init(targetFPS);
+	Time::init(FPS);
 
 	//Main Game Loop
 	while (game.running())
@@ -37,7 +36,7 @@ int main(int argv, char** args)
 		
 		Time::printFPS();	//Debug
 		Time::step(); 		//FPS Calculations
-		Time::delay();		//Delay to target FPS
+		//Time::delay();		//Delay to target FPS
 	}
 		
 	game.dispose();

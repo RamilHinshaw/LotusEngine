@@ -16,10 +16,11 @@ person:display()
 -- print(Double(100))
 -- CreateQuad();
 PrintTest();
+CreateQuad();
 
 --------------------------------------
 
-function Init(dt)
+function Init()
 	print("[LUA] "..dt.." initializing...")
 
 	-- Create sprite object (give pic)
