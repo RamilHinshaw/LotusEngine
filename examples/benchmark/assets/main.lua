@@ -7,7 +7,7 @@ function Init()
 end
 
 function Update(dt)
-	print("[LUA] updating...")
+	-- print("[LUA] updating...")
 	-- Should execute registered c++ calls here!
 
 	-- can move sprite object
@@ -16,7 +16,7 @@ end
 -- Possibly LateUpdate and FixedUpdate?
 
 function Draw(dt)
-	print("[LUA] drawing...")
+	-- print("[LUA] drawing...")
 
 
 	-- Draw Sprite Object
