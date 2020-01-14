@@ -81,6 +81,7 @@ class Game{
 
 		//LUA / SOL
 		//ToDo swap with sol::protected_function
+		sol::state lua;
 		sol::function lua_init, lua_update, lua_draw;
 
 };

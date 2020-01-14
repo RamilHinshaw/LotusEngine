@@ -55,6 +55,19 @@ Game::Game(const char *title, int width, int height)
 	int nrAttributes;
 	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
 	std::cout << "Maximum nr of vertex attributes supported: " << nrAttributes << std::endl;
+
+	//LUA STUFF
+	//sol::state lua;
+	lua.open_libraries(sol::lib::base);
+
+	lua.set_function("CreateQuad", &Game::LUA_CreateQuad, this);
+	lua.set_function("PrintTest", &Game::LUA_PrintTest, this);
+
+	lua.do_file("assets/main.lua");
+
+	lua_init = lua["Init"];
+	lua_update = lua["Update"];
+	lua_draw = lua["Draw"];
 }
 
 Game::~Game()
@@ -103,17 +116,7 @@ void Game::init()
 
 	// lua_close(L);	
 
-	sol::state lua;
-	lua.open_libraries(sol::lib::base);
 
-	lua.set_function("CreateQuad", &Game::LUA_CreateQuad, this);
-	lua.set_function("PrintTest", &Game::LUA_PrintTest, this);
-
-	lua.do_file("assets/main.lua");
-
-	lua_init = lua["Init"];
-	// lua_update = lua["update"];
-	// lua_draw = lua["draw"];
 
 
 	// lua["PrintTest"] = LUA_PrintTest;
@@ -135,8 +138,11 @@ void Game::init()
 
 	//Call Init
 	lua_init();
+	// lua_update(0);
+	// lua_draw(0);
 
 }
+
 void Game::handleEvents(float dt)
 {
 	SDL_Event event;
@@ -204,6 +210,8 @@ void Game::update(float dt)
 	// quadTest.getShader().setMat4("model", model);
 	// quadTest.getShader().setMat4("view", view);
 	// quadTest.getShader().setMat4("projection", projection);
+	
+	lua_update(dt);
 }
 
 void Game::draw(float dt)
@@ -212,6 +220,8 @@ void Game::draw(float dt)
 	glClearColor(0.0f,0.15f,0.3f,1.0f); //Clear with this color
 	glClear(GL_COLOR_BUFFER_BIT); //Clears colors and fill
 	//-----------------------------------------
+
+	lua_draw(dt);
 
 	for (unsigned int i = 0; i < quads.size(); i++)
 	{
