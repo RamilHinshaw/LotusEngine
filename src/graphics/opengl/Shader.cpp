@@ -9,7 +9,7 @@ static GLuint CreateShader(const std::string& text, GLenum shaderType);
 
 Shader::Shader()
 {
-
+    std::cout << "Shader Empty Constructor Called???" << std::endl;
 }
 
 Shader::Shader(const std::string& fileName)
@@ -41,16 +41,19 @@ Shader::Shader(const std::string& fileName)
     //Validate Shaders
     glValidateProgram(m_program);
     CheckShaderError(m_program, GL_VALIDATE_STATUS, true, "Error: Program is invalid: ");
+
+    std::cout << "pg: " << m_program << std::endl;
 }
 
 void Shader::bind()
 {
+    // std::cout << "bind: " << m_program << std::endl;
     glUseProgram(m_program);
 }
 
 Shader::~Shader()
 {
-    
+    std::cout << "Shader Destructor Called" << std::endl;
 } 
 
 //From learnopengl.com
@@ -110,7 +113,7 @@ void Shader::setMat4(const std::string &name, const glm::mat4 &mat) const
 {
     glUniformMatrix4fv(glGetUniformLocation(m_program, name.c_str()), 1, GL_FALSE, &mat[0][0]);
 }
-//---------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------
 
 GLuint Shader::GetProgram()
 {
@@ -119,6 +122,9 @@ GLuint Shader::GetProgram()
 
 void Shader::dispose()
 {
+    std::cout << "Shader Disposed!" << std::endl;
+    std::cout << "pg: " << m_program << std::endl;
+
     for (unsigned int i = 0; i < NUM_SHADERS; i++) 
     {
         //glDetachShader(m_program, m_shaders[i]); //Detaches both vertex and fragment shader from program

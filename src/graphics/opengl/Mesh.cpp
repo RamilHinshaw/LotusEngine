@@ -5,7 +5,7 @@
 
 Mesh::Mesh()
 {
-
+    std::cout << "Mesh Empty  Constructor Called???" << std::endl;
 }
 
 Mesh::Mesh(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize)
@@ -69,6 +69,7 @@ Mesh::Mesh(Vertex vertices[], unsigned int verticeSize, GLenum glDrawType)
 
 Mesh::~Mesh()
 {
+    std::cout << "Mesh Destructor Called" << std::endl;
 }
 
 void Mesh::dispose()
@@ -96,5 +97,5 @@ void Mesh::draw()
         glDrawElements(m_GLDrawType, m_drawCount, GL_UNSIGNED_INT, 0);
     }
 
-    glBindVertexArray(0); //Release
+    // glBindVertexArray(0); //Release
 }

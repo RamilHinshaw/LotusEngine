@@ -47,6 +47,8 @@ void Time::updateFrameCounter()   //count frames
         m_fps_timer_interval++;
         m_calculated_fps = m_fpsCounter;
         m_fpsCounter = 0;
+
+        m_avg_fps += (m_calculated_fps/m_fps_timer_interval-1);
     }
 }
 
@@ -54,7 +56,8 @@ void Time::printFPS()
 {
     if (SDL_GetTicks()/1000.0f >= 1.0 * m_fps_timer_interval)
     {			
-        std::cout << "[FPS] " << m_calculated_fps << std::endl;
+        std::cout << "[Step] " << m_fps_timer_interval;
+        std::cout << " [FPS] " << m_calculated_fps << " [Avg] " << m_avg_fps << std::endl;
     }
 }
 

@@ -18,10 +18,10 @@ bool Game::CheckLua(lua_State *L, int r)
 
 void Game::LUA_CreateQuad()
 {
-	std::cout << "[C++] Created Quad" << std::endl;
-	Quad quad = Quad();
-	quads.push_back(quad);
-	std::cout << "End Quad Func" << std::endl;
+	// std::cout << "[C++] Created Quad" << std::endl;
+	// Quad *quad = new Quad();
+	// quads.push_back(quad);
+	// std::cout << "End Quad Func" << std::endl;
 }
 
 void Game::LUA_PrintTest()
@@ -71,76 +71,76 @@ Game::Game(const char *title, int width, int height)
 }
 
 Game::~Game()
-{	}
+{	
+	std::cout << "Game Deconstructor is Called!" << std::endl;
+}
+
+void Game::PrintUniformValue(GLint program, std::string name)
+{	
+	GLint prog = program;
+	std::string namee = name;
+	GLuint location = glGetUniformLocation(prog, namee.c_str());
+	GLfloat params;
+	glGetUniformfv(prog, location, &params);
+
+	std::cout << namee << " Value: " << params << std::endl;
+}
 
 //GAME START CODE HERE!
 void Game::init()
 {
-	//TEST
-	// basicShader = Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
+
 	basicTexture = Texture("./assets/textures/floor1.png");
+	shader1 = Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
 
-	// quadTest = Quad(Rect(0,0,32,32));
+	Vertex vertices[] = {
 
-
-	//LUA
-	// lua_State *L = luaL_newstate();
-	// luaL_openlibs(L);
-
-	// lua_register(L, "Double", LUA_Double);
-	// lua_register(L, "CreateQuad", LUA_CreateQuad);
-
-	// luaL_dofile(L, "assets/main.lua");
-	// std::cout << "[C++] ENDED Quad?" << std::endl;
-
-	// if (CheckLua(L, luaL_dofile(L, "assets/main.lua")))
-	// {
-	// 	lua_getglobal(L, "a");	//Add to stack
-	// 	std::cout << "PASSED!" << std::endl;
-
-	// 	if (lua_isnumber(L, -1))	//Read top of stack
-	// 	{
-	// 		float a_in_cpp = (float)lua_tonumber(L, -1);
-	// 		std::cout << "a_in_cpp = " << a_in_cpp << std::endl;
-	// 	}
-	// 	else
-	// 		std::cout << "NOT NUMBER!" << std::endl;
-	// }
-	// else
-	// {
-	// 	std::cout << "FAILED!" << std::endl;
-	// }
-
-	//lua_call(L,0,0);
+				//Positions								//Colors						//Texture Coordinates
+				Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f)),
+				Vertex(glm::vec3(0.5,	-0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f)),
+				Vertex(glm::vec3(-0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 0.0f)),
+				Vertex(glm::vec3(-0.5,	0.5,	0), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 1.0f)),
 
 
-	// lua_close(L);	
+				//Vertex(glm::vec3(0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f)),
+				//Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f))
+
+			};
+
+	//Turn into class container (indice holding 3 ints)
+	unsigned int indices[] = {
+		0, 2, 3,	//first triangle
+		0, 1, 2		//second triangle
+	};
 
 
+	mesh1 = Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
 
-
-	// lua["PrintTest"] = LUA_PrintTest;
-	// lua.set_function("CreateQuad",&LUA_CreateQuad);
-
-
-
-
-	// std::cout << "A" << std::endl;
-	// LUA_CreateQuad();
-	// std::cout << "B" << std::endl;
-
-	//CAMERA STUFF
-	// model = glm::rotate(model, SDL_GetTicks() * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f)); 
-	//model = glm::translate(model, glm::vec3(-1.0f,0.0f,0.0f));
 
 	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); 
 	projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 
-	//Call Init
-	lua_init();
-	// lua_update(0);
-	// lua_draw(0);
+	shader1.setMat4("model", model1);
+	shader1.setMat4("view", view);
+	shader1.setMat4("projection", projection);
 
+
+	//------------------------------------------------------------------------------------------------------------
+
+	shader2 = Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
+
+	mesh2 = Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
+
+	model2 = glm::translate(model2, glm::vec3(1.0f, 1.0f, 0.0f)); 
+
+	shader2.setMat4("model", model2);
+	shader2.setMat4("view", view);
+	shader2.setMat4("projection", projection);
+
+
+
+
+	lua_init();
 }
 
 void Game::handleEvents(float dt)
@@ -171,7 +171,7 @@ void Game::handleEvents(float dt)
 					// glActiveTexture(GL_TEXTURE_2D); glDisable(GL_TEXTURE_2D);
 
 					for (unsigned int i = 0; i < quads.size(); i++)
-						quads[i].getShader().setBool("showTexture", false);
+						quads[i]->getShader()->setBool("showTexture", false);
 				break;
 
 				case SDLK_RIGHT:
@@ -179,7 +179,7 @@ void Game::handleEvents(float dt)
 					// glActiveTexture(GL_TEXTURE_2D); glDisable(GL_TEXTURE_2D);
 
 					for (unsigned int i = 0; i < quads.size(); i++)
-						quads[i].getShader().setBool("showTexture", true);
+						quads[i]->getShader()->setBool("showTexture", true);
 
 				break;
 					
@@ -193,17 +193,52 @@ void Game::handleEvents(float dt)
 //GAME CODE HERE
 void Game::update(float dt)	
 {
-	float modifier = (glm::sin(SDL_GetTicks()/1000.0f));
-	//model = glm::translate(model,  modifier * glm::vec3(-1.0f,0.0f,0.0f) * dt);
-	model = glm::rotate(model, dt * glm::radians(-55.0f), glm::vec3(0.0f, 0.0f, 1.0f)); 
-	//view = glm::translate(view, glm::sin( SDL_GetTicks()/1000.0f) * 0.5f * glm::vec3(0.0f, 0.0f, -1.0f)); 
+	// if (test > 3) return;
+	// test++;
+
+	// if (SDL_GetTicks() > 1000) return;
+
+	model1 = glm::rotate(model1, dt * glm::radians(-55.0f), glm::vec3(0.0f, 0.0f, 1.0f)); 
+	view = glm::translate(view, dt * glm::sin( SDL_GetTicks()/1000.0f) * 0.5f * glm::vec3(0.0f, 0.0f, -1.0f)); 
+
+	// shader1.bind();
+	// mesh1.draw();
+	// // setMat4 CHANGES CURRENT BIND SHADER!
+	// shader1.setMat4("model", model1);
+	// shader1.setMat4("view", view);
+	// shader1.setMat4("projection", projection);
+	// // std::cout << shader1.GetProgram() << std::endl;
+
+
+	// shader2.bind();
+	// mesh2.draw();
+	// shader2.setMat4("model", model2);
+	// shader2.setMat4("view", view);
+	// shader2.setMat4("projection", projection);
+	// std::cout << shader2.GetProgram() << std::endl;
+
+
+
 
 	for (unsigned int i = 0; i < quads.size(); i++)
 	{
-		quads[i].getShader().setMat4("model", model);
-		quads[i].getShader().setMat4("view", view);
-		quads[i].getShader().setMat4("projection", projection);
+		quads[i]->getShader()->setMat4("model", model);
+		quads[i]->getShader()->setMat4("view", view);
+		quads[i]->getShader()->setMat4("projection", projection);
 	}
+
+
+	// GLuint program = shader1.GetProgram();
+	// std::string name = "projection";
+	// GLuint location = glGetUniformLocation(program, name.c_str());
+	// GLfloat params;
+	// glGetUniformfv(program, location, &params);
+
+	// std::cout << "Projection Value: " << params << std::endl;
+
+
+
+
 
 	// std::cout << (glm::sin(SDL_GetTicks()/1000.0f)) << std::endl;
 
@@ -225,20 +260,37 @@ void Game::draw(float dt)
 
 	for (unsigned int i = 0; i < quads.size(); i++)
 	{
-		quads[i].draw();
+		quads[i]->draw();
 	}
 	
 
 	// //Selects shader
-	// basicShader.bind();
-
-	// //Selects texture
+	// shader1.bind();
+	// // //Selects texture
 	// basicTexture.bind(0);
+	// // //Selects Buffer & DRAW
+	// mesh1.draw();
 
-	// //Selects Buffer & DRAW
-	// triangleMesh1.draw();
+	// //--------------
+	// shader2.bind();
+	// mesh2.draw();
 
 	// quadTest.draw();
+
+	shader1.bind();
+	mesh1.draw();
+	// setMat4 CHANGES CURRENT BIND SHADER!
+	shader1.setMat4("model", model1);
+	shader1.setMat4("view", view);
+	shader1.setMat4("projection", projection);
+	// std::cout << shader1.GetProgram() << std::endl;
+
+
+	shader2.bind();
+	mesh2.draw();
+	shader2.setMat4("model", model2);
+	shader2.setMat4("view", view);
+	shader2.setMat4("projection", projection);
 	
 
 
@@ -251,9 +303,9 @@ void Game::dispose()
 {
 
 	// quadTest.dispose();
-	// triangleMesh1.dispose();
-	// basicTexture.dispose();
-	// basicShader.dispose();
+	mesh1.dispose();
+	basicTexture.dispose();
+	shader1.dispose();
 
 
 	//TEST
@@ -263,7 +315,7 @@ void Game::dispose()
 
 	for (unsigned int i = 0; i < quads.size(); i++)
 	{
-		quads[i].dispose();
+		quads[i]->dispose();
 	}
 
 

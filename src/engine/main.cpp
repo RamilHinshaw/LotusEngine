@@ -20,15 +20,18 @@ int main(int argv, char** args)
 {	
 	//ToDo: Create Game Object/Game Creates Window also ToDo: *should seperate logic here
 	Game game = Game("Lotus Engine",SCREEN_WIDTH, SCREEN_HEIGHT);
-	game.init();	
+	
 
 	const double FPS = 60.0;
 	Time::init(FPS);
 
+	game.init();
+	float dt;
+
 	//Main Game Loop
 	while (game.running())
 	{
-		float dt = Time::deltaTime();
+		dt = Time::deltaTime();
 
 		game.handleEvents(dt);
 		game.update(dt);

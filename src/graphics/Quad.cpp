@@ -4,14 +4,15 @@
 
 Quad::Quad()
 {
-	shader = generateShader(); 
-    mesh = generatePrimative();
+	std::cout << "Quad Constructor Called" << std::endl;
+	m_shader = generateShader(); 
+    m_mesh = generatePrimative();
 }
 
 Quad::Quad(const Rect rect) : rect(rect)
 {
 
-    shader = Shader("./assets/shaders/basicShader"); 
+    m_shader = new Shader("./assets/shaders/basicShader"); 
 
 
     Vertex vertices[] = {
@@ -35,7 +36,7 @@ Quad::Quad(const Rect rect) : rect(rect)
 	};
 
 
-	mesh = Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
+	m_mesh = new Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
 
 
     // mesh = generatePrimative();
@@ -44,29 +45,37 @@ Quad::Quad(const Rect rect) : rect(rect)
 }
 
 
-Quad::Quad(const Rect rect, const Shader &shader) : rect(rect), shader(shader)
-{
-    mesh = generatePrimative();
-}
+// Quad::Quad(const Rect rect, const Shader &shader) : rect(rect)//, shader(shader)
+// {
+// 	m_shader = &shader;
+//     m_mesh = generatePrimative();
+// }
 
-Shader Quad::getShader()
+Shader* Quad::getShader()
 {
-	return shader;
+	return m_shader;
 }
 
 Quad::~Quad()
 {
-    std::cout << "DELETED QUAD!" << std::endl;
+    std::cout << "Quad out of scope!" << std::endl;
 }
 
 void Quad::dispose()
 {
-    mesh.dispose();
-    shader.dispose();    
+	std::cout << "Disposed Quad!" << std::endl;
+    m_mesh->dispose();
+    m_shader->dispose();  
+
+	delete m_mesh;
+	m_mesh = nullptr;
+
+	delete m_shader;  
+	m_shader = nullptr;
     // std::cout << "Quad DISPOSED!" << std::endl;
 }
 
-Mesh Quad::generatePrimative()
+Mesh* Quad::generatePrimative()
 {
 
 	Vertex vertices[] = {
@@ -90,7 +99,7 @@ Mesh Quad::generatePrimative()
 	};
 
 
-	return Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
+	return new Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
 
     //return Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), 0,0); //Unoptimized!    
     //return Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), GL_Triangle_Strip); //Optimized
@@ -98,13 +107,13 @@ Mesh Quad::generatePrimative()
 
 void Quad::draw()
 {
-    shader.bind();
-    mesh.draw();
+    m_shader->bind();
+    m_mesh->draw();
     // std::cout << "Quad DRAWING!" << std::endl;
 }
 
-Shader Quad::generateShader()
+Shader* Quad::generateShader()
 {
     //ToDo: PUT THIS IN SHADER STATEMANAGER SO WE DON'T BIND IDENTICAL SHADERS!
-    return Shader("./assets/shaders/basicShader"); 
+    return new Shader("./assets/shaders/basicShader"); 
 }

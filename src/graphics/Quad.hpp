@@ -15,9 +15,9 @@ class Quad
         Quad();
         Quad(const Rect rect);
         Quad(const Rect &rect, const glm::vec3 &color);
-        Quad(const Rect rect, const Shader &shader);
+        // Quad(const Rect rect, const Shader &shader); //ToDo: Come back to this!yy
 
-        Shader getShader();
+        Shader* getShader();
 
         ~Quad();
 
@@ -28,9 +28,9 @@ class Quad
         Rect rect;
 
     private:
-        Mesh generatePrimative();   //Prepare correctly for Mesh Instancing!
-        Shader generateShader();    //Pull from StateManager!
+        Mesh* generatePrimative();   //Prepare correctly for Mesh Instancing!
+        Shader* generateShader();    //Pull from StateManager!
 
-        Mesh mesh;
-        Shader shader;
+        Mesh *m_mesh;
+        Shader *m_shader;
 };
