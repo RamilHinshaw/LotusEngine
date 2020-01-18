@@ -2,7 +2,12 @@
 
 void Time::init(int targetFPS)
 {
-    m_counterStart = SDL_GetPerformanceCounter();
+    #ifdef _WIN32 
+        m_counterStart = SDL_GetTicks();
+    #else
+        m_counterStart = SDL_GetPerformanceCounter();
+    #endif
+
     m_targetFPS = 1.0/targetFPS;
 }
 
@@ -16,8 +21,14 @@ void Time::step()
     //Delta Time stuff (prolly put in own class)
     m_lastTime = m_currentTime;			
 
-    m_currentTime = SDL_GetPerformanceCounter() - m_counterStart;
-    m_deltaTime = (m_currentTime - m_lastTime) / 1000000000.0 ;
+
+    #ifdef _WIN32 
+        m_currentTime = SDL_GetTicks() - m_counterStart;
+        m_deltaTime = (m_currentTime - m_lastTime) / 1000.0 ;
+    #else
+        m_currentTime = SDL_GetPerformanceCounter() - m_counterStart;
+        m_deltaTime = (m_currentTime - m_lastTime) / 1000000000.0 ;
+    #endif
 
     updateFrameCounter();
 }

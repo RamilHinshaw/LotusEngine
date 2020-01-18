@@ -32,6 +32,7 @@ int main(int argv, char** args)
 	while (game.running())
 	{
 		dt = Time::deltaTime();
+		//std::cout << "Dt: " << dt;
 
 		game.handleEvents(dt);
 		game.update(dt);
@@ -39,7 +40,7 @@ int main(int argv, char** args)
 		
 		Time::printFPS();	//Debug
 		Time::step(); 		//FPS Calculations
-		//Time::delay();		//Delay to target FPS
+		Time::delay();		//Delay to target FPS
 	}
 		
 	game.dispose();
