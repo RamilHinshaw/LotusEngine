@@ -170,16 +170,16 @@ void Game::handleEvents(float dt)
 					// quadTest.getShader().setBool("showTexture", false);
 					// glActiveTexture(GL_TEXTURE_2D); glDisable(GL_TEXTURE_2D);
 
-					for (unsigned int i = 0; i < quads.size(); i++)
-						quads[i]->getShader()->setBool("showTexture", false);
+					// for (unsigned int i = 0; i < quads.size(); i++)
+						// quads[i]->getShader()->setBool("showTexture", false);
 				break;
 
 				case SDLK_RIGHT:
 					// quadTest.getShader().setBool("showTexture", true);
 					// glActiveTexture(GL_TEXTURE_2D); glDisable(GL_TEXTURE_2D);
 
-					for (unsigned int i = 0; i < quads.size(); i++)
-						quads[i]->getShader()->setBool("showTexture", true);
+					// for (unsigned int i = 0; i < quads.size(); i++)
+						// quads[i]->getShader()->setBool("showTexture", true);
 
 				break;
 					
@@ -198,7 +198,7 @@ void Game::update(float dt)
 
 	// if (SDL_GetTicks() > 1000) return;
 
-	model1 = glm::rotate(model1, dt * glm::radians(-55.0f), glm::vec3(0.0f, 0.0f, 1.0f)); 
+	model1 = glm::rotate(model1, dt * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f)); 
 	view = glm::translate(view, dt * glm::sin( SDL_GetTicks()/1000.0f) * 0.5f * glm::vec3(0.0f, 0.0f, -1.0f)); 
 
 	// shader1.bind();
@@ -220,12 +220,12 @@ void Game::update(float dt)
 
 
 
-	for (unsigned int i = 0; i < quads.size(); i++)
-	{
-		quads[i]->getShader()->setMat4("model", model);
-		quads[i]->getShader()->setMat4("view", view);
-		quads[i]->getShader()->setMat4("projection", projection);
-	}
+	// for (unsigned int i = 0; i < quads.size(); i++)
+	// {
+	// 	quads[i]->getShader()->setMat4("model", model);
+	// 	quads[i]->getShader()->setMat4("view", view);
+	// 	quads[i]->getShader()->setMat4("projection", projection);
+	// }
 
 
 	// GLuint program = shader1.GetProgram();
@@ -258,10 +258,10 @@ void Game::draw(float dt)
 
 	lua_draw(dt);
 
-	for (unsigned int i = 0; i < quads.size(); i++)
-	{
-		quads[i]->draw();
-	}
+	// for (unsigned int i = 0; i < quads.size(); i++)
+	// {
+	// 	quads[i]->draw();
+	// }
 	
 
 	// //Selects shader
@@ -278,19 +278,21 @@ void Game::draw(float dt)
 	// quadTest.draw();
 
 	shader1.bind();
-	mesh1.draw();
-	// setMat4 CHANGES CURRENT BIND SHADER!
 	shader1.setMat4("model", model1);
 	shader1.setMat4("view", view);
 	shader1.setMat4("projection", projection);
+	mesh1.draw();
+	// setMat4 CHANGES CURRENT BIND SHADER!
+
 	// std::cout << shader1.GetProgram() << std::endl;
 
 
 	shader2.bind();
-	mesh2.draw();
 	shader2.setMat4("model", model2);
 	shader2.setMat4("view", view);
 	shader2.setMat4("projection", projection);
+	mesh2.draw();
+
 	
 
 
@@ -313,10 +315,10 @@ void Game::dispose()
 	//delete triangleMesh2;
 	//delete basicShader;
 
-	for (unsigned int i = 0; i < quads.size(); i++)
-	{
-		quads[i]->dispose();
-	}
+	// for (unsigned int i = 0; i < quads.size(); i++)
+	// {
+	// 	quads[i]->dispose();
+	// }
 
 
 	display.dispose();

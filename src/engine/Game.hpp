@@ -28,6 +28,7 @@ extern "C" //Should not being seeing this in game.hpp (lower level functions)
 #include "../graphics/opengl/Vertex.hpp"
 #include "../graphics/opengl/Texture.hpp"
 
+#include "../graphics/MeshObject2D.hpp"
 #include "../graphics/Quad.hpp"
 #include "../common/Rect.hpp"
 
@@ -89,7 +90,8 @@ class Game{
 		glm::mat4 view = glm::mat4(1.0f);
 		glm::mat4 projection;
 
-		std::vector<Quad*> quads;
+		// std::vector<Quad*> quads;
+		std::vector<MeshObject2D*> meshObjects2D;
 		//std::vector<std::make_unique<Quad>> quads;	//Look into using make_unique to encapsulate objects
 
 		//LUA / SOL

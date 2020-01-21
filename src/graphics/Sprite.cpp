@@ -1,16 +1,16 @@
-# include "Sprite.hpp"
+// # include "Sprite.hpp"
 
-Sprite::Sprite(const Rect &rect, const std::string texturePath) : Quad(rect)
-{
+// Sprite::Sprite(const Rect &rect, const std::string texturePath) : Quad(rect)
+// {
     
-}
+// }
 
-Sprite::~Sprite()
-{
-
-}
-
-// void Sprite::draw() override
+// Sprite::~Sprite()
 // {
 
 // }
+
+// // void Sprite::draw() override
+// // {
+
+// // }
