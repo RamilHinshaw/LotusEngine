@@ -36,7 +36,8 @@ class Time
         static int m_fpsCounter = 0;            //used to count for fps every frame
         static int m_fps_timer_interval = 1;    //used to calculate next frameStep
         static int m_calculated_fps = -1;       //calculated fps between frames
-        static double m_avg_fps;
+        static int m_total_fps;
+        static int m_avg_fps;
 
         static float m_deltaTime;   //Time between frams
         static uint64_t m_currentTime; //used for delta time

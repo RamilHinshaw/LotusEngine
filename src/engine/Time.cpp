@@ -54,12 +54,16 @@ void Time::updateFrameCounter()   //count frames
 
     //Count FPS
     if (SDL_GetTicks()/1000.0f >= 1.0 * m_fps_timer_interval)
-    {			
-        m_fps_timer_interval++;
+    {
         m_calculated_fps = m_fpsCounter;
         m_fpsCounter = 0;
 
-        m_avg_fps += (m_calculated_fps/m_fps_timer_interval-1);
+        m_total_fps += m_calculated_fps;
+        m_avg_fps = m_total_fps/m_fps_timer_interval;
+
+        // std::cout << "[div by] " << m_fps_timer_interval << std::endl;
+
+        m_fps_timer_interval++;
     }
 }
 
