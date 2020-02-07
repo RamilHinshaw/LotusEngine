@@ -88,16 +88,13 @@ endif()
 file(GLOB src_files
 	"src/*.c" 
 	"src/*.cpp" 
-	"src/engine/*.cpp"
-
-	"src/engine/*.c"
-
+	"src/core/*.cpp"
+	"src/core/*.c"
 	"src/graphics/*.cpp"
 	"src/graphics/opengl/*.cpp"
 	"src/input/*.cpp"
 	"src/math/*.cpp"
 	"src/physics/*.cpp"
-	"src/core/*.cpp"
 	"src/gui/*.cpp"
 	"src/lua/*.cpp"
 

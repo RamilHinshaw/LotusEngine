@@ -37,13 +37,9 @@ Game::Game(const char *title, int width, int height)
 		//Initialize timer, audio, video, joystick, haptic (feedback), gamecontroller & event subsystems
 		std::cout << "SDL Initialized Subsystems!" << std::endl;
 
-		//Function here to Create Window then bind to display
-		
-		display = Display(title, width, height); //Window also created here
-    // if (outColor == 0)
-    // {
-    //     outColor = vec4(1.0,1.0,1.0,1.0);
-    // }
+		//Function here to Create Window then bind to display		
+		window = Display(title, width, height); //Window also created here
+
 		isRunning = true;
 	}
 
@@ -137,9 +133,6 @@ void Game::init()
 	shader2.setMat4("view", view);
 	shader2.setMat4("projection", projection);
 
-
-
-
 	lua_init();
 }
 
@@ -193,58 +186,12 @@ void Game::handleEvents(float dt)
 //GAME CODE HERE
 void Game::update(float dt)	
 {
-	// if (test > 3) return;
-	// test++;
 
-	// if (SDL_GetTicks() > 1000) return;
-
+	//Make Model1 Spin
 	model1 = glm::rotate(model1, dt * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f)); 
+
+	//Move Camera back and forth
 	view = glm::translate(view, dt * glm::sin( SDL_GetTicks()/1000.0f) * 0.5f * glm::vec3(0.0f, 0.0f, -1.0f)); 
-
-	// shader1.bind();
-	// mesh1.draw();
-	// // setMat4 CHANGES CURRENT BIND SHADER!
-	// shader1.setMat4("model", model1);
-	// shader1.setMat4("view", view);
-	// shader1.setMat4("projection", projection);
-	// // std::cout << shader1.GetProgram() << std::endl;
-
-
-	// shader2.bind();
-	// mesh2.draw();
-	// shader2.setMat4("model", model2);
-	// shader2.setMat4("view", view);
-	// shader2.setMat4("projection", projection);
-	// std::cout << shader2.GetProgram() << std::endl;
-
-
-
-
-	// for (unsigned int i = 0; i < quads.size(); i++)
-	// {
-	// 	quads[i]->getShader()->setMat4("model", model);
-	// 	quads[i]->getShader()->setMat4("view", view);
-	// 	quads[i]->getShader()->setMat4("projection", projection);
-	// }
-
-
-	// GLuint program = shader1.GetProgram();
-	// std::string name = "projection";
-	// GLuint location = glGetUniformLocation(program, name.c_str());
-	// GLfloat params;
-	// glGetUniformfv(program, location, &params);
-
-	// std::cout << "Projection Value: " << params << std::endl;
-
-
-
-
-
-	// std::cout << (glm::sin(SDL_GetTicks()/1000.0f)) << std::endl;
-
-	// quadTest.getShader().setMat4("model", model);
-	// quadTest.getShader().setMat4("view", view);
-	// quadTest.getShader().setMat4("projection", projection);
 	
 	lua_update(dt);
 }
@@ -255,50 +202,34 @@ void Game::draw(float dt)
 	glClearColor(0.0f,0.15f,0.3f,1.0f); //Clear with this color
 	glClear(GL_COLOR_BUFFER_BIT); //Clears colors and fill
 	//-----------------------------------------
-
 	lua_draw(dt);
 
-	// for (unsigned int i = 0; i < quads.size(); i++)
-	// {
-	// 	quads[i]->draw();
-	// }
-	
 
-	// //Selects shader
-	// shader1.bind();
-	// // //Selects texture
-	// basicTexture.bind(0);
-	// // //Selects Buffer & DRAW
-	// mesh1.draw();
-
-	// //--------------
-	// shader2.bind();
-	// mesh2.draw();
-
-	// quadTest.draw();
-
-	shader1.bind();
+	//Use Shader
+	shader1.bind();	
+	//Update Transform in Camera Space
 	shader1.setMat4("model", model1);
 	shader1.setMat4("view", view);
-	shader1.setMat4("projection", projection);
+
+	if (test == 0)
+		shader1.setMat4("projection", projection);
+
+	//Draw Mesh
 	mesh1.draw();
-	// setMat4 CHANGES CURRENT BIND SHADER!
-
-	// std::cout << shader1.GetProgram() << std::endl;
-
 
 	shader2.bind();
 	shader2.setMat4("model", model2);
 	shader2.setMat4("view", view);
-	shader2.setMat4("projection", projection);
+
+	if (test == 0)
+		shader2.setMat4("projection", projection);
+
 	mesh2.draw();
 
-	
-
-
+	test++;
 
 	// Swap | --------------------------------
-	display.swapBuffers();
+	window.swapBuffers();
 }
 
 void Game::dispose()
@@ -321,7 +252,7 @@ void Game::dispose()
 	// }
 
 
-	display.dispose();
+	window.dispose();
 	SDL_Quit();
 	std::cout << "Game Cleaned" << std::endl;
 }

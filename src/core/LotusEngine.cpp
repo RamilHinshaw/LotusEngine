@@ -18,15 +18,15 @@ const int SCREEN_HEIGHT= 600;
 
 int main(int argv, char** args)
 {	
-	//ToDo: Create Game Object/Game Creates Window also ToDo: *should seperate logic here
+	//ToDo: Create Game Object/Game Creates Window also. ToDo: *should seperate logic here
 	Game game = Game("Lotus Engine",SCREEN_WIDTH, SCREEN_HEIGHT);
 	
-
+	//Set target FPS
 	const double FPS = 60.0;
 	Time::init(FPS);
 
-	game.init();
-	float dt;
+	game.init();	//Run Global Game Start Functions
+	float dt;	//Used to pass deltaTime
 
 	//Main Game Loop
 	while (game.running())
@@ -36,10 +36,12 @@ int main(int argv, char** args)
 
 		game.handleEvents(dt);
 		game.update(dt);
-		game.draw(dt);
+		game.draw(dt);	//ToDo: Draw for each window
 		
 		Time::printFPS();	//Debug
 		Time::step(); 		//FPS Calculations
+		
+		//ToDo: Give options for uncapped, delay, or vertical sync
 		Time::delay();		//Delay to target FPS
 	}
 		
