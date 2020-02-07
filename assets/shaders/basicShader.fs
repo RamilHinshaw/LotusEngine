@@ -12,6 +12,11 @@ uniform bool showTexture;
 
 void main()
 {   
+    // if (outColor == 0)
+    // {
+    //     outColor = vec4(1.0,1.0,1.0,1.0);
+    // }
+
     if (showTexture)
     {
         FragColor = outColor;
@@ -28,4 +33,4 @@ void main()
         FragColor = texColor;
     }
 
-} 
+}
