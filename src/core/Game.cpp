@@ -140,11 +140,13 @@ void Game::init()
 
 	//------------------------------------------------------------------------------------------------------------
 
-	quads->push_back( Quad() );
-	quads->push_back( Quad() );	
+	quads->push_back( Quad(glm::vec3(0.0f, 0.0f, -3.0f)) );
+	quads->push_back( Quad(glm::vec3(1.0f, 1.0f, 0.0f)) );	
+	quads->push_back( Quad(glm::vec3(-3.0f, 0.0f, -4.0f)) );	
+	quads->push_back( Quad(glm::vec3(0.0f, -3.0f, -7.0f)) );
 
-	quads->at(0).getTransform().setPosition( glm::vec3(0.0f, 0.0f, -3.0f) );
-	quads->at(1).getTransform().setPosition( glm::vec3(1.0f, 1.0f, 0.0f) );
+	// quads->at(0).getTransform().setPosition( glm::vec3(0.0f, 0.0f, -3.0f) );
+	// quads->at(1).getTransform().setPosition( glm::vec3(1.0f, 1.0f, 0.0f) );
 
 
 	lua_init();

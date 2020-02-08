@@ -16,6 +16,7 @@ class Quad : public MeshObject
 {
     public:
         Quad();
+        Quad(glm::vec3 position);
         Quad(const Rect rect);
         Quad(const Rect &rect, const glm::vec3 &color);
         // Quad(const Rect rect, const Shader &shader); //ToDo: Come back to this!yy

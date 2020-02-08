@@ -9,6 +9,11 @@ Quad::Quad()
     m_mesh = generatePrimative();
 }
 
+Quad::Quad(glm::vec3 position) : Quad()
+{
+	m_transform->setPosition(position);
+}
+
 Quad::Quad(const Rect rect) : rect(rect)
 {
 
