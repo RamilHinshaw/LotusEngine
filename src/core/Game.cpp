@@ -87,51 +87,65 @@ void Game::init()
 {
 
 	basicTexture = Texture("./assets/textures/floor1.png");
-	shader1 = Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
 
-	Vertex vertices[] = {
+	// shader1 = Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
 
-				//Positions								//Colors						//Texture Coordinates
-				Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f)),
-				Vertex(glm::vec3(0.5,	-0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f)),
-				Vertex(glm::vec3(-0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 0.0f)),
-				Vertex(glm::vec3(-0.5,	0.5,	0), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 1.0f)),
+	// Vertex vertices[] = {
 
-
-				//Vertex(glm::vec3(0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f)),
-				//Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f))
-
-			};
-
-	//Turn into class container (indice holding 3 ints)
-	unsigned int indices[] = {
-		0, 2, 3,	//first triangle
-		0, 1, 2		//second triangle
-	};
+	// 			//Positions								//Colors						//Texture Coordinates
+	// 			Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f)),
+	// 			Vertex(glm::vec3(0.5,	-0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f)),
+	// 			Vertex(glm::vec3(-0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 0.0f)),
+	// 			Vertex(glm::vec3(-0.5,	0.5,	0), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 1.0f)),
 
 
-	mesh1 = Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
+	// 			//Vertex(glm::vec3(0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f)),
+	// 			//Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f))
+
+	// 		};
+
+	// //Turn into class container (indice holding 3 ints)
+	// unsigned int indices[] = {
+	// 	0, 2, 3,	//first triangle
+	// 	0, 1, 2		//second triangle
+	// };
+
+
+	// mesh1 = Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
 
 
 	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); 
 	projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 
-	shader1.setMat4("model", model1);
-	shader1.setMat4("view", view);
-	shader1.setMat4("projection", projection);
+	//------------------------------------------------------------------------------------------------------------
+
+	// shader1.setMat4("model", model1);
+	// shader1.setMat4("view", view);
+	// shader1.setMat4("projection", projection);
 
 
 	//------------------------------------------------------------------------------------------------------------
 
-	shader2 = Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
+	// shader2 = Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
 
-	mesh2 = Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
+	// mesh2 = Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
 
-	model2 = glm::translate(model2, glm::vec3(1.0f, 1.0f, 0.0f)); 
+	// model2 = glm::translate(model2, glm::vec3(1.0f, 1.0f, 0.0f)); 
 
-	shader2.setMat4("model", model2);
-	shader2.setMat4("view", view);
-	shader2.setMat4("projection", projection);
+	// shader2.setMat4("model", model2);
+	// shader2.setMat4("view", view);
+	// shader2.setMat4("projection", projection);
+ 
+
+
+	//------------------------------------------------------------------------------------------------------------
+
+	quads->push_back( Quad() );
+	quads->push_back( Quad() );	
+
+	quads->at(0).getTransform().setPosition( glm::vec3(0.0f, 0.0f, -3.0f) );
+	quads->at(1).getTransform().setPosition( glm::vec3(1.0f, 1.0f, 0.0f) );
+
 
 	lua_init();
 }
@@ -186,9 +200,12 @@ void Game::handleEvents(float dt)
 //GAME CODE HERE
 void Game::update(float dt)	
 {
+	// std::cout << (quads->size() ) << std::endl;
 
 	//Make Model1 Spin
-	model1 = glm::rotate(model1, dt * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f)); 
+	// model1 = glm::rotate(model1, dt * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f)); 
+	quads->at(0).getTransform().setRotation(dt * glm::vec3(-55.0f, 0.0f, 0.0f));	//From Quad
+	// quads->at(0).getTransform().setRotation(glm::vec3(0.5,0,0));
 
 	//Move Camera back and forth
 	view = glm::translate(view, dt * glm::sin( SDL_GetTicks()/1000.0f) * 0.5f * glm::vec3(0.0f, 0.0f, -1.0f)); 
@@ -206,27 +223,31 @@ void Game::draw(float dt)
 
 
 	//Use Shader
-	shader1.bind();	
-	//Update Transform in Camera Space
-	shader1.setMat4("model", model1);
-	shader1.setMat4("view", view);
+	// shader1.bind();	
+	// //Update Transform in Camera Space
+	// shader1.setMat4("model", model1);
+	// shader1.setMat4("view", view);
+	// // if (test == 0)
+	// 	shader1.setMat4("projection", projection);
+	// //Draw Mesh
+	// mesh1.draw();
 
-	if (test == 0)
-		shader1.setMat4("projection", projection);
+	// shader2.bind();
+	// shader2.setMat4("model", model2);
+	// shader2.setMat4("view", view);
+	// // if (test == 0)
+	// 	shader2.setMat4("projection", projection);
+	// mesh2.draw();
 
-	//Draw Mesh
-	mesh1.draw();
+	// test++;
 
-	shader2.bind();
-	shader2.setMat4("model", model2);
-	shader2.setMat4("view", view);
 
-	if (test == 0)
-		shader2.setMat4("projection", projection);
+	for (auto it = quads->begin(); it != quads->end(); it++)
+	{
+		quads->at(0).draw(view, projection);
+		quads->at(1).draw(view, projection);
+	}
 
-	mesh2.draw();
-
-	test++;
 
 	// Swap | --------------------------------
 	window.swapBuffers();

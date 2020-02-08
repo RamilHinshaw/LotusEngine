@@ -24,7 +24,7 @@ class Transform
             m_model = glm::rotate(m_model, glm::radians(vec3.x), glm::vec3(1,0,0)); //X
             m_model = glm::rotate(m_model, glm::radians(vec3.y), glm::vec3(0,1,0)); //Y
             m_model = glm::rotate(m_model, glm::radians(vec3.z), glm::vec3(0,0,1)); //Z
-            m_pos = vec3;
+            m_rot = vec3;
         }
 
         inline void setScale(glm::vec3 vec3)

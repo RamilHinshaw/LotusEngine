@@ -18,7 +18,9 @@ void MeshObject::draw(glm::mat4 view, glm::mat4 projection)   //Pass projection 
     m_shader->setMat4("view", view);
     m_shader->setMat4("projection", projection);    
 
-    //Texture
+    // Texture
+    // std::cout << m_texture << std::endl;
+
     if (m_texture != nullptr)
         m_texture->bind(0);
     
@@ -66,4 +68,9 @@ Texture& MeshObject::getTexture()
 Mesh& MeshObject::getMesh()
 {
     return *m_mesh;
+}
+
+Transform& MeshObject::getTransform()
+{
+    return *m_transform;
 }

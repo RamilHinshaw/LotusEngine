@@ -11,20 +11,20 @@ class MeshObject  //ToDo: Should be abstract
         MeshObject();   
         ~MeshObject();
 
-        virtual void draw(glm::mat4 view, glm::mat4 proj);  //Both View And Projection Matrix should be combined!
-        virtual void dispose();
+        void draw(glm::mat4 view, glm::mat4 proj);  //Both View And Projection Matrix should be combined!
+        void dispose();
 
         //ToDo: Use State Managers for this in the future to help improve performance
         Shader& getShader();
         Texture& getTexture();        
         Mesh& getMesh();
-        
+        Transform& getTransform();      
 
     protected:
         Mesh *m_mesh;
         Shader *m_shader;
-        Texture *m_texture;
-        Transform *m_transform;
+        Texture *m_texture = nullptr;   //ToDo: Find alternative, this is probably causing initial memory leak (or pointing to some garbage data by default)
+        Transform *m_transform = new Transform();
 
 
 };

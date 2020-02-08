@@ -51,29 +51,29 @@ Quad::Quad(const Rect rect) : rect(rect)
 //     m_mesh = generatePrimative();
 // }
 
-Shader& Quad::getShader()
-{
-	return *m_shader;
-}
+// Shader& Quad::getShader()
+// {
+// 	return *m_shader;
+// }
 
 Quad::~Quad()
 {
     std::cout << "Quad out of scope!" << std::endl;
 }
 
-void Quad::dispose()
-{
-	std::cout << "Disposed Quad!" << std::endl;
-    m_mesh->dispose();
-    m_shader->dispose();  
+// void Quad::dispose()
+// {
+// 	std::cout << "Disposed Quad!" << std::endl;
+//     m_mesh->dispose();
+//     m_shader->dispose();  
 
-	delete m_mesh;
-	m_mesh = nullptr;
+// 	delete m_mesh;
+// 	m_mesh = nullptr;
 
-	delete m_shader;  
-	m_shader = nullptr;
-    // std::cout << "Quad DISPOSED!" << std::endl;
-}
+// 	delete m_shader;  
+// 	m_shader = nullptr;
+//     // std::cout << "Quad DISPOSED!" << std::endl;
+// }
 
 Mesh* Quad::generatePrimative()
 {
@@ -105,12 +105,12 @@ Mesh* Quad::generatePrimative()
     //return Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), GL_Triangle_Strip); //Optimized
 }
 
-void Quad::draw()
-{
-    m_shader->bind();
-    m_mesh->draw();
-    // std::cout << "Quad DRAWING!" << std::endl;
-}
+// void Quad::draw()
+// {
+//     m_shader->bind();
+//     m_mesh->draw();
+//     // std::cout << "Quad DRAWING!" << std::endl;
+// }
 
 Shader* Quad::generateShader()
 {
