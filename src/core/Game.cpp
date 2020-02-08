@@ -88,57 +88,11 @@ void Game::init()
 
 	basicTexture = Texture("./assets/textures/floor1.png");
 
-	// shader1 = Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
-
-	// Vertex vertices[] = {
-
-	// 			//Positions								//Colors						//Texture Coordinates
-	// 			Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f)),
-	// 			Vertex(glm::vec3(0.5,	-0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f)),
-	// 			Vertex(glm::vec3(-0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 0.0f)),
-	// 			Vertex(glm::vec3(-0.5,	0.5,	0), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 1.0f)),
-
-
-	// 			//Vertex(glm::vec3(0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f)),
-	// 			//Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f))
-
-	// 		};
-
-	// //Turn into class container (indice holding 3 ints)
-	// unsigned int indices[] = {
-	// 	0, 2, 3,	//first triangle
-	// 	0, 1, 2		//second triangle
-	// };
-
-
-	// mesh1 = Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
-
-
 	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); 
 	projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 
 	//------------------------------------------------------------------------------------------------------------
 
-	// shader1.setMat4("model", model1);
-	// shader1.setMat4("view", view);
-	// shader1.setMat4("projection", projection);
-
-
-	//------------------------------------------------------------------------------------------------------------
-
-	// shader2 = Shader("./assets/shaders/basicShader"); //Load Shaders (both vertext and fragment)
-
-	// mesh2 = Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
-
-	// model2 = glm::translate(model2, glm::vec3(1.0f, 1.0f, 0.0f)); 
-
-	// shader2.setMat4("model", model2);
-	// shader2.setMat4("view", view);
-	// shader2.setMat4("projection", projection);
- 
-
-
-	//------------------------------------------------------------------------------------------------------------
 
 	quads->push_back( Quad(glm::vec3(0.0f, 0.0f, -3.0f)) );
 	quads->push_back( Quad(glm::vec3(1.0f, 1.0f, 0.0f)) );	
@@ -147,6 +101,8 @@ void Game::init()
 
 	// quads->at(0).getTransform().setPosition( glm::vec3(0.0f, 0.0f, -3.0f) );
 	// quads->at(1).getTransform().setPosition( glm::vec3(1.0f, 1.0f, 0.0f) );
+
+	quads->at(0).getTransform().position( glm::vec3(-1.0f, -1.0f, 0.0f));
 
 
 	lua_init();
@@ -176,17 +132,11 @@ void Game::handleEvents(float dt)
 				break;
 
 				case SDLK_LEFT:
-					// quadTest.getShader().setBool("showTexture", false);
-					// glActiveTexture(GL_TEXTURE_2D); glDisable(GL_TEXTURE_2D);
-
 					// for (unsigned int i = 0; i < quads.size(); i++)
 						// quads[i]->getShader()->setBool("showTexture", false);
 				break;
 
 				case SDLK_RIGHT:
-					// quadTest.getShader().setBool("showTexture", true);
-					// glActiveTexture(GL_TEXTURE_2D); glDisable(GL_TEXTURE_2D);
-
 					// for (unsigned int i = 0; i < quads.size(); i++)
 						// quads[i]->getShader()->setBool("showTexture", true);
 
@@ -202,12 +152,17 @@ void Game::handleEvents(float dt)
 //GAME CODE HERE
 void Game::update(float dt)	
 {
-	// std::cout << (quads->size() ) << std::endl;
 
-	//Make Model1 Spin
-	// model1 = glm::rotate(model1, dt * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f)); 
-	quads->at(0).getTransform().setRotation(dt * glm::vec3(-55.0f, 0.0f, 0.0f));	//From Quad
-	// quads->at(0).getTransform().setRotation(glm::vec3(0.5,0,0));
+	// quads->at(0).getTransform().setRotation(dt * glm::vec3(-55.0f, 0.0f, 0.0f));	//From Quad
+
+	for (auto it = quads->begin(); it != quads->end(); it++)
+	{
+		int index = std::distance(quads->begin(), it);
+		it->getTransform().rotate(dt * (index+1) * 2 * glm::vec3(-55.0f, 0.0f, 0.0f));
+	}
+
+	quads->at(0).getTransform().translate( dt * (float) glm::sin(Time::time()) * glm::vec3(3,0,0));
+
 
 	//Move Camera back and forth
 	view = glm::translate(view, dt * glm::sin( SDL_GetTicks()/1000.0f) * 0.5f * glm::vec3(0.0f, 0.0f, -1.0f)); 
@@ -223,32 +178,11 @@ void Game::draw(float dt)
 	//-----------------------------------------
 	lua_draw(dt);
 
-
-	//Use Shader
-	// shader1.bind();	
-	// //Update Transform in Camera Space
-	// shader1.setMat4("model", model1);
-	// shader1.setMat4("view", view);
-	// // if (test == 0)
-	// 	shader1.setMat4("projection", projection);
-	// //Draw Mesh
-	// mesh1.draw();
-
-	// shader2.bind();
-	// shader2.setMat4("model", model2);
-	// shader2.setMat4("view", view);
-	// // if (test == 0)
-	// 	shader2.setMat4("projection", projection);
-	// mesh2.draw();
-
-	// test++;
-
 	//Draw all objects!
 	for (auto it = quads->begin(); it != quads->end(); it++)
 	{
 		it->draw(view, projection);
 	}
-
 
 	// Swap | --------------------------------
 	window.swapBuffers();
@@ -257,22 +191,10 @@ void Game::draw(float dt)
 void Game::dispose()
 {
 
-	// quadTest.dispose();
-	mesh1.dispose();
-	basicTexture.dispose();
-	shader1.dispose();
-
-
-	//TEST
-	//delete triangleMesh1;
-	//delete triangleMesh2;
-	//delete basicShader;
-
-	// for (unsigned int i = 0; i < quads.size(); i++)
-	// {
-	// 	quads[i]->dispose();
-	// }
-
+	for (auto it = quads->begin(); it != quads->end(); it++)
+	{
+		it->dispose();
+	}
 
 	window.dispose();
 	SDL_Quit();

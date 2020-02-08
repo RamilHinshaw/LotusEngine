@@ -42,7 +42,7 @@ int main(int argv, char** args)
 		Time::step(); 		//FPS Calculations
 		
 		//ToDo: Give options for uncapped, delay, or vertical sync
-		Time::delay();		//Delay to target FPS
+		// Time::delay();		//Delay to target FPS
 	}
 		
 	game.dispose();

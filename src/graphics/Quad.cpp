@@ -11,7 +11,7 @@ Quad::Quad()
 
 Quad::Quad(glm::vec3 position) : Quad()
 {
-	m_transform->setPosition(position);
+	m_transform->translate(position);
 }
 
 Quad::Quad(const Rect rect) : rect(rect)

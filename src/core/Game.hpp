@@ -23,6 +23,8 @@ extern "C" //Should not being seeing this in game.hpp (lower level functions)
 #include <string>
 
 #include "Display.hpp"
+#include "Time.hpp"
+
 #include "../graphics/opengl/Shader.hpp"
 #include "../graphics/opengl/Mesh.hpp"
 #include "../graphics/opengl/Vertex.hpp"
@@ -73,16 +75,6 @@ class Game{
 	private:
 		bool isRunning;
 		Display window;
-
-		Shader shader1;
-		Mesh mesh1;
-		glm::mat4 model1 = glm::mat4(1.0f);
-
-		Shader shader2;
-		Mesh mesh2;
-		glm::mat4 model2 = glm::mat4(1.0f);
-
-
 
 		Texture basicTexture;
 
