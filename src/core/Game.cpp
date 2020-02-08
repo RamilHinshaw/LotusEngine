@@ -241,11 +241,10 @@ void Game::draw(float dt)
 
 	// test++;
 
-
+	//Draw all objects!
 	for (auto it = quads->begin(); it != quads->end(); it++)
 	{
-		quads->at(0).draw(view, projection);
-		quads->at(1).draw(view, projection);
+		it->draw(view, projection);
 	}
 
 
