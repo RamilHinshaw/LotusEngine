@@ -6,7 +6,7 @@
 // #include "opengl/Vertex.hpp"
 #include "../common/Rect.hpp"
 #include "../common/Transform.hpp"
-#include "MeshObject2D.hpp"
+#include "MeshObject.hpp"
 #include <glm/glm.hpp>
 
 
