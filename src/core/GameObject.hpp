@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "../common/Transform.hpp"
+#include "../Graphics/
 
 class GameObject
 {
@@ -13,6 +14,11 @@ class GameObject
 
     
     private:
+
+    //Should be holding a list of id's of different components
+    //This is way in the future to implement!
+
+
 
 
 };
