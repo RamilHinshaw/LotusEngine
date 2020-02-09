@@ -64,6 +64,11 @@ Game::Game(const char *title, int width, int height)
 	lua_init = lua["Init"];
 	lua_update = lua["Update"];
 	lua_draw = lua["Draw"];
+	//---------------------------------------------------
+
+
+	glEnable(GL_DEPTH_TEST);  //ToDo: Put somewhere else
+ 
 }
 
 Game::~Game()
@@ -174,7 +179,7 @@ void Game::draw(float dt)
 {
 	//Clear Screen
 	glClearColor(0.0f,0.15f,0.3f,1.0f); //Clear with this color
-	glClear(GL_COLOR_BUFFER_BIT); //Clears colors and fill
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //Clears colors and fill
 	//-----------------------------------------
 	lua_draw(dt);
 
