@@ -29,6 +29,7 @@ extern "C" //Should not being seeing this in game.hpp (lower level functions)
 #include "../graphics/opengl/Mesh.hpp"
 #include "../graphics/opengl/Vertex.hpp"
 #include "../graphics/opengl/Texture.hpp"
+#include "../graphics/Camera.hpp"
 
 // #include "../graphics/MeshObject2D.hpp"
 #include "../graphics/Quad.hpp"
@@ -76,9 +77,13 @@ class Game{
 		bool isRunning;
 		Display window;
 
+		Camera* camera;
+
 		Texture basicTexture;
 
-		glm::mat4 model = glm::mat4(1.0f);
+		const Uint8 *inputState = SDL_GetKeyboardState(NULL);
+
+		// glm::mat4 model = glm::mat4(1.0f);
 		glm::mat4 view = glm::mat4(1.0f);
 		glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 

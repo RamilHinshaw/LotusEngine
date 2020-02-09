@@ -68,6 +68,8 @@ Game::Game(const char *title, int width, int height)
 
 
 	glEnable(GL_DEPTH_TEST);  //ToDo: Put somewhere else
+
+
  
 }
 
@@ -90,11 +92,16 @@ void Game::PrintUniformValue(GLint program, std::string name)
 //GAME START CODE HERE!
 void Game::init()
 {
+	lua_init();
+	//--------------- INIT CODE BELOW ----------------------------------------------------------------------------
 
 	basicTexture = Texture("./assets/textures/floor1.png");
 
 	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); 
-	projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+	//projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+	
+	camera = new Camera(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+	camera->getTransform().translate(glm::vec3(0.0f, 0.0f, -3.0f));
 
 	//------------------------------------------------------------------------------------------------------------
 
@@ -110,7 +117,7 @@ void Game::init()
 	quads->at(0).getTransform().position( glm::vec3(-1.0f, -1.0f, 0.0f));
 
 
-	lua_init();
+
 }
 
 void Game::handleEvents(float dt)
@@ -146,6 +153,30 @@ void Game::handleEvents(float dt)
 						// quads[i]->getShader()->setBool("showTexture", true);
 
 				break;
+
+				case SDLK_w:
+					camera->getTransform().translate(dt * glm::vec3(0.0f, 0.0f, 5.0f));
+				break;
+
+				case SDLK_a:
+					camera->getTransform().translate(dt * glm::vec3(5.0f, 0.0f, 0.0f));
+				break;
+
+				case SDLK_s:
+					camera->getTransform().translate(dt * glm::vec3(0.0f, 0.0f, -5.0f));
+				break;
+
+				case SDLK_d:
+					camera->getTransform().translate(dt * glm::vec3(-5.0f, 0.0f, 0.0f));
+				break;
+
+				case SDLK_q:
+					camera->getTransform().translate(dt * glm::vec3(0.0f, 5.0f, 0.0f));
+				break;
+
+				case SDLK_e:
+					camera->getTransform().translate(dt * glm::vec3(0.0f, -5.0f, 0.0f));
+				break;
 					
 				default:
 					break;		
@@ -157,6 +188,17 @@ void Game::handleEvents(float dt)
 //GAME CODE HERE
 void Game::update(float dt)	
 {
+	//******* INPUT STATE TEMP *************************************************************************
+
+
+	// if (inputState[SDL_SCANCODE_W])
+	// 	camera->getTransform().translate(dt * glm::vec3(0.0f, 0.0f, 5.0f));
+
+	
+
+
+	//**************************************************************************************************
+
 
 	// quads->at(0).getTransform().setRotation(dt * glm::vec3(-55.0f, 0.0f, 0.0f));	//From Quad
 
@@ -170,7 +212,8 @@ void Game::update(float dt)
 
 
 	//Move Camera back and forth
-	view = glm::translate(view, dt * glm::sin( SDL_GetTicks()/1000.0f) * 0.5f * glm::vec3(0.0f, 0.0f, -1.0f)); 
+	//view = glm::translate(view, dt * glm::sin( SDL_GetTicks()/1000.0f) * 0.5f * glm::vec3(0.0f, 0.0f, -1.0f)); 
+	camera->getTransform().translate(dt * glm::sin( SDL_GetTicks()/1000.0f) * 0.5f * glm::vec3(0.0f, 0.0f, -1.0f));
 	
 	lua_update(dt);
 }
@@ -186,7 +229,9 @@ void Game::draw(float dt)
 	//Draw all objects!
 	for (auto it = quads->begin(); it != quads->end(); it++)
 	{
-		it->draw(view, projection);
+		// it->draw(view, projection);
+		// camera.getTransform().position(glm::vec3(0.0f, 0.0f, -3.0f));
+		it->draw( camera->getTransform().getModel(), camera->getProjection() );
 	}
 
 	// Swap | --------------------------------
@@ -207,18 +252,3 @@ void Game::dispose()
 }
 
 bool Game::running() { return isRunning;}
-
-// bool Game::CheckLua(lua_State *L, int r)
-// {
-// 	if (r != LUA_OK)
-// 	{
-// 		std::string errormsg = lua_tostring(L, -1);
-// 		std::cout << errormsg << std::endl;
-// 		return false;
-// 	}
-
-// 	else
-// 	{
-// 		return true;
-// 	}
-// }

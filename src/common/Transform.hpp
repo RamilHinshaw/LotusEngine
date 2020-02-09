@@ -2,16 +2,17 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <iostream>
 
 class Transform
 {
     public:
         Transform() : m_model(glm::mat4(1.0f))
-        {
-            
-        }
+        {  }
 
-        ~Transform(){};
+        ~Transform(){ 
+            std::cout << "Transform out of scope!" << std::endl;
+        }
 
         inline void translate(glm::vec3 vec3)
         {
@@ -44,17 +45,17 @@ class Transform
             m_scale = vec3;
         }
 
-        inline glm::vec3 getPosition(glm::vec3 vec3)
+        inline glm::vec3 getPosition()
         {
             return m_pos;
         }
 
-        inline glm::vec3 getRotation(glm::vec3 vec3,float degrees)
+        inline glm::vec3 getRotation()
         {
             return m_rot;
         }
 
-        inline glm::vec3 getScale(glm::vec3 vec3)
+        inline glm::vec3 getScale()
         {
             return m_scale;
         }
