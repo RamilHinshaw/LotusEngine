@@ -101,6 +101,8 @@ void Game::init()
 	//projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 	
 	camera = new Camera(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+	//camera = new Camera(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.0f);
+
 	camera->getTransform().translate(glm::vec3(0.0f, 0.0f, -3.0f));
 
 	//------------------------------------------------------------------------------------------------------------
@@ -166,22 +168,22 @@ void Game::update(float dt)
 	//******* INPUT STATE TEMP *************************************************************************
 
 
-	if (inputState[SDL_SCANCODE_W])
+	if (keyboardState[SDL_SCANCODE_W])
 		camera->getTransform().translate(dt * glm::vec3(0.0f, 0.0f, 5.0f));
 
-	if (inputState[SDL_SCANCODE_A])
+	if (keyboardState[SDL_SCANCODE_A])
 		camera->getTransform().translate(dt * glm::vec3(5.0f, 0.0f, 0.0f));
 
-	if (inputState[SDL_SCANCODE_S])
+	if (keyboardState[SDL_SCANCODE_S])
 		camera->getTransform().translate(dt * glm::vec3(0.0f, 0.0f, -5.0f));
 
-	if (inputState[SDL_SCANCODE_D])
+	if (keyboardState[SDL_SCANCODE_D])
 		camera->getTransform().translate(dt * glm::vec3(-5.0f, 0.0f, 0.0f));
 
-	if (inputState[SDL_SCANCODE_Q])
+	if (keyboardState[SDL_SCANCODE_Q])
 		camera->getTransform().translate(dt * glm::vec3(0.0f, 5.0f, 0.0f));
 
-	if (inputState[SDL_SCANCODE_E])
+	if (keyboardState[SDL_SCANCODE_E])
 		camera->getTransform().translate(dt * glm::vec3(0.0f, -5.0f, 0.0f));
 
 

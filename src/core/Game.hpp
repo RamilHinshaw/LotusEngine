@@ -81,7 +81,9 @@ class Game{
 
 		Texture basicTexture;
 
-		const Uint8 *inputState = SDL_GetKeyboardState(NULL);
+		const Uint8 *keyboardState = SDL_GetKeyboardState(NULL);
+		// const Uint8 *buttonState = SDL_GameControllerGetButton
+		//const Uint8 *mouseState = SDL_GetMouseState(NULL, NULL);
 
 		// glm::mat4 model = glm::mat4(1.0f);
 		glm::mat4 view = glm::mat4(1.0f);
