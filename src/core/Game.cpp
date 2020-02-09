@@ -154,32 +154,7 @@ void Game::handleEvents(float dt)
 
 				break;
 
-				case SDLK_w:
-					camera->getTransform().translate(dt * glm::vec3(0.0f, 0.0f, 5.0f));
-				break;
-
-				case SDLK_a:
-					camera->getTransform().translate(dt * glm::vec3(5.0f, 0.0f, 0.0f));
-				break;
-
-				case SDLK_s:
-					camera->getTransform().translate(dt * glm::vec3(0.0f, 0.0f, -5.0f));
-				break;
-
-				case SDLK_d:
-					camera->getTransform().translate(dt * glm::vec3(-5.0f, 0.0f, 0.0f));
-				break;
-
-				case SDLK_q:
-					camera->getTransform().translate(dt * glm::vec3(0.0f, 5.0f, 0.0f));
-				break;
-
-				case SDLK_e:
-					camera->getTransform().translate(dt * glm::vec3(0.0f, -5.0f, 0.0f));
-				break;
-					
-				default:
-					break;		
+	
 			}
 		}
 	}
@@ -191,10 +166,23 @@ void Game::update(float dt)
 	//******* INPUT STATE TEMP *************************************************************************
 
 
-	// if (inputState[SDL_SCANCODE_W])
-	// 	camera->getTransform().translate(dt * glm::vec3(0.0f, 0.0f, 5.0f));
+	if (inputState[SDL_SCANCODE_W])
+		camera->getTransform().translate(dt * glm::vec3(0.0f, 0.0f, 5.0f));
 
-	
+	if (inputState[SDL_SCANCODE_A])
+		camera->getTransform().translate(dt * glm::vec3(5.0f, 0.0f, 0.0f));
+
+	if (inputState[SDL_SCANCODE_S])
+		camera->getTransform().translate(dt * glm::vec3(0.0f, 0.0f, -5.0f));
+
+	if (inputState[SDL_SCANCODE_D])
+		camera->getTransform().translate(dt * glm::vec3(-5.0f, 0.0f, 0.0f));
+
+	if (inputState[SDL_SCANCODE_Q])
+		camera->getTransform().translate(dt * glm::vec3(0.0f, 5.0f, 0.0f));
+
+	if (inputState[SDL_SCANCODE_E])
+		camera->getTransform().translate(dt * glm::vec3(0.0f, -5.0f, 0.0f));
 
 
 	//**************************************************************************************************
