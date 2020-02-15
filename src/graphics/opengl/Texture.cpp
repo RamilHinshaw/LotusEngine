@@ -8,22 +8,26 @@ Texture::Texture()
 
 Texture::Texture(const std::string& fileName)
 {
-    int width, height, channels;
+    // int width, height, channels;
     stbi_set_flip_vertically_on_load(true); //Global not thread safe!
     unsigned char* imageData = stbi_load(fileName.c_str(),
-                                         &width,
-                                         &height,
-                                         &channels,
+                                         &m_width,
+                                         &m_height,
+                                         &m_channels,
                                          0);
+
+    // m_width = width;
+    // m_height = height;
+    // m_channels = channels;
 
     if (imageData)
     {
         GLenum format;
-        if (channels == 1)
+        if (m_channels == 1)
             format = GL_RED;
-        else if (channels == 3)
+        else if (m_channels == 3)
             format = GL_RGB;
-        else if (channels == 4)
+        else if (m_channels == 4)
             format = GL_RGBA;
 
         glGenTextures(1, &m_texture); //Create buffer
@@ -37,7 +41,7 @@ Texture::Texture(const std::string& fileName)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, imageData);
+        glTexImage2D(GL_TEXTURE_2D, 0, format, m_width, m_height, 0, format, GL_UNSIGNED_BYTE, imageData);
         //glGenerateMipmap(GL_TEXTURE_2D);
     }
 
@@ -59,6 +63,10 @@ void Texture::dispose()
     glDeleteTextures(0, &m_texture);
 }
 
+glm::vec2 Texture::getSize()
+{
+    return glm::vec2(m_width, m_height);
+}
 
 void Texture::bind(unsigned int unit)
 {

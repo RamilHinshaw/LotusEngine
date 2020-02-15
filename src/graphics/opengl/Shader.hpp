@@ -23,7 +23,7 @@ public:
 
     void bind();    //Use Shader
 
-    virtual ~Shader();
+    ~Shader();
 
     //void CheckShaderError(GLuint shader, GLuint flag, bool isProgram, const std::string& errorMessage);
     //std::string Shader::LoadShader(const std::string& fileName);
