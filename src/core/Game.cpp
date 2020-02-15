@@ -95,28 +95,42 @@ void Game::init()
 	lua_init();
 	//--------------- INIT CODE BELOW ----------------------------------------------------------------------------
 
-	basicTexture = Texture("./assets/textures/floor1.png");
+	basicTexture = Texture("./assets/textures/floorAll.png");
 
-	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); 
-	//projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+	std::cout << "Image Size: " << basicTexture.getSize().x << "x" << basicTexture.getSize().y << std::endl;
+
+	// view = glm::translate(view, glm::vec3(0.0f, 0.0f, -15.0f)); 
 	
+	//Perspective
 	camera = new Camera(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
-	//camera = new Camera(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.0f);
+
+	//Orthogonal
+	// camera = new Camera(0.0f, 800.0f, 0.0f, 600.0f, 0.0f, 1000.0f);
 
 	camera->getTransform().translate(glm::vec3(0.0f, 0.0f, -3.0f));
 
 	//------------------------------------------------------------------------------------------------------------
 
 
-	quads->push_back( Quad(glm::vec3(0.0f, 0.0f, -3.0f)) );
-	quads->push_back( Quad(glm::vec3(1.0f, 1.0f, 0.0f)) );	
-	quads->push_back( Quad(glm::vec3(-3.0f, 0.0f, -4.0f)) );	
-	quads->push_back( Quad(glm::vec3(0.0f, -3.0f, -7.0f)) );
+	int tileXAmnt = 20;
+	int tileYAmnt = 20;
+	
+	for (int y = 0; y < tileYAmnt; y++)
+		for (int x = 0; x < tileXAmnt; x++)
+		{
+			quads->push_back( Quad(glm::vec3(1.0f * x, 1.0f * y, 0)) );
+		}
+
+	// quads->push_back( Quad(glm::vec3(1.0f, 1.0f, 0.0f)) );	
+	// quads->push_back( Quad(glm::vec3(-3.0f, 0.0f, -4.0f)) );	
+	// quads->push_back( Quad(glm::vec3(0.0f, -3.0f, -7.0f)) );
 
 	// quads->at(0).getTransform().setPosition( glm::vec3(0.0f, 0.0f, -3.0f) );
 	// quads->at(1).getTransform().setPosition( glm::vec3(1.0f, 1.0f, 0.0f) );
 
-	quads->at(0).getTransform().position( glm::vec3(-1.0f, -1.0f, 0.0f));
+	// quads->at(0).getTransform().position( glm::vec3(-1.0f, -1.0f, 0.0f));
+
+	// quads->at(0).getShader().setMat4()
 
 
 
@@ -146,13 +160,19 @@ void Game::handleEvents(float dt)
 				break;
 
 				case SDLK_LEFT:
-					// for (unsigned int i = 0; i < quads.size(); i++)
-						// quads[i]->getShader()->setBool("showTexture", false);
+					for (unsigned int i = 0; i < quads->size(); i++)
+					{
+						quads->at(i).getShader().bind();
+						quads->at(i).getShader().setBool("showTexture", false);
+					}
 				break;
 
 				case SDLK_RIGHT:
-					// for (unsigned int i = 0; i < quads.size(); i++)
-						// quads[i]->getShader()->setBool("showTexture", true);
+					for (unsigned int i = 0; i < quads->size(); i++)
+					{
+						quads->at(i).getShader().bind();
+						quads->at(i).getShader().setBool("showTexture", true);
+					}
 
 				break;
 
@@ -192,19 +212,29 @@ void Game::update(float dt)
 
 	// quads->at(0).getTransform().setRotation(dt * glm::vec3(-55.0f, 0.0f, 0.0f));	//From Quad
 
-	for (auto it = quads->begin(); it != quads->end(); it++)
-	{
-		int index = std::distance(quads->begin(), it);
-		it->getTransform().rotate(dt * (index+1) * 2 * glm::vec3(-55.0f, 0.0f, 0.0f));
-	}
+	// for (auto it = quads->begin(); it != quads->end(); it++)
+	// {
+	// 	int index = std::distance(quads->begin(), it);
+	// 	it->getTransform().rotate(dt * (index+1) * glm::vec3(-55.0f, 0.0f, 0.0f));
+	// }
 
-	quads->at(0).getTransform().translate( dt * (float) glm::sin(Time::time()) * glm::vec3(3,0,0));
+	// quads->at(0).getTransform().translate( dt * (float) glm::sin(Time::time()) * glm::vec3(3,0,0));
 
 
 	//Move Camera back and forth
 	//view = glm::translate(view, dt * glm::sin( SDL_GetTicks()/1000.0f) * 0.5f * glm::vec3(0.0f, 0.0f, -1.0f)); 
-	camera->getTransform().translate(dt * glm::sin( SDL_GetTicks()/1000.0f) * 0.5f * glm::vec3(0.0f, 0.0f, -1.0f));
+	// camera->getTransform().translate(dt * glm::sin( SDL_GetTicks()/1000.0f) * 0.5f * glm::vec3(0.0f, 0.0f, -1.0f));
+
+	textureOffset += dt * .25f;// * glm::vec2(1,0);
+
+	for (auto it = quads->begin(); it != quads->end(); it++)
+	{
+		it->getShader().bind();
+		it->getShader().setVec2("texRect", textureOffset.x, textureOffset.y);
+	}
+
 	
+	//**************************************************************************************************
 	lua_update(dt);
 }
 

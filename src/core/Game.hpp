@@ -98,7 +98,7 @@ class Game{
 		sol::state lua;
 		sol::function lua_init, lua_update, lua_draw;
 
-		int test = 0;
+		glm::vec2 textureOffset;
 
 };
 
