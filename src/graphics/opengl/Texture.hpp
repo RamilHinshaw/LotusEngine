@@ -29,7 +29,7 @@ class Texture
 
         //Texture(const Texture& other) {} copy constructor
         int m_width, m_height, m_channels;
-        char giveByteToOpenglGOD; //This is here to fix some VERY odd opengl bug, prevents textures from being weird, must appease the opengl god | Error
+        // char giveByteToOpenglGOD; //This is here to fix some VERY odd opengl bug, prevents textures from being weird, must appease the opengl god | Error
 
         GLuint m_texture;
 
