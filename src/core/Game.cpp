@@ -102,10 +102,11 @@ void Game::init()
 	// view = glm::translate(view, glm::vec3(0.0f, 0.0f, -15.0f)); 
 	
 	//Perspective
-	camera = new Camera(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+	// camera = new Camera(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 
+	float zoom = 45.0f;
 	//Orthogonal
-	// camera = new Camera(0.0f, 800.0f, 0.0f, 600.0f, 0.0f, 1000.0f);
+	camera = new Camera(0, 800.0f/zoom, 0, 600.0f/zoom, 0.0f, 50.0f);
 
 	camera->getTransform().translate(glm::vec3(0.0f, 0.0f, -3.0f));
 
@@ -225,6 +226,7 @@ void Game::update(float dt)
 	//view = glm::translate(view, dt * glm::sin( SDL_GetTicks()/1000.0f) * 0.5f * glm::vec3(0.0f, 0.0f, -1.0f)); 
 	// camera->getTransform().translate(dt * glm::sin( SDL_GetTicks()/1000.0f) * 0.5f * glm::vec3(0.0f, 0.0f, -1.0f));
 
+	// SCROLLING UV TEST!		| ToDo: Put in queue system so don't double bind!
 	textureOffset += dt * .25f;// * glm::vec2(1,0);
 
 	for (auto it = quads->begin(); it != quads->end(); it++)
