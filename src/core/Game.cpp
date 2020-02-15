@@ -104,9 +104,14 @@ void Game::init()
 	//Perspective
 	// camera = new Camera(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 
-	float zoom = 45.0f;
+
+	//DISPLAY SETTINGS
+	float winWidth = 800.0f;
+	float winHeight = 600.0f;
+	float camFov = 45.0f;
+
 	//Orthogonal
-	camera = new Camera(0, 800.0f/zoom, 0, 600.0f/zoom, 0.0f, 50.0f);
+	camera = new Camera(camFov, winWidth, winHeight, 0.1f, 50.0f, true);
 
 	camera->getTransform().translate(glm::vec3(0.0f, 0.0f, -3.0f));
 
@@ -206,6 +211,9 @@ void Game::update(float dt)
 
 	if (keyboardState[SDL_SCANCODE_E])
 		camera->getTransform().translate(dt * glm::vec3(0.0f, -5.0f, 0.0f));
+	
+	if (keyboardState[SDL_SCANCODE_0])
+		camera->toggleProjection();
 
 
 	//**************************************************************************************************
