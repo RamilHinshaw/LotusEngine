@@ -16,20 +16,22 @@
 class Camera
 {
     public:
-        Camera() : Camera(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f)
+        Camera() : Camera(glm::radians(m_fov), 800.0f / 600.0f, 0.1f, 100.0f)
         {
             //Perspective by default
         }
 
         //Othorgraphic
-        Camera(float left, float right, float bottom, float top, float near, float far)
+        Camera(float fov, float left, float right, float bottom, float top, float near, float far)
         {
-            projection = glm::ortho(left, right, bottom, top, near, far);
+            m_fov = fov;
+            projection = glm::ortho(left/m_fov, right/m_fov, bottom/m_fov, top/m_fov, near, far);
         }
 
         //Perspective
         Camera(float fov, float screenRatio, float near, float far)
         {
+            m_fov = fov;
             projection = glm::perspective(fov, screenRatio, near, far);
         }
 
@@ -51,6 +53,7 @@ class Camera
         }
 
     private:
+        float m_fov = 45.0f;
         Transform* transform = new Transform();
         glm::mat4 projection;
     // enum Camera_Mode {

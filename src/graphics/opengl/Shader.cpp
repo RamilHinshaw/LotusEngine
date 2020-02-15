@@ -42,12 +42,14 @@ Shader::Shader(const std::string& fileName)
     glValidateProgram(m_program);
     CheckShaderError(m_program, GL_VALIDATE_STATUS, true, "Error: Program is invalid: ");
 
-    std::cout << "pg: " << m_program << std::endl;
+    // std::cout << "pg: " << m_program << std::endl;
 }
 
 void Shader::bind()
 {
     // std::cout << "bind: " << m_program << std::endl;
+
+
     glUseProgram(m_program);
 }
 

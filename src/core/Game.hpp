@@ -2,14 +2,6 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
-
-// extern "C"
-// {
-// 	#include <lua5.3/lua.h>   //Install with liblua5.3
-// 	#include <lua5.3/lauxlib.h> 
-// 	#include <lua5.3/lualib.h> 
-// }
-
 extern "C" //Should not being seeing this in game.hpp (lower level functions)
 { 
 	#include <SDL2/SDL.h>
@@ -17,6 +9,7 @@ extern "C" //Should not being seeing this in game.hpp (lower level functions)
 	#include <lua5.1/lua.h>
 	#include <lua5.1/lauxlib.h>
 	#include <lua5.1/lualib.h>
+	#include <python3.6/Python.h>
 }
 
 #include <iostream>
