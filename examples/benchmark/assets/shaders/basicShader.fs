@@ -9,6 +9,7 @@ in vec2 outTexCoord;
 
 uniform sampler2D ourTexture;
 uniform bool showTexture;
+uniform vec2 texRect;
 
 void main()
 {   
@@ -24,7 +25,7 @@ void main()
 
     else
     {
-        vec4 texColor = outColor * texture(ourTexture, outTexCoord);
+        vec4 texColor = outColor * texture(ourTexture, outTexCoord + texRect.xy);
 
         //Tranparency
         if (texColor.a < 0.1)
