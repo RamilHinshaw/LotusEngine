@@ -52,6 +52,9 @@ Game::Game(const char *title, int width, int height)
 	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
 	std::cout << "Maximum nr of vertex attributes supported: " << nrAttributes << std::endl;
 
+	// Input
+	// Input::Init();
+
 	//LUA STUFF
 	//sol::state lua;
 	lua.open_libraries(sol::lib::base);
@@ -66,7 +69,7 @@ Game::Game(const char *title, int width, int height)
 	lua_draw = lua["Draw"];
 	//---------------------------------------------------
 
-
+	
 	glEnable(GL_DEPTH_TEST);  //ToDo: Put somewhere else
 
 
@@ -115,6 +118,10 @@ void Game::init()
 
 	camera->getTransform().translate(glm::vec3(0.0f, 0.0f, -3.0f));
 
+	//Input
+	SDL_PumpEvents();	//Update Keyboard State
+	Input::UpdatePreviousState(); //Assign Previous so no Memory Error
+
 	//------------------------------------------------------------------------------------------------------------
 
 
@@ -127,16 +134,7 @@ void Game::init()
 			quads->push_back( Quad(glm::vec3(1.0f * x, 1.0f * y, 0)) );
 		}
 
-	// quads->push_back( Quad(glm::vec3(1.0f, 1.0f, 0.0f)) );	
-	// quads->push_back( Quad(glm::vec3(-3.0f, 0.0f, -4.0f)) );	
-	// quads->push_back( Quad(glm::vec3(0.0f, -3.0f, -7.0f)) );
 
-	// quads->at(0).getTransform().setPosition( glm::vec3(0.0f, 0.0f, -3.0f) );
-	// quads->at(1).getTransform().setPosition( glm::vec3(1.0f, 1.0f, 0.0f) );
-
-	// quads->at(0).getTransform().position( glm::vec3(-1.0f, -1.0f, 0.0f));
-
-	// quads->at(0).getShader().setMat4()
 
 
 
@@ -145,7 +143,7 @@ void Game::init()
 void Game::handleEvents(float dt)
 {
 	SDL_Event event;
-	int shaderID;
+	//Note: SDL_PollEvent UPDATES KEYBOARD STATE!
 	
 	while (	SDL_PollEvent(&event) != 0)
 	{
@@ -169,7 +167,7 @@ void Game::handleEvents(float dt)
 					for (unsigned int i = 0; i < quads->size(); i++)
 					{
 						quads->at(i).getShader().bind();
-						quads->at(i).getShader().setBool("showTexture", false);
+						quads->at(i).getShader().setBool("u_showTexture", false);
 					}
 				break;
 
@@ -177,7 +175,7 @@ void Game::handleEvents(float dt)
 					for (unsigned int i = 0; i < quads->size(); i++)
 					{
 						quads->at(i).getShader().bind();
-						quads->at(i).getShader().setBool("showTexture", true);
+						quads->at(i).getShader().setBool("u_showTexture", true);
 					}
 
 				break;
@@ -193,26 +191,28 @@ void Game::update(float dt)
 {
 	//******* INPUT STATE TEMP *************************************************************************
 
-
-	if (keyboardState[SDL_SCANCODE_W])
+	if (Input::getKey(KEY_W))
 		camera->getTransform().translate(dt * glm::vec3(0.0f, 0.0f, 5.0f));
 
-	if (keyboardState[SDL_SCANCODE_A])
+	if (Input::getKey(KEY_A))
 		camera->getTransform().translate(dt * glm::vec3(5.0f, 0.0f, 0.0f));
 
-	if (keyboardState[SDL_SCANCODE_S])
+	if (Input::getKey(KEY_S))
 		camera->getTransform().translate(dt * glm::vec3(0.0f, 0.0f, -5.0f));
 
-	if (keyboardState[SDL_SCANCODE_D])
+	if (Input::getKey(KEY_D))
 		camera->getTransform().translate(dt * glm::vec3(-5.0f, 0.0f, 0.0f));
 
-	if (keyboardState[SDL_SCANCODE_Q])
+	if (Input::getKey(KEY_Q))
 		camera->getTransform().translate(dt * glm::vec3(0.0f, 5.0f, 0.0f));
 
-	if (keyboardState[SDL_SCANCODE_E])
+	if (Input::getKey(KEY_E))
 		camera->getTransform().translate(dt * glm::vec3(0.0f, -5.0f, 0.0f));
 	
-	if (keyboardState[SDL_SCANCODE_0])
+	if (Input::getKeyDown(KEY_0))
+		camera->toggleProjection();
+
+	if (Input::getKeyUp(KEY_1))
 		camera->toggleProjection();
 
 
@@ -245,6 +245,9 @@ void Game::update(float dt)
 
 	
 	//**************************************************************************************************
+
+	Input::UpdatePreviousState();
+	//SDL_PumpEvents();// 
 	lua_update(dt);
 }
 
@@ -276,6 +279,7 @@ void Game::dispose()
 		it->dispose();
 	}
 
+	Input::dispose();
 	window.dispose();
 	SDL_Quit();
 	std::cout << "Game Cleaned" << std::endl;

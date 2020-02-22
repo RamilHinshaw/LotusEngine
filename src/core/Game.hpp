@@ -2,6 +2,8 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
+//ToDo: Cut the bloat, class used for hardcoded Testing purposes!
+
 extern "C" //Should not being seeing this in game.hpp (lower level functions)
 { 
 	#include <SDL2/SDL.h>
@@ -9,7 +11,7 @@ extern "C" //Should not being seeing this in game.hpp (lower level functions)
 	#include <lua5.1/lua.h>
 	#include <lua5.1/lauxlib.h>
 	#include <lua5.1/lualib.h>
-	#include <python3.6/Python.h>
+	// #include <python3.6/Python.h>
 }
 
 #include <iostream>
@@ -23,6 +25,7 @@ extern "C" //Should not being seeing this in game.hpp (lower level functions)
 #include "../graphics/opengl/Vertex.hpp"
 #include "../graphics/opengl/Texture.hpp"
 #include "../graphics/Camera.hpp"
+
 
 // #include "../graphics/MeshObject2D.hpp"
 #include "../graphics/Quad.hpp"
@@ -39,6 +42,8 @@ extern "C" //Should not being seeing this in game.hpp (lower level functions)
 #include "../thirdparty/sol/sol.hpp"
 #include <memory>
 // #include "Time.hpp"
+
+#include "../input/Input.hpp"
 
 
 

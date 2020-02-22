@@ -25,8 +25,8 @@ class Time
     private:
     
         static void updateFrameCounter();
-        Time();
-        ~Time();
+        // Time();
+        // ~Time();
 };
 
         //ToDo: scope this correctly!
