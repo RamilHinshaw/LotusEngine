@@ -4,12 +4,12 @@
 
 out vec4 FragColor;
 
-in vec4 outColor;
-in vec2 outTexCoord;
+in vec4 o_color;
+in vec2 o_texCoord;
 
-uniform sampler2D ourTexture;
-uniform bool showTexture;
-uniform vec2 texRect;
+uniform sampler2D u_texture;
+uniform bool u_showTexture;
+uniform vec2 u_texRect;
 
 void main()
 {   
@@ -18,14 +18,14 @@ void main()
     //     outColor = vec4(1.0,1.0,1.0,1.0);
     // }
 
-    if (showTexture)
+    if (u_showTexture)
     {
-        FragColor = outColor;
+        FragColor = o_color;
     }
 
     else
     {
-        vec4 texColor = outColor * texture(ourTexture, outTexCoord + texRect.xy);
+        vec4 texColor = o_color * texture(u_texture, o_texCoord + u_texRect.xy);
 
         //Tranparency
         if (texColor.a < 0.1)

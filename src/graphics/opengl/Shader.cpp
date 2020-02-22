@@ -125,7 +125,7 @@ GLuint Shader::GetProgram()
 void Shader::dispose()
 {
     std::cout << "Shader Disposed!" << std::endl;
-    std::cout << "pg: " << m_program << std::endl;
+    // std::cout << "pg: " << m_program << std::endl;
 
     for (unsigned int i = 0; i < NUM_SHADERS; i++) 
     {

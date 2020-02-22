@@ -37,15 +37,15 @@ Mesh::Mesh(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], 
     // ***** ATTRIBUTES *****
     //Interpret Data on GPU |   how to read the attributes of the array of what index
 
-    //Position
+    //Position  - Layout 0
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0); //This set attribute of first var, vec3 = x,y,z for position  
     glEnableVertexAttribArray(0);   
 
-    //Color
+    //Color - Layout 1
     glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*) (sizeof(GL_FLOAT) * 3) ); 
     glEnableVertexAttribArray(1);  
 
-    //Texture Coord
+    //Texture Coord - Layout 2
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*) (sizeof(GL_FLOAT) * 7) ); 
     glEnableVertexAttribArray(2);  
 
