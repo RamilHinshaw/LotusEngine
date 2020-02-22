@@ -13,10 +13,11 @@ MeshObject::~MeshObject()
 void MeshObject::draw(glm::mat4 view, glm::mat4 projection)   //Pass projection & camera
 {
     //Shader
-    m_shader->bind();
+    // m_shader->bind();
     m_shader->setMat4("u_transform", m_transform->getModel());
     m_shader->setMat4("u_view", view);
     m_shader->setMat4("u_projection", projection);    
+    // m_shader->setMat4("u_projViewTrans", projection * view * m_transform->getModel());
 
     // Texture
     // std::cout << m_texture << std::endl;
@@ -25,7 +26,7 @@ void MeshObject::draw(glm::mat4 view, glm::mat4 projection)   //Pass projection 
         m_texture->bind(0);
     
     //Mesh
-    m_mesh->draw(); 
+    m_mesh->bind(); 
 }
 
 void MeshObject::dispose()

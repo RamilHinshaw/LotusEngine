@@ -22,7 +22,7 @@ class Mesh
         //Mesh(Vertex* vertices, unsigned int numVertices);
         virtual ~Mesh();
 
-        void draw();
+        void bind();
         void dispose(); //Refactor from some interface (common pattern)
 
     private:
