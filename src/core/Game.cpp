@@ -238,11 +238,11 @@ void Game::update(float dt)
 	// SCROLLING UV TEST!		| ToDo: Put in queue system so don't double bind!
 	textureOffset += dt * .25f;// * glm::vec2(1,0);
 
-	// for (auto it = quads->begin(); it != quads->end(); it++)
-	// {
+	for (auto it = quads->begin(); it != quads->end(); it++)
+	{
 	// 	it->getShader().bind();
-	// 	it->getShader().setVec2("texRect", textureOffset.x, textureOffset.y);
-	// }
+		it->getShader().setVec2("u_texRect", textureOffset.x, textureOffset.y);
+	}
 
 	
 	//**************************************************************************************************
