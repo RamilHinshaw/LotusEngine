@@ -11,7 +11,7 @@ class Rect
             Set(x, y, width, height);
         }
 
-        void Set(float x, float y, float width, float height)
+        void Set(const float& x, const float& y, const float& width, const float& height)
         {
             this->x = x;
             this->y = x;
@@ -19,22 +19,22 @@ class Rect
             this->height = height;
         }
 
-        float Width()
+        float& Width()
         {
             return width;
         }
 
-        float Height()
+        float& Height()
         {
             return height;
         }
         
-        float X()
+        float& X()
         {
             return x;
         }
 
-        float Y()
+        float& Y()
         {
             return y;
         }
