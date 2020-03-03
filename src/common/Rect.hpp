@@ -19,6 +19,26 @@ class Rect
             this->height = height;
         }
 
+        float Width()
+        {
+            return width;
+        }
+
+        float Height()
+        {
+            return height;
+        }
+        
+        float X()
+        {
+            return x;
+        }
+
+        float Y()
+        {
+            return y;
+        }
+
     //Attributes for OpenGL
     private:
 
