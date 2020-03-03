@@ -19,22 +19,22 @@ class Rect
             this->height = height;
         }
 
-        float& Width()
+        const float& Width() const
         {
             return width;
         }
 
-        float& Height()
+        const float& Height() const
         {
             return height;
         }
         
-        float& X()
+        const float& X() const
         {
             return x;
         }
 
-        float& Y()
+        const float& Y() const
         {
             return y;
         }
