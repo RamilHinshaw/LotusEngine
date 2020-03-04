@@ -99,6 +99,7 @@ void Game::init()
 	//--------------- INIT CODE BELOW ----------------------------------------------------------------------------
 
 	basicTexture = Texture("./assets/textures/floorAll.png");
+	//basicShader = Shader("./assets/shaders/basicShader");
 
 	std::cout << "Image Size: " << basicTexture.getSize().x << "x" << basicTexture.getSize().y << std::endl;
 
@@ -115,7 +116,7 @@ void Game::init()
 
 	//Orthogonal
 	camera = new Camera(camFov, winWidth, winHeight, 0.1f, 50.0f, true);
-
+ 
 	camera->getTransform().translate(glm::vec3(0.0f, 0.0f, -3.0f));
 
 	//Input
@@ -138,6 +139,7 @@ void Game::init()
 
 	//TEST
 	quads->at(0).getShader().bind();
+	//basicShader.bind();
 
 }
 
