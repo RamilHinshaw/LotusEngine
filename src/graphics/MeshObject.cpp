@@ -26,7 +26,7 @@ void MeshObject::draw(glm::mat4 view, glm::mat4 projection)   //Pass projection 
         m_texture->bind(0);
     
     //Mesh
-    m_mesh->bind(); 
+    m_mesh->draw(); 
 }
 
 void MeshObject::dispose()

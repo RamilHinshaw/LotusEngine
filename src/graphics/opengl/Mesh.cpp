@@ -77,7 +77,7 @@ void Mesh::dispose()
     glDeleteVertexArrays(1, &m_VAO);
 }
 
-void Mesh::bind()
+void Mesh::draw()
 {
     //Select buffer to draw on
     glBindVertexArray(m_VAO);
