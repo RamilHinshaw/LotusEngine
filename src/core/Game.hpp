@@ -78,7 +78,8 @@ class Game{
 		Camera* camera;
 
 		Texture basicTexture;
-		//Shader basicShader;
+		Shader basicShader;
+		Mesh basicMesh;
 
 		const Uint8 *keyboardState = SDL_GetKeyboardState(NULL);
 		// const Uint8 *buttonState = SDL_GameControllerGetButton

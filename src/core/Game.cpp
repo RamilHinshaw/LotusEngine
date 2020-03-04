@@ -99,14 +99,10 @@ void Game::init()
 	//--------------- INIT CODE BELOW ----------------------------------------------------------------------------
 
 	basicTexture = Texture("./assets/textures/floorAll.png");
-	//basicShader = Shader("./assets/shaders/basicShader");
+	basicShader = Shader("./assets/shaders/basicShader");
 
 	std::cout << "Image Size: " << basicTexture.getSize().x << "x" << basicTexture.getSize().y << std::endl;
 
-	// view = glm::translate(view, glm::vec3(0.0f, 0.0f, -15.0f)); 
-	
-	//Perspective
-	// camera = new Camera(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 
 
 	//DISPLAY SETTINGS
@@ -116,7 +112,7 @@ void Game::init()
 
 	//Orthogonal
 	camera = new Camera(camFov, winWidth, winHeight, 0.1f, 50.0f, true);
- 
+
 	camera->getTransform().translate(glm::vec3(0.0f, 0.0f, -3.0f));
 
 	//Input
@@ -126,20 +122,42 @@ void Game::init()
 	//------------------------------------------------------------------------------------------------------------
 
 
-	int tileXAmnt = 20;
-	int tileYAmnt = 20;
+	// int tileXAmnt = 20;
+	// int tileYAmnt = 20;
 	
-	for (int y = 0; y < tileYAmnt; y++)
-		for (int x = 0; x < tileXAmnt; x++)
-		{
-			quads->push_back( Quad(glm::vec3(1.0f * x, 1.0f * y, 0)) );
-		}
-
+	// for (int y = 0; y < tileYAmnt; y++)
+	// 	for (int x = 0; x < tileXAmnt; x++)
+	// 	{
+	// 		quads->push_back( Quad(glm::vec3(1.0f * x, 1.0f * y, 0)) );
+	// 	}
 
 
 	//TEST
-	quads->at(0).getShader().bind();
-	//basicShader.bind();
+	basicShader.bind();
+
+	//MESH
+	    Vertex vertices[] = {
+
+					//Positions								//Colors						//Texture Coordinates
+					Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f)),
+					Vertex(glm::vec3(0.5,	-0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f)),
+					Vertex(glm::vec3(-0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 0.0f)),
+					Vertex(glm::vec3(-0.5,	0.5,	0), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 1.0f)),
+
+
+					//Vertex(glm::vec3(0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f)),
+					//Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f))
+
+				};
+
+	//Turn into class container (indice holding 3 ints)
+	unsigned int indices[] = {
+		0, 2, 3,	//first triangle
+		0, 1, 2		//second triangle
+	};
+
+
+	basicMesh = Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
 
 }
 
@@ -167,19 +185,19 @@ void Game::handleEvents(float dt)
 				break;
 
 				case SDLK_LEFT:
-					for (unsigned int i = 0; i < quads->size(); i++)
-					{
-						quads->at(i).getShader().bind();
-						quads->at(i).getShader().setBool("u_showTexture", false);
-					}
+					// for (unsigned int i = 0; i < quads->size(); i++)
+					// {
+					// 	quads->at(i).getShader().bind();
+					// 	quads->at(i).getShader().setBool("u_showTexture", false);
+					// }
 				break;
 
 				case SDLK_RIGHT:
-					for (unsigned int i = 0; i < quads->size(); i++)
-					{
-						quads->at(i).getShader().bind();
-						quads->at(i).getShader().setBool("u_showTexture", true);
-					}
+					// for (unsigned int i = 0; i < quads->size(); i++)
+					// {basicMesh
+					// 	quads->at(i).getShader().bind();
+					// 	quads->at(i).getShader().setBool("u_showTexture", true);
+					// }
 
 				break;
 
@@ -239,12 +257,13 @@ void Game::update(float dt)
 
 	// SCROLLING UV TEST!		| ToDo: Put in queue system so don't double bind!
 	textureOffset += dt * .25f;// * glm::vec2(1,0);
+	basicShader.setVec2("u_texRect", textureOffset.x, textureOffset.y);
 
-	for (auto it = quads->begin(); it != quads->end(); it++)
-	{
-	// 	it->getShader().bind();
-		it->getShader().setVec2("u_texRect", textureOffset.x, textureOffset.y);
-	}
+	// for (auto it = quads->begin(); it != quads->end(); it++)
+	// {
+	// // 	it->getShader().bind();
+	// 	it->getShader().setVec2("u_texRect", textureOffset.x, textureOffset.y);
+	// }
 
 	
 	//**************************************************************************************************
@@ -263,12 +282,18 @@ void Game::draw(float dt)
 	lua_draw(dt);
 
 	//Draw all objects!
-	for (auto it = quads->begin(); it != quads->end(); it++)
-	{
-		// it->draw(view, projection);
-		// camera.getTransform().position(glm::vec3(0.0f, 0.0f, -3.0f));
-		it->draw( camera->getTransform().getModel(), camera->getProjection() );
-	}
+	// for (auto it = quads->begin(); it != quads->end(); it++)
+	// {
+	// 	// it->draw(view, projection);
+	// 	// camera.getTransform().position(glm::vec3(0.0f, 0.0f, -3.0f));
+	// 	it->draw( camera->getTransform().getModel(), camera->getProjection() );
+	// }
+
+	basicShader.setMat4("u_transform", glm::mat4(1.0f));
+    basicShader.setMat4("u_view", camera->getTransform().getModel());
+    basicShader.setMat4("u_projection", camera->getProjection());    
+
+	basicMesh.draw();
 
 	// Swap | --------------------------------
 	window.swapBuffers();
@@ -277,10 +302,10 @@ void Game::draw(float dt)
 void Game::dispose()
 {
 
-	for (auto it = quads->begin(); it != quads->end(); it++)
-	{
-		it->dispose();
-	}
+	// for (auto it = quads->begin(); it != quads->end(); it++)
+	// {
+	// 	it->dispose();
+	// }
 
 	Input::dispose();
 	window.dispose();
