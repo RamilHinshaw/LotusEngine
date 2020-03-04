@@ -30,11 +30,20 @@ class Vertex
             this->texCoords = texCoords;
         }
 
+        Vertex(const glm::vec3& position, const glm::vec4& color, const glm::vec2& texCoords, const float& texID) //Use member initialization
+        {
+            this->position = position;
+            this->color = color;
+            this->texCoords = texCoords;
+            this->texID = texID;
+        }
+
     //Attributes for OpenGL
     private:
         glm::vec3 position;
         glm::vec4 color;
         glm::vec2 texCoords;
+        float texID = 0;
         //normal
         //tangent
 

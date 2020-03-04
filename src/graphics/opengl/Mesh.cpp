@@ -49,6 +49,10 @@ Mesh::Mesh(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], 
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*) (sizeof(GL_FLOAT) * 7) ); 
     glEnableVertexAttribArray(2);  
 
+    //Texture ID - Layout 3
+    glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*) (sizeof(GL_FLOAT) * 9) ); 
+    glEnableVertexAttribArray(3);  
+
     // **********************
 
     glBindBuffer(GL_ARRAY_BUFFER, 0); //Can safetly unbound this but keep EBO

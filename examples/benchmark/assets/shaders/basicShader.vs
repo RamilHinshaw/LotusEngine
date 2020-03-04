@@ -5,6 +5,7 @@
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec4 color;
 layout (location = 2) in vec2 texCoord;
+layout (location = 3) in float texID;
 
 //Camera Relative
 uniform mat4 u_transform;
@@ -14,6 +15,7 @@ uniform mat4 u_projection;
 
 out vec4 o_color;
 out vec2 o_texCoord;
+out float o_texID;
 
 void main()
 {
@@ -23,4 +25,5 @@ void main()
 
     o_color = color;
     o_texCoord = texCoord;
+    o_texID = texID;
 }

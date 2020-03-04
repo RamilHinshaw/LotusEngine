@@ -48,9 +48,12 @@ Game::Game(const char *title, int width, int height)
         std::cerr << "SDL2 failed to initialize!" << std::endl;
     }
 
-	int nrAttributes;
+	int nrAttributes, nrMaxTexUnits;
 	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
+	glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &nrMaxTexUnits);
 	std::cout << "Maximum nr of vertex attributes supported: " << nrAttributes << std::endl;
+	std::cout << "Maximum nr of texture units supported: " << nrMaxTexUnits	<< std::endl;
+
 
 	// Input
 	// Input::Init();
@@ -138,22 +141,27 @@ void Game::init()
 	//MESH
 	    Vertex vertices[] = {
 
-					//Positions								//Colors						//Texture Coordinates
-					Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f)),
-					Vertex(glm::vec3(0.5,	-0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f)),
-					Vertex(glm::vec3(-0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 0.0f)),
-					Vertex(glm::vec3(-0.5,	0.5,	0), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 1.0f)),
+					//Positions								//Colors						//Texture Coordinates	//TexID
+					Vertex(glm::vec3(-1.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f), 	0.0f),
+					Vertex(glm::vec3(-0.5,	-0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f), 	0.0f),
+					Vertex(glm::vec3(-0.5,	0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 0.0f), 	0.0f),
+					Vertex(glm::vec3(-1.5,	0.5,	0), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 1.0f), 	0.0f),
 
-
-					//Vertex(glm::vec3(0.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f)),
-					//Vertex(glm::vec3(0.5,	0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f))
+					Vertex(glm::vec3(0.5,	-0.5,	0),	glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), 	glm::vec2(1.0f, 1.0f), 	1.0f),
+					Vertex(glm::vec3(1.5,	-0.5,	0),	glm::vec4(1.0f,	0.0f, 0.0f, 1.0f), 	glm::vec2(1.0f, 0.0f), 	1.0f),
+					Vertex(glm::vec3(1.5,	0.5,	0),	glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), 	glm::vec2(0.0f, 0.0f), 	1.0f),
+					Vertex(glm::vec3(0.5,	0.5,	0), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), 	glm::vec2(0.0f, 1.0f), 	1.0f),
 
 				};
 
 	//Turn into class container (indice holding 3 ints)
 	unsigned int indices[] = {
 		0, 2, 3,	//first triangle
-		0, 1, 2		//second triangle
+		0, 1, 2,		//second triangle
+
+		4, 6, 7,
+		4, 5, 6
+
 	};
 
 

@@ -6,6 +6,7 @@ out vec4 FragColor;
 
 in vec4 o_color;
 in vec2 o_texCoord;
+in float o_texID;
 
 uniform sampler2D u_texture;
 uniform bool u_showTexture;
