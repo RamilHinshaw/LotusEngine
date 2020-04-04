@@ -157,7 +157,7 @@ void Game::init()
 	//Turn into class container (indice holding 3 ints)
 	unsigned int indices[] = {
 		0, 2, 3,	//first triangle
-		0, 1, 2,		//second triangle
+		0, 1, 2,	//second triangle
 
 		4, 6, 7,
 		4, 5, 6
