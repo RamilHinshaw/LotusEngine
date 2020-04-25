@@ -116,6 +116,8 @@ void Game::init()
 	//Orthogonal
 	camera = new Camera(camFov, winWidth, winHeight, 0.1f, 50.0f, true);
 
+	//camera->toggleProjection();
+
 	camera->getTransform().translate(glm::vec3(0.0f, 0.0f, -3.0f));
 
 	//Input
@@ -163,6 +165,8 @@ void Game::init()
 		4, 5, 6
 
 	};
+
+	//Quad quad1 = new Quad( 0, 0, 32, 32)
 
 
 	basicMesh = Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));

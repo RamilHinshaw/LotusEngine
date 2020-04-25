@@ -1,4 +1,4 @@
-//USED FOR 
+//WIP WILL REPLACE MESH AND MESH WILL JUST BE USED FOR COLLECTION OF VERTEX!
 
 #pragma once
 
@@ -13,22 +13,22 @@ extern "C"
 #include "Vertex.hpp"
 #include "Texture.hpp"
 
-class Mesh
+class MeshBuffer
 {    
     public:
-        Mesh();
-        Mesh(Vertex vertices[], unsigned int verticeSize);
-        Mesh(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize);
-        Mesh(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize, GLenum glDrawType);
-        Mesh(Vertex vertices[], unsigned int verticeSize, GLenum glDrawType);
-        //Mesh(Vertex* vertices, unsigned int numVertices);
-        virtual ~Mesh();
+        MeshBuffer();
+        MeshBuffer(Vertex vertices[], unsigned int verticeSize);
+        MeshBuffer(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize);
+        MeshBuffer(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize, GLenum glDrawType);
+        MeshBuffer(Vertex vertices[], unsigned int verticeSize, GLenum glDrawType);
+        //MeshBuffer(Vertex* vertices, unsigned int numVertices);
+        virtual ~MeshBuffer();
 
         void draw();
         void dispose(); //Refactor from some interface (common pattern)
 
     private:
-        // Mesh(const Mesh& other);
+        // MeshBuffer(const Mesh& other);
         // void operator=(const Mesh& other);
 
         enum

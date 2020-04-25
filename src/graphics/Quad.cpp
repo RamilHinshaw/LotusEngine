@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+
+
 Quad::Quad()
 {
 	std::cout << "Quad Constructor Called" << std::endl;

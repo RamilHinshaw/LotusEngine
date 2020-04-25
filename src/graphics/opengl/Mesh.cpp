@@ -3,6 +3,9 @@
 #include <iostream>
 #include <glm/glm.hpp>
 
+#define BUFFER_SIZE 1000
+// #define BUFFER_SIZE_MORE up to 65545 bytes considering Vertex Size, 65545/VertexSize // play it safe is to use 16-bit (GL_UNSIGNED_SHORT) 
+
 Mesh::Mesh()
 {
     std::cout << "Mesh Empty  Constructor Called???" << std::endl;
@@ -22,7 +25,11 @@ Mesh::Mesh(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], 
     //VBO                      | Create Empty spot in VRAM
     glGenBuffers(NUM_BUFFERS, m_VBO); //ID the buffer
     glBindBuffer(GL_ARRAY_BUFFER, m_VBO[POSITION_VB]); //tell opengl to select the buffer
-    glBufferData(GL_ARRAY_BUFFER, m_drawCount * sizeof(Vertex), vertices, GL_STATIC_DRAW);   //Move data into recent new buffer
+
+    //Allocate the memory
+    glBufferData(GL_ARRAY_BUFFER, BUFFER_SIZE * sizeof(Vertex), nullptr, GL_DYNAMIC_DRAW);   //Move data into recent new buffer
+
+    glBufferSubData(GL_ARRAY_BUFFER, 0, verticeSize * sizeof(Vertex), vertices);
 
     //EBO
     if (indiceSize != 0)    //Todo: Refactor
