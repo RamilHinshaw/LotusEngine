@@ -1,4 +1,4 @@
-//USED FOR 
+//USED FOR JUST VERTICES
 
 #pragma once
 

@@ -140,7 +140,7 @@ void Game::init()
 	//TEST
 	basicShader.bind();
 
-	//MESH
+	//2 MESH QUAD ************************************************************************************
 	    Vertex vertices[] = {
 
 					//Positions								//Colors						//Texture Coordinates	//TexID
@@ -165,6 +165,8 @@ void Game::init()
 		4, 5, 6
 
 	};
+
+	//**********************************************************************************************
 
 	//Quad quad1 = new Quad( 0, 0, 32, 32)
 
@@ -236,7 +238,7 @@ void Game::update(float dt)
 	if (Input::getKey(KEY_D))
 		camera->getTransform().translate(dt * glm::vec3(-5.0f, 0.0f, 0.0f));
 
-	if (Input::getKey(KEY_Q))
+	if (InputbasicMesh::getKey(KEY_Q))
 		camera->getTransform().translate(dt * glm::vec3(0.0f, 5.0f, 0.0f));
 
 	if (Input::getKey(KEY_E))
@@ -258,7 +260,7 @@ void Game::update(float dt)
 	// {
 	// 	int index = std::distance(quads->begin(), it);
 	// 	it->getTransform().rotate(dt * (index+1) * glm::vec3(-55.0f, 0.0f, 0.0f));
-	// }
+	// }basicMesh
 
 	// quads->at(0).getTransform().translate( dt * (float) glm::sin(Time::time()) * glm::vec3(3,0,0));
 
@@ -270,6 +272,11 @@ void Game::update(float dt)
 	// SCROLLING UV TEST!		| ToDo: Put in queue system so don't double bind!
 	textureOffset += dt * .25f;// * glm::vec2(1,0);
 	basicShader.setVec2("u_texRect", textureOffset.x, textureOffset.y);
+
+
+	// IF DYNAMIC MESH
+	// THEN FLUSH AND UPDATE HERE!
+
 
 	// for (auto it = quads->begin(); it != quads->end(); it++)
 	// {
@@ -300,6 +307,10 @@ void Game::draw(float dt)
 	// 	// camera.getTransform().position(glm::vec3(0.0f, 0.0f, -3.0f));
 	// 	it->draw( camera->getTransform().getModel(), camera->getProjection() );
 	// }
+
+
+	// IF DYNAMIC MESH
+	// THEN FLUSH AND UPDATE HERE!
 
 	basicShader.setMat4("u_transform", glm::mat4(1.0f));
     basicShader.setMat4("u_view", camera->getTransform().getModel());

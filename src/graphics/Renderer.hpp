@@ -30,8 +30,8 @@ class Renderer
 
     private:
         std::vector<Texture> batchedTextures;
-        std::vector<Mesh> batchedDynamicMeshes;
-        std::vector<Mesh> batchedStaticMeshes;
+        std::vector<MeshBuffer> batchedDynamicMeshes;
+        std::vector<MeshBuffer> batchedStaticMeshes;
         std::vector<Shader> shaders;
 
 }
