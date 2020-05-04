@@ -9,9 +9,9 @@
 
 ### Linux with gcc
 - download:
-	- libsdl2-2.0-dev
+	- libsdl2-dev
 	- libglm-dev
-	- liblua5.1
+	- liblua5.1-0-dev
 	- libglew-dev
 - git clone this project
 - git submodule init & git submodule update
