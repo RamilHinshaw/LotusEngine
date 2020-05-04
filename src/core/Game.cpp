@@ -102,7 +102,7 @@ void Game::init()
 	//--------------- INIT CODE BELOW ----------------------------------------------------------------------------
 
 	basicTexture = Texture("./assets/textures/floorAll.png");
-	basicShader = Shader("./assets/shaders/basicShader");
+	basicShader = Shader("./assets/shaders/basicShaderES");
 
 	std::cout << "Image Size: " << basicTexture.getSize().x << "x" << basicTexture.getSize().y << std::endl;
 
@@ -238,7 +238,7 @@ void Game::update(float dt)
 	if (Input::getKey(KEY_D))
 		camera->getTransform().translate(dt * glm::vec3(-5.0f, 0.0f, 0.0f));
 
-	if (InputbasicMesh::getKey(KEY_Q))
+	if (Input::getKey(KEY_Q))
 		camera->getTransform().translate(dt * glm::vec3(0.0f, 5.0f, 0.0f));
 
 	if (Input::getKey(KEY_E))

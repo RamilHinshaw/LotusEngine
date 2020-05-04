@@ -4,13 +4,25 @@ precision mediump float;
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec4 color;
 layout (location = 2) in vec2 texCoord;
+layout (location = 3) in float texID;
 
-out vec4 outColor;
-out vec2 outTexCoord;
+//Camera Relative
+uniform mat4 u_transform;
+uniform mat4 u_view;
+uniform mat4 u_projection;
+//uniform mat4 u_projViewTrans;
+
+out vec4 o_color;
+out vec2 o_texCoord;
+out float o_texID;
 
 void main()
 {
-    gl_Position = vec4(position, 1.0);
-    outColor = color;
-    outTexCoord = texCoord;
+    gl_Position = u_projection * u_view * u_transform * vec4(position, 1.0);
+
+    //gl_Position = u_projViewTrans * vec4(position, 1.0);
+
+    o_color = color;
+    o_texCoord = texCoord;
+    o_texID = texID;
 }
