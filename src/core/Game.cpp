@@ -318,6 +318,8 @@ void Game::draw(float dt)
 
 	basicMesh.draw();
 
+	//renderer.render();
+
 	// Swap | --------------------------------
 	window.swapBuffers();
 }
