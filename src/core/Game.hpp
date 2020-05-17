@@ -45,6 +45,9 @@ extern "C" //Should not being seeing this in game.hpp (lower level functions)
 
 #include "../input/Input.hpp"
 
+//CORE
+#include "Graphics.hpp"
+
 
 
 class Game{

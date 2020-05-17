@@ -106,7 +106,7 @@ void Game::init()
 
 	std::cout << "Image Size: " << basicTexture.getSize().x << "x" << basicTexture.getSize().y << std::endl;
 
-
+	Graphics::DrawQuad();
 
 	//DISPLAY SETTINGS
 	float winWidth = 800.0f;
@@ -318,10 +318,11 @@ void Game::draw(float dt)
 
 	basicMesh.draw();
 
-	//renderer.render();
+	Renderer::render();
 
 	// Swap | --------------------------------
 	window.swapBuffers();
+	Renderer::flush();
 }
 
 void Game::dispose()
