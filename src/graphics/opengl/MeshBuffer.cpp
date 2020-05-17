@@ -3,20 +3,12 @@
 #include <iostream>
 #include <glm/glm.hpp>
 
-#define BUFFER_SIZE 1000
+//#define BUFFER_SIZE 10000
+
 // #define BUFFER_SIZE_MORE up to 65545 bytes considering Vertex Size, 65545/VertexSize // play it safe is to use 16-bit (GL_UNSIGNED_SHORT) 
 
 MeshBuffer::MeshBuffer()
 {
-    std::cout << "Mesh Empty  Constructor Called???" << std::endl;
-}
-
-MeshBuffer::MeshBuffer(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize)
-{
-    m_drawCount = verticeSize;
-    //m_indices = indices;
-    //std::cout << sizeof(vertices) << " / " << sizeof(Vertex) << " = " << sizeof(vertices)/sizeof(Vertex) << std::endl;
-
     //VAO
     glGenVertexArrays(1, &m_VAO); //Created space on gpu for VAO of 1 dimension
 
@@ -26,20 +18,21 @@ MeshBuffer::MeshBuffer(Vertex vertices[], unsigned int verticeSize, unsigned int
     glGenBuffers(NUM_BUFFERS, m_VBO); //ID the buffer
     glBindBuffer(GL_ARRAY_BUFFER, m_VBO[POSITION_VB]); //tell opengl to select the buffer
 
-    //Allocate the memory
-    glBufferData(GL_ARRAY_BUFFER, BUFFER_SIZE * sizeof(Vertex), nullptr, GL_DYNAMIC_DRAW);   //Move data into recent new buffer
+    //Create size for the memory
+    glBufferData(GL_ARRAY_BUFFER, MaxVertexCount * sizeof(Vertex), nullptr, GL_DYNAMIC_DRAW);   //Move data into recent new buffer
 
-    glBufferSubData(GL_ARRAY_BUFFER, 0, verticeSize * sizeof(Vertex), vertices);
+    // //Write ontop of buffer of existing allocated memory
+    // glBufferSubData(GL_ARRAY_BUFFER, 0, verticeSize * sizeof(Vertex), vertices); 
 
     //EBO
-    if (indiceSize != 0)    //Todo: Refactor
-    {
-        m_useElementBuffer = true;
-        m_drawCount = indiceSize;
+    // if (indiceSize != 0)    //Todo: Refactor
+    // {
+        // m_useElementBuffer = true;
+        // m_drawCount = indiceSize;
         glGenBuffers(1, &m_EBO); // Pointer to buffer
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO); //Use buffer
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_drawCount * sizeof(unsigned int), indices, GL_STATIC_DRAW);
-    }
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, MaxIndexCount * sizeof(unsigned int), m_indices, GL_STATIC_DRAW);
+    // }
 
     // ***** ATTRIBUTES *****
     //Interpret Data on GPU |   how to read the attributes of the array of what index
@@ -66,21 +59,57 @@ MeshBuffer::MeshBuffer(Vertex vertices[], unsigned int verticeSize, unsigned int
     glBindVertexArray(0); //Release    
 }
 
-MeshBuffer::MeshBuffer(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize, GLenum glDrawType) 
-: Mesh(vertices, verticeSize, indices, indiceSize)  //Constructor Delegate
-{
-    m_GLDrawType = glDrawType;
-}
+// MeshBuffer::MeshBuffer(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize)
+// {
+    
+// }
 
-MeshBuffer::MeshBuffer(Vertex vertices[], unsigned int verticeSize, GLenum glDrawType) 
-: MeshBuffer(vertices, verticeSize, 0, 0)  //Constructor Delegate
-{
-    m_GLDrawType = glDrawType;
-}
+// MeshBuffer::MeshBuffer(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize, GLenum glDrawType) 
+// : MeshBuffer(vertices, verticeSize, indices, indiceSize)  //Constructor Delegate
+// {
+//     m_GLDrawType = glDrawType;
+// }
+
+// MeshBuffer::MeshBuffer(Vertex vertices[], unsigned int verticeSize, GLenum glDrawType) 
+// : MeshBuffer(vertices, verticeSize, 0, 0)  //Constructor Delegate
+// {
+//     m_GLDrawType = glDrawType;
+// }
 
 MeshBuffer::~MeshBuffer()
 {
     std::cout << "Mesh Destructor Called" << std::endl;
+}
+
+void MeshBuffer::batch(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize)
+{
+    //ToDo: Use Memcopy for this, maybe faster?
+    //ToDo: Check if goes over the quad limit!
+
+    //Add Vertices to buffer
+    for (int i = 0; i < verticeSize; i++)
+    {
+        m_vertices[i + m_vertexCount] = vertices[i];
+    }
+
+    //Add and Offset Indices
+    for (int i = 0; i < indiceSize; i++)
+    {
+        m_indices[i + m_indexCount] = indices[i];
+    }    
+
+    //Write ontop of buffer of existing allocated memory
+    glBufferSubData(GL_ARRAY_BUFFER, m_vertexCount * sizeof(Vertex), verticeSize * sizeof(Vertex), vertices); 
+
+    //Check if causes off by one byte issue!
+    m_vertexCount += verticeSize;
+    m_indexCount += indiceSize;
+}
+
+void MeshBuffer::flush()
+{
+    m_vertexCount = 0;
+    m_indexCount = 0;
 }
 
 void MeshBuffer::dispose()
@@ -93,20 +122,17 @@ void MeshBuffer::draw()
     //Select buffer to draw on
     glBindVertexArray(m_VAO);
 
-    //glEnable(GL_PROGRAM_POINT_SIZE);
-    //glPointSize(10.0);
-
-    //Triangle mode, start, and endDrawCount
-
-    if (m_useElementBuffer == false) 
-    {
-        glDrawArrays(GL_TRIANGLES, 0, m_drawCount);
-    }
+    // //No Indices!
+    // if (m_useElementBuffer == false) 
+    // {
+    //     glDrawArrays(GL_TRIANGLES, 0, m_drawCount);
+    // }
     
-    else
-    {
-        glDrawElements(m_GLDrawType, m_drawCount, GL_UNSIGNED_INT, 0);
-    }
+    //Using Indices!
+    // else
+    // {
+        glDrawElements(m_GLDrawType, m_indexCount, GL_UNSIGNED_INT, 0);
+    // }
 
     // glBindVertexArray(0); //Release
 }

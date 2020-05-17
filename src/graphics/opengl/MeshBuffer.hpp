@@ -18,18 +18,25 @@ extern "C"
 #include "Vertex.hpp"
 #include "Texture.hpp"
 
+const size_t MaxQuadCount = 10000;
+const size_t MaxVertexCount = MaxQuadCount * 4;
+const size_t MaxIndexCount = MaxQuadCount * 6;
+
 class MeshBuffer
 {    
     public:
         MeshBuffer();
-        MeshBuffer(Vertex vertices[], unsigned int verticeSize);
-        MeshBuffer(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize);
-        MeshBuffer(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize, GLenum glDrawType);
-        MeshBuffer(Vertex vertices[], unsigned int verticeSize, GLenum glDrawType);
+        // MeshBuffer(Vertex vertices[], unsigned int verticeSize);
+        // MeshBuffer(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize);
+        // MeshBuffer(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize, GLenum glDrawType);
+        // MeshBuffer(Vertex vertices[], unsigned int verticeSize, GLenum glDrawType);
         //MeshBuffer(Vertex* vertices, unsigned int numVertices);
         virtual ~MeshBuffer();
 
+        void batch(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize);
         void draw();
+
+        void flush();
         void dispose(); //Refactor from some interface (common pattern)
 
     private:
@@ -47,8 +54,14 @@ class MeshBuffer
         GLuint m_EBO;   // Element buffer Object
         GLenum m_GLDrawType = GL_TRIANGLES;
 
-        bool m_useElementBuffer; 
+        // bool m_useElementBuffer; 
 
-        unsigned int m_drawCount;
+        // unsigned int m_drawCount;
+
+        Vertex m_vertices[MaxVertexCount];
+        unsigned int m_indices[MaxQuadCount];     
+
+        unsigned int m_vertexCount;
+        unsigned int m_indexCount;
 };
 
