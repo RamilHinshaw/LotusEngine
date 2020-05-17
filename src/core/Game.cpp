@@ -106,8 +106,6 @@ void Game::init()
 
 	std::cout << "Image Size: " << basicTexture.getSize().x << "x" << basicTexture.getSize().y << std::endl;
 
-	Graphics::DrawQuad();
-
 	//DISPLAY SETTINGS
 	float winWidth = 800.0f;
 	float winHeight = 600.0f;
@@ -171,7 +169,9 @@ void Game::init()
 	//Quad quad1 = new Quad( 0, 0, 32, 32)
 
 
-	basicMesh = Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
+	// basicMesh = Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
+
+	Renderer::init();
 
 }
 
@@ -308,17 +308,21 @@ void Game::draw(float dt)
 	// 	it->draw( camera->getTransform().getModel(), camera->getProjection() );
 	// }
 
+	Graphics::DrawQuad(-1,0);
+	// Graphics::DrawQuad(1,0);
+
 
 	// IF DYNAMIC MESH
+		Renderer::render();
 	// THEN FLUSH AND UPDATE HERE!
 
 	basicShader.setMat4("u_transform", glm::mat4(1.0f));
     basicShader.setMat4("u_view", camera->getTransform().getModel());
     basicShader.setMat4("u_projection", camera->getProjection());    
 
-	basicMesh.draw();
+	// basicMesh.draw();
 
-	Renderer::render();
+
 
 	// Swap | --------------------------------
 	window.swapBuffers();

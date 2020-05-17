@@ -32,6 +32,8 @@ MeshBuffer::MeshBuffer()
         glGenBuffers(1, &m_EBO); // Pointer to buffer
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO); //Use buffer
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, MaxIndexCount * sizeof(unsigned int), m_indices, GL_STATIC_DRAW);
+
+
     // }
 
     // ***** ATTRIBUTES *****
@@ -39,6 +41,7 @@ MeshBuffer::MeshBuffer()
 
     //Position  - Layout 0
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0); //This set attribute of first var, vec3 = x,y,z for position  
+
     glEnableVertexAttribArray(0);   
 
     //Color - Layout 1
@@ -54,9 +57,8 @@ MeshBuffer::MeshBuffer()
     glEnableVertexAttribArray(3);  
 
     // **********************
-
     glBindBuffer(GL_ARRAY_BUFFER, 0); //Can safetly unbound this but keep EBO
-    glBindVertexArray(0); //Release    
+    glBindVertexArray(0); //Release  
 }
 
 // MeshBuffer::MeshBuffer(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize)
@@ -86,24 +88,35 @@ void MeshBuffer::batch(Vertex vertices[], unsigned int verticeSize, unsigned int
     //ToDo: Use Memcopy for this, maybe faster?
     //ToDo: Check if goes over the quad limit!
 
+    glBindBuffer(GL_ARRAY_BUFFER, m_VBO[POSITION_VB]);
+
     //Add Vertices to buffer
-    for (int i = 0; i < verticeSize; i++)
+    for (unsigned int i = 0; i < verticeSize; i++)
     {
         m_vertices[i + m_vertexCount] = vertices[i];
     }
 
+    //Write ontop of buffer of existing allocated memory
+    glBufferSubData(GL_ARRAY_BUFFER, m_vertexCount * sizeof(Vertex), verticeSize * sizeof(Vertex), vertices); 
+
+
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO); //Use buffer
+
     //Add and Offset Indices
-    for (int i = 0; i < indiceSize; i++)
+    for (unsigned int i = 0; i < indiceSize; i++)
     {
         m_indices[i + m_indexCount] = indices[i];
     }    
 
-    //Write ontop of buffer of existing allocated memory
-    glBufferSubData(GL_ARRAY_BUFFER, m_vertexCount * sizeof(Vertex), verticeSize * sizeof(Vertex), vertices); 
+    glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, m_indexCount * sizeof(unsigned int), indiceSize * sizeof(unsigned int), vertices); 
+
+
 
     //Check if causes off by one byte issue!
     m_vertexCount += verticeSize;
     m_indexCount += indiceSize;
+
 }
 
 void MeshBuffer::flush()
@@ -125,13 +138,13 @@ void MeshBuffer::draw()
     // //No Indices!
     // if (m_useElementBuffer == false) 
     // {
-    //     glDrawArrays(GL_TRIANGLES, 0, m_drawCount);
+        glDrawArrays(GL_TRIANGLES, 0, m_vertexCount);
     // }
     
     //Using Indices!
     // else
     // {
-        glDrawElements(m_GLDrawType, m_indexCount, GL_UNSIGNED_INT, 0);
+        // glDrawElements(m_GLDrawType, m_indexCount, GL_UNSIGNED_INT, 0);
     // }
 
     // glBindVertexArray(0); //Release

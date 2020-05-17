@@ -1,10 +1,20 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <iostream>
 
 class Vertex
 {
     public:
+
+        Vertex()
+        {
+        }
+
+        // ~Vertex()
+        // {
+        //     std::cout << "Vertex going out of scope!" << std::endl;
+        // }
 
         Vertex(const glm::vec3& position) //ToDo: Use member initialization & put into cpp instead!
         {

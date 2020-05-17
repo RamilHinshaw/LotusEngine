@@ -43,7 +43,7 @@ Quad::Quad(const Rect rect) : rect(rect)
 	};
 
 
-	m_mesh = new Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
+	// m_mesh = new Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
 
 
     // mesh = generatePrimative();
@@ -106,7 +106,7 @@ Mesh* Quad::generatePrimative()
 	};
 
 
-	return new Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
+	// return new Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
 
     //return Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), 0,0); //Unoptimized!    
     //return Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), GL_Triangle_Strip); //Optimized
