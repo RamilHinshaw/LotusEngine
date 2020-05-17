@@ -36,6 +36,8 @@ class MeshBuffer
         virtual ~MeshBuffer();
 
         void batch(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize);
+
+        void pushData();
         void draw();
 
         void flush();

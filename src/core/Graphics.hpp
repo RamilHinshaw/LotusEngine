@@ -14,6 +14,8 @@ class Graphics
 {
     public:
 
+        static void DrawTest(float xPos, float yPos);
+
         static void DrawQuad(float xPos, float yPos);
 
         static void DrawSprite(float xPos, float yPos, float height, float width, float xScal, float yScal, float rotation, char color);

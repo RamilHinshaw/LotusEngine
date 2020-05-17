@@ -48,6 +48,11 @@ class Vertex
             this->texID = texID;
         }
 
+        glm::vec3 getPos()
+        {
+            return position;
+        }
+
     //Attributes for OpenGL
     private:
         glm::vec3 position;

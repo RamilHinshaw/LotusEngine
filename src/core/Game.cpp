@@ -299,6 +299,7 @@ void Game::draw(float dt)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //Clears colors and fill
 	//-----------------------------------------
 	lua_draw(dt);
+	Renderer::flush();
 
 	//Draw all objects!
 	// for (auto it = quads->begin(); it != quads->end(); it++)
@@ -308,12 +309,26 @@ void Game::draw(float dt)
 	// 	it->draw( camera->getTransform().getModel(), camera->getProjection() );
 	// }
 
-	Graphics::DrawQuad(-1,0);
+	int sizeX = 100;
+	int sizeY = 100;
+
+	for (int y = 0; y < sizeY; y++)
+		for (int x = 0; x < sizeX; x++)
+		{
+			Graphics::DrawQuad(x,y);
+		}
+	
+
+	// Graphics::DrawQuad(-2,0);
+	// Graphics::DrawQuad(-1,0);
+	// Graphics::DrawQuad(0,0);
 	// Graphics::DrawQuad(1,0);
+	// Graphics::DrawQuad(8,0);
+	// Graphics::DrawQuad(12,0);
 
 
 	// IF DYNAMIC MESH
-		Renderer::render();
+	Renderer::render();
 	// THEN FLUSH AND UPDATE HERE!
 
 	basicShader.setMat4("u_transform", glm::mat4(1.0f));
@@ -326,7 +341,7 @@ void Game::draw(float dt)
 
 	// Swap | --------------------------------
 	window.swapBuffers();
-	Renderer::flush();
+
 }
 
 void Game::dispose()

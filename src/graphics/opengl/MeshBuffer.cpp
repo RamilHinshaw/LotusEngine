@@ -88,34 +88,42 @@ void MeshBuffer::batch(Vertex vertices[], unsigned int verticeSize, unsigned int
     //ToDo: Use Memcopy for this, maybe faster?
     //ToDo: Check if goes over the quad limit!
 
+
     glBindBuffer(GL_ARRAY_BUFFER, m_VBO[POSITION_VB]);
 
     //Add Vertices to buffer
     for (unsigned int i = 0; i < verticeSize; i++)
     {
         m_vertices[i + m_vertexCount] = vertices[i];
+        // std::cout << "Vertex: " <<  (i + m_vertexCount) << " FROM " << i << std::endl;
     }
 
+    
+    // Maybe move glBufferSubData for last before draw?
+
     //Write ontop of buffer of existing allocated memory
-    glBufferSubData(GL_ARRAY_BUFFER, m_vertexCount * sizeof(Vertex), verticeSize * sizeof(Vertex), vertices); 
+    // glBufferSubData(GL_ARRAY_BUFFER, m_vertexCount * sizeof(Vertex), verticeSize * sizeof(Vertex), vertices); 
 
 
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO); //Use buffer
+    // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO); //Use buffer
 
     //Add and Offset Indices
     for (unsigned int i = 0; i < indiceSize; i++)
     {
-        m_indices[i + m_indexCount] = indices[i];
+        m_indices[i + m_indexCount] = indices[i] + m_vertexCount; //offset by vertextCount
+        // std::cout << "Indice in: " << (i + m_indexCount) << " IS " << (indices[i] + m_vertexCount) << std::endl;
     }    
 
-    glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, m_indexCount * sizeof(unsigned int), indiceSize * sizeof(unsigned int), vertices); 
+    // glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, m_indexCount * sizeof(unsigned int), indiceSize * sizeof(unsigned int), indices); 
 
 
 
     //Check if causes off by one byte issue!
     m_vertexCount += verticeSize;
     m_indexCount += indiceSize;
+
+    // std::cout << m_vertexCount << " " << m_indexCount << std::endl;
 
 }
 
@@ -130,21 +138,32 @@ void MeshBuffer::dispose()
     glDeleteVertexArrays(1, &m_VAO);
 }
 
+void MeshBuffer::pushData()
+{
+    //Move Data to GPU
+    glBindBuffer(GL_ARRAY_BUFFER, m_VBO[POSITION_VB]);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, m_vertexCount * sizeof(Vertex), m_vertices); 
+    glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, m_indexCount * sizeof(unsigned int), m_indices); 
+}
+
 void MeshBuffer::draw()
 {
+    //Push data before draw!
+    pushData();
+
     //Select buffer to draw on
     glBindVertexArray(m_VAO);
 
     // //No Indices!
     // if (m_useElementBuffer == false) 
     // {
-        glDrawArrays(GL_TRIANGLES, 0, m_vertexCount);
+        // glDrawArrays(GL_TRIANGLES, 0, m_vertexCount);
     // }
     
     //Using Indices!
     // else
     // {
-        // glDrawElements(m_GLDrawType, m_indexCount, GL_UNSIGNED_INT, 0);
+        glDrawElements(m_GLDrawType, m_indexCount, GL_UNSIGNED_INT, 0);
     // }
 
     // glBindVertexArray(0); //Release
