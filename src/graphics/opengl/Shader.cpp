@@ -18,9 +18,9 @@ Shader::Shader(const std::string& fileName)
 
     std::string esFileSuffix = "";
 
-    #if defined(__arm__)
-        esFileSuffix = "ES";
-    #endif
+    // #if defined(__arm__)
+    //     esFileSuffix = "ES";
+    // #endif
 
     //Load shader
     m_shaders[0] = CreateShader(LoadShader(fileName + esFileSuffix + ".vs"), GL_VERTEX_SHADER);    //Load Vertex Shader
