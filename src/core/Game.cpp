@@ -173,6 +173,18 @@ void Game::init()
 
 	Renderer::init();
 
+	//BASICALLY STATIC, NOT PUSHED EVERY FRAME
+
+	// int sizeX = 100;
+	// int sizeY = 100;
+
+	// for (int y = 0; y < sizeY; y++)
+	// 	for (int x = 0; x < sizeX; x++)
+	// 	{
+	// 		Graphics::DrawQuad(x,y);
+	// 	}
+	std::cout << "Vertex Byte Size: " << sizeof(Vertex) << std::endl;
+
 }
 
 void Game::handleEvents(float dt)
@@ -202,7 +214,14 @@ void Game::handleEvents(float dt)
 					// for (unsigned int i = 0; i < quads->size(); i++)
 					// {
 					// 	quads->at(i).getShader().bind();
-					// 	quads->at(i).getShader().setBool("u_showTexture", false);
+					// 	quads->at(i).getShader().s	// int sizeX = 100;
+	// int sizeY = 100;
+
+	// for (int y = 0; y < sizeY; y++)
+	// 	for (int x = 0; x < sizeX; x++)
+	// 	{
+	// 		Graphics::DrawQuad(x,y);
+	// 	}etBool("u_showTexture", false);
 					// }
 				break;
 
@@ -227,22 +246,32 @@ void Game::update(float dt)
 	//******* INPUT STATE TEMP *************************************************************************
 
 	if (Input::getKey(KEY_W))
-		camera->getTransform().translate(dt * glm::vec3(0.0f, 0.0f, 5.0f));
+		camera->getTransform().translate(dt * glm::vec3(0.0f, 0.0f, 5.0f * sprintSpeed));
 
 	if (Input::getKey(KEY_A))
-		camera->getTransform().translate(dt * glm::vec3(5.0f, 0.0f, 0.0f));
+		camera->getTransform().translate(dt * glm::vec3(5.0f * sprintSpeed, 0.0f, 0.0f));
 
 	if (Input::getKey(KEY_S))
-		camera->getTransform().translate(dt * glm::vec3(0.0f, 0.0f, -5.0f));
+		camera->getTransform().translate(dt * glm::vec3(0.0f, 0.0f, -5.0f * sprintSpeed));
 
 	if (Input::getKey(KEY_D))
-		camera->getTransform().translate(dt * glm::vec3(-5.0f, 0.0f, 0.0f));
+		camera->getTransform().translate(dt * glm::vec3(-5.0f * sprintSpeed, 0.0f, 0.0f));
 
 	if (Input::getKey(KEY_Q))
-		camera->getTransform().translate(dt * glm::vec3(0.0f, 5.0f, 0.0f));
+		camera->getTransform().translate(dt * glm::vec3(0.0f, 5.0f * sprintSpeed, 0.0f));
 
 	if (Input::getKey(KEY_E))
-		camera->getTransform().translate(dt * glm::vec3(0.0f, -5.0f, 0.0f));
+		camera->getTransform().translate(dt * glm::vec3(0.0f, -5.0f * sprintSpeed, 0.0f));
+
+	if (Input::getKeyDown(KEY_LSHIFT))
+	{
+		sprintSpeed = 6.0f;
+	}
+
+	if (Input::getKeyUp(KEY_LSHIFT))
+	{
+		sprintSpeed = 1.0f;
+	}
 	
 	if (Input::getKeyDown(KEY_0))
 		camera->toggleProjection();
@@ -299,32 +328,31 @@ void Game::draw(float dt)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //Clears colors and fill
 	//-----------------------------------------
 	lua_draw(dt);
-	Renderer::flush();
+	// Renderer::flush();
 
-	//Draw all objects!
-	// for (auto it = quads->begin(); it != quads->end(); it++)
-	// {
-	// 	// it->draw(view, projection);
-	// 	// camera.getTransform().position(glm::vec3(0.0f, 0.0f, -3.0f));
-	// 	it->draw( camera->getTransform().getModel(), camera->getProjection() );
-	// }
 
-	int sizeX = 100;
-	int sizeY = 100;
-
-	for (int y = 0; y < sizeY; y++)
-		for (int x = 0; x < sizeX; x++)
-		{
-			Graphics::DrawQuad(x,y);
-		}
-	
 
 	// Graphics::DrawQuad(-2,0);
 	// Graphics::DrawQuad(-1,0);
-	// Graphics::DrawQuad(0,0);
-	// Graphics::DrawQuad(1,0);
-	// Graphics::DrawQuad(8,0);
-	// Graphics::DrawQuad(12,0);
+
+	double targetRefreshRate = 1.0/60.0f;
+
+	//Adding to static batch cuz flush is disabled!
+	if (targetRefreshRate >= dt)
+	{
+		int xPos = quadCount / 100;
+		int yPos = quadCount % 100;
+		
+		Graphics::DrawQuad(xPos, yPos);
+
+		quadCount++;
+
+	}
+
+	else
+	{
+		std::cout << quadCount << std::endl;
+	}
 
 
 	// IF DYNAMIC MESH

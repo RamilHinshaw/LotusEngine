@@ -88,6 +88,11 @@ void MeshBuffer::batch(Vertex vertices[], unsigned int verticeSize, unsigned int
     //ToDo: Use Memcopy for this, maybe faster?
     //ToDo: Check if goes over the quad limit!
 
+    if ( (m_vertexCount + verticeSize) > MaxVertexCount)
+    {
+        std::cout << "OVER VERTEX MAX LIMIT!" << std::endl;
+        return;
+    }
 
     glBindBuffer(GL_ARRAY_BUFFER, m_VBO[POSITION_VB]);
 
@@ -148,7 +153,7 @@ void MeshBuffer::pushData()
 
 void MeshBuffer::draw()
 {
-    //Push data before draw!
+    //Push data to GPU before draw!
     pushData();
 
     //Select buffer to draw on

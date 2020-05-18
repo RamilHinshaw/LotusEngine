@@ -18,11 +18,13 @@ extern "C"
 #include "Vertex.hpp"
 #include "Texture.hpp"
 
-#define MAXQUADS 10000
+#define MAX_QUADS 45500
+#define MAX_VERTEX (MAX_QUADS*4)
+#define MAX_INDEX (MAX_QUADS*6)
 
-const size_t MaxQuadCount = 10000;
-const size_t MaxVertexCount = MaxQuadCount * 4;
-const size_t MaxIndexCount = MaxQuadCount * 6;
+const size_t MaxQuadCount = MAX_QUADS;
+const size_t MaxVertexCount = MAX_VERTEX;
+const size_t MaxIndexCount = MAX_INDEX;
 
 class MeshBuffer
 {    
@@ -62,10 +64,10 @@ class MeshBuffer
 
         // unsigned int m_drawCount;
 
-        Vertex m_vertices[40000];
+        Vertex m_vertices[MAX_VERTEX];
         // Vertex *m_vertices = new Vertex[40000];
 
-        unsigned int m_indices[60000];
+        unsigned int m_indices[MAX_INDEX];
         // unsigned int *m_indices = new unsigned int[60000];        
 
         unsigned int m_vertexCount = 0;

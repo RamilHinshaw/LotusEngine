@@ -41,7 +41,7 @@ extern "C" //Should not being seeing this in game.hpp (lower level functions)
 #include <vector>
 #include "../thirdparty/sol/sol.hpp"
 #include <memory>
-// #include "Time.hpp"
+#include "Time.hpp"
 
 #include "../input/Input.hpp"
 
@@ -87,7 +87,7 @@ class Game{
 		const Uint8 *keyboardState = SDL_GetKeyboardState(NULL);
 		// const Uint8 *buttonState = SDL_GameControllerGetButton
 		//const Uint8 *mouseState = SDL_GetMouseState(NULL, NULL);
-
+// 
 		std::vector<Quad> *quads = new std::vector<Quad>;
 
 		//LUA / SOL
@@ -96,6 +96,9 @@ class Game{
 		sol::function lua_init, lua_update, lua_draw;
 
 		glm::vec2 textureOffset;
+		float sprintSpeed = 1.0f;
+
+		int quadCount = 0;
 
 };
 
