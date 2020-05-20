@@ -10,6 +10,8 @@
 #include "../common/Rect.hpp"
 #include <glm/glm.hpp>
 
+#include "../core/Display.hpp"
+
 
 #pragma once
 
@@ -34,9 +36,15 @@ class Renderer
         static void batch(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize);
         static void staticBatch(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize);
 
-};
+        static void SetActiveWindow(const Display &window);
+        static Display GetActiveWindow();
 
+};
         static std::vector<Texture> *batchedTextures;
         static std::vector<MeshBuffer> *batchedDynamicMeshes = new std::vector<MeshBuffer>;
         static std::vector<MeshBuffer> *batchedStaticMeshes;
         static std::vector<Shader> shaders;
+
+        //Window
+       static Display activeWindow;
+

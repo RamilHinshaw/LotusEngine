@@ -39,7 +39,7 @@ void Renderer::render()
 
     batchedDynamicMeshes->at(0).draw();
     
-    // flush();
+    flush();
 }
 
 void Renderer::sort()
@@ -77,4 +77,14 @@ void Renderer::batch(Vertex vertices[], unsigned int verticeSize, unsigned int i
 void Renderer::staticBatch(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize)
 {
     
+}
+
+void Renderer::SetActiveWindow(const Display &window)
+{
+    activeWindow = window;
+}
+
+Display Renderer::GetActiveWindow()
+{
+    return activeWindow;
 }

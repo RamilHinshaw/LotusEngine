@@ -18,6 +18,8 @@ class Graphics
 
         static void DrawQuad(float xPos, float yPos);
 
+        static void DrawSprite(float xPos, float yPos, float height, float width);
+
         static void DrawSprite(float xPos, float yPos, float height, float width, float xScal, float yScal, float rotation, char color);
 
         static void DrawGrid();

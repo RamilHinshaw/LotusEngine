@@ -48,6 +48,10 @@ Game::Game(const char *title, int width, int height)
         std::cerr << "SDL2 failed to initialize!" << std::endl;
     }
 
+	//Set Active Window
+	Renderer::SetActiveWindow(window);
+
+	//Debug Information
 	int nrAttributes, nrMaxTexUnits;
 	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
 	glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &nrMaxTexUnits);
@@ -114,7 +118,7 @@ void Game::init()
 	//Orthogonal
 	camera = new Camera(camFov, winWidth, winHeight, 0.1f, 50.0f, true);
 
-	//camera->toggleProjection();
+	camera->toggleProjection();
 
 	camera->getTransform().translate(glm::vec3(0.0f, 0.0f, -3.0f));
 
@@ -332,27 +336,26 @@ void Game::draw(float dt)
 
 
 
-	// Graphics::DrawQuad(-2,0);
-	// Graphics::DrawQuad(-1,0);
+	Graphics::DrawSprite(0,0, 2, 2);
+	Graphics::DrawQuad(3,0);
 
 	double targetRefreshRate = 1.0/60.0f;
 
 	//Adding to static batch cuz flush is disabled!
-	if (targetRefreshRate >= dt)
-	{
-		int xPos = quadCount / 100;
-		int yPos = quadCount % 100;
+	// if (targetRefreshRate >= dt)
+	// {
+	// 	int xPos = quadCount / 100;
+	// 	int yPos = quadCount % 100;
 		
-		Graphics::DrawQuad(xPos, yPos);
+	// 	Graphics::DrawQuad(xPos, yPos);
 
-		quadCount++;
+	// 	quadCount++;
+	// }
 
-	}
-
-	else
-	{
-		std::cout << quadCount << std::endl;
-	}
+	// else
+	// {
+	// 	std::cout << quadCount << std::endl;
+	// }
 
 
 	// IF DYNAMIC MESH

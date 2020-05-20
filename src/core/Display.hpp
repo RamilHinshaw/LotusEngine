@@ -26,4 +26,6 @@ class Display{
 		SDL_Window *window;
         SDL_GLContext glContext;
 
+		int m_height, m_width;
+
 };

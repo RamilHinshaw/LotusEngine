@@ -10,6 +10,8 @@ Display::Display(const char *title, int width, int height)
 {		
     //Create Window
     Display::createWindow(title, width, height);
+    m_width = width;
+    m_height = height;
 
     //Setup OpenGL
     Display::setOpenGLAttributes();
