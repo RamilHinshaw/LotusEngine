@@ -18,7 +18,9 @@ extern "C"
 #include "Vertex.hpp"
 #include "Texture.hpp"
 
-#define MAX_QUADS 45500
+
+//NOTE: 45500 is max before segemtation fault (graphics card dependent i think)
+#define MAX_QUADS 40000
 #define MAX_VERTEX (MAX_QUADS*4)
 #define MAX_INDEX (MAX_QUADS*6)
 
