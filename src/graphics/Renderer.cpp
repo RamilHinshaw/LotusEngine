@@ -79,12 +79,12 @@ void Renderer::staticBatch(Vertex vertices[], unsigned int verticeSize, unsigned
     
 }
 
-void Renderer::SetActiveWindow(const Display &window)
+void Renderer::setActiveWindow(const Display &window)
 {
     activeWindow = window;
 }
 
-Display Renderer::GetActiveWindow()
+Display Renderer::getActiveWindow()
 {
     return activeWindow;
 }

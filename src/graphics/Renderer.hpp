@@ -36,8 +36,8 @@ class Renderer
         static void batch(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize);
         static void staticBatch(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize);
 
-        static void SetActiveWindow(const Display &window);
-        static Display GetActiveWindow();
+        static void setActiveWindow(const Display &window);
+        static Display getActiveWindow();
 
 };
         static std::vector<Texture> *batchedTextures;

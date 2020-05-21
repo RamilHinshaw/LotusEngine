@@ -27,5 +27,6 @@ class Display{
         SDL_GLContext glContext;
 
 		int m_height, m_width;
+		bool test;
 
 };

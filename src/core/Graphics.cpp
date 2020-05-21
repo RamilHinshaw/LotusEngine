@@ -46,12 +46,12 @@ void Graphics::DrawQuad(float xPos, float yPos)
     Renderer::batch(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
 }
 
-void Graphics::DrawSprite(float xPos, float yPos, float height, float width, float xScal, float yScal, float rotation, char color)
+void Graphics::DrawSprite(float xPos, float yPos, float width, float height, float xScal, float yScal, float rotation, char color)
 {
 
 }
 
-void Graphics::DrawSprite(float xPos, float yPos, float height, float width)
+void Graphics::DrawSprite(float xPos, float yPos, float width, float height)
 {
     //Set verticies based on parameters
     Vertex vertices[] = {

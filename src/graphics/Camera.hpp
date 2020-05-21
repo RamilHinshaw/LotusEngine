@@ -65,7 +65,10 @@ class Camera
         }
 
 
-        // void setFOV();
+        float getFov()
+        {
+            return m_fov;
+        }
 
         ~Camera(){ 
             std::cout << "Camera out of scope!" << std::endl;

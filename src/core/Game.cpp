@@ -49,7 +49,7 @@ Game::Game(const char *title, int width, int height)
     }
 
 	//Set Active Window
-	Renderer::SetActiveWindow(window);
+	Renderer::setActiveWindow(window);
 
 	//Debug Information
 	int nrAttributes, nrMaxTexUnits;
@@ -277,11 +277,26 @@ void Game::update(float dt)
 		sprintSpeed = 1.0f;
 	}
 	
-	if (Input::getKeyDown(KEY_0))
+	if (Input::getKeyDown(KEY_O))
 		camera->toggleProjection();
 
-	if (Input::getKeyUp(KEY_1))
-		camera->toggleProjection();
+	// if (Input::getKeyDown(KEY_1))
+	// 	camera->toggleProjection();
+
+	//FOV Change!
+	if (Input::getKey(KEY_2))
+	{
+		float fov = camera->getFov() - 4.0f * dt;
+		camera->setFov(fov);
+		std::cout << fov << std::endl;
+	}
+
+	if (Input::getKey(KEY_3))
+	{
+		float fov = camera->getFov() + 4.0f * dt;
+		camera->setFov(fov);
+		std::cout << fov << std::endl;
+	}
 
 
 	//**************************************************************************************************
