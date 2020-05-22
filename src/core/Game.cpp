@@ -367,9 +367,11 @@ void Game::draw(float dt)
 
 
 	Graphics::DrawSprite(0 * 32, 0 * 32, 32, 32);
-	Graphics::DrawSprite(18, 0 * 32, 32, 32);
-	Graphics::DrawSprite(29, 0 * 32, 32, 32);	
+	Graphics::DrawSprite(1 * 32, 0 * 32, 32, 32);
+	Graphics::DrawSprite(2 * 32, 0 * 32, 32, 32);	
 
+	Graphics::DrawSprite(0 * 32, 1 * 32, 32, 32);
+	Graphics::DrawSprite(0 * 32, 2 * 32, 32, 32);	
 	// Graphics::DrawQuad(3,0);
 
 	double targetRefreshRate = 1.0/60.0f;
