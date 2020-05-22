@@ -120,4 +120,13 @@ void Display::setOpenGLAttributes()
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1); //Allocate space for a second window to draw on
 }
 
-		
+float Display::getHeight()
+{
+    return m_height;
+}
+
+float Display::getWidth()
+{
+    return m_width;
+}
+	

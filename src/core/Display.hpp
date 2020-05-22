@@ -17,6 +17,9 @@ class Display{
 
         void swapBuffers();
         void dispose();
+
+		float getHeight();
+		float getWidth();
 		
 	private:
 		void createWindow(const char *title, int width, int height); //ToDo: Create in own class
@@ -27,6 +30,6 @@ class Display{
         SDL_GLContext glContext;
 
 		int m_height, m_width;
-		bool test;
+		bool test; //need this here to prevent shader from glitching????
 
 };

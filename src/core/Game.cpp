@@ -76,8 +76,8 @@ Game::Game(const char *title, int width, int height)
 	lua_draw = lua["Draw"];
 	//---------------------------------------------------
 
-	
-	glEnable(GL_DEPTH_TEST);  //ToDo: Put somewhere else
+	//Disable for 2D!
+	// glEnable(GL_DEPTH_TEST);  //ToDo: Put somewhere else
 
 
  
@@ -286,16 +286,31 @@ void Game::update(float dt)
 	//FOV Change!
 	if (Input::getKey(KEY_2))
 	{
-		float fov = camera->getFov() - 4.0f * dt;
+		float fov = camera->getFov() - 8.0f * dt;
 		camera->setFov(fov);
 		std::cout << fov << std::endl;
 	}
 
 	if (Input::getKey(KEY_3))
 	{
-		float fov = camera->getFov() + 4.0f * dt;
+		float fov = camera->getFov() + 8.0f * dt;
 		camera->setFov(fov);
 		std::cout << fov << std::endl;
+	}
+
+	//Othor graphic zoom
+	if (Input::getKey(KEY_4))
+	{
+		float zoom = camera->getOthoZoom() - 12.0f * dt;
+		camera->setOthoZoom(zoom);
+		std::cout << zoom << std::endl;
+	}
+
+	if (Input::getKey(KEY_5))
+	{
+		float zoom = camera->getOthoZoom() + 12.0f * dt;
+		camera->setOthoZoom(zoom);
+		std::cout << zoom << std::endl;
 	}
 
 
@@ -319,7 +334,7 @@ void Game::update(float dt)
 
 	// SCROLLING UV TEST!		| ToDo: Put in queue system so don't double bind!
 	textureOffset += dt * .25f;// * glm::vec2(1,0);
-	basicShader.setVec2("u_texRect", textureOffset.x, textureOffset.y);
+	// basicShader.setVec2("u_texRect", textureOffset.x, textureOffset.y);
 
 
 	// IF DYNAMIC MESH
@@ -351,8 +366,11 @@ void Game::draw(float dt)
 
 
 
-	Graphics::DrawSprite(0,0, 2, 2);
-	Graphics::DrawQuad(3,0);
+	Graphics::DrawSprite(0 * 32, 0 * 32, 32, 32);
+	Graphics::DrawSprite(18, 0 * 32, 32, 32);
+	Graphics::DrawSprite(29, 0 * 32, 32, 32);	
+
+	// Graphics::DrawQuad(3,0);
 
 	double targetRefreshRate = 1.0/60.0f;
 

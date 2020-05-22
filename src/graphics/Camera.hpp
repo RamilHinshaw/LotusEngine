@@ -64,10 +64,21 @@ class Camera
             updateProjection();
         }
 
-
         float getFov()
         {
             return m_fov;
+        }
+
+        void setOthoZoom(float othozoom)
+        {
+            m_othoZoom = othozoom;
+
+            updateProjection();
+        }
+
+        float getOthoZoom()
+        {
+            return m_othoZoom;
         }
 
         ~Camera(){ 
@@ -80,17 +91,19 @@ class Camera
             if (m_isPerspective) //perspective
             {
                 //projection = glm::perspective(glm::radians(45.0f), (float)800/(float)600, 0.1f, 100.0f);
-                projection = glm::perspective(m_fov, m_width/m_height, m_near, m_far);
+                projection = glm::perspective(glm::radians(m_fov), m_width/m_height, m_near, m_far);
             }
 
             else    //orthogonal
             {
-                projection = glm::ortho(0.0f, m_width/m_fov, 0.0f, m_height/m_fov, m_near, m_far);
+                projection = glm::ortho(0.0f, (m_width/m_othoZoom), -(m_height/m_othoZoom), 0.0f, m_near, m_far);
             }
             
         }
 
         float m_fov = 45.0f;
+        float m_othoZoom = 1.0f; //For othorgraphic
+
         float m_width, m_height;
         float m_near, m_far;
         bool m_isPerspective = true;

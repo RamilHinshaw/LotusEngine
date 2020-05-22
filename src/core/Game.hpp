@@ -44,6 +44,7 @@ extern "C" //Should not being seeing this in game.hpp (lower level functions)
 #include "Time.hpp"
 
 #include "../input/Input.hpp"
+#include "../input/InputConstants.hpp"
 
 //CORE
 #include "Graphics.hpp"
