@@ -48,6 +48,7 @@ extern "C" //Should not being seeing this in game.hpp (lower level functions)
 
 //CORE
 #include "Graphics.hpp"
+#include "Audio.hpp"
 
 
 

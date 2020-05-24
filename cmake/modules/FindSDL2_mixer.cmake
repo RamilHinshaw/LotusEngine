@@ -1,0 +1,55 @@
+
+find_path(SDL2_MIXER_INCLUDE_DIR SDL2/SDL_mixer.h
+	HINTS
+	${CMAKE_SOURCE_DIR}
+	$ENV{SDL2_DIR}
+	PATH_SUFFIXES
+	include/SDL2
+	include
+	SDL2
+	PATHS
+	./lib/SDL2
+    ./lib/
+	/usr/local
+	/usr
+	/opt
+)
+
+# 64 bit
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+	FIND_LIBRARY(SDL2_MIXER_LIBRARY SDL2_mixer
+		HINTS
+		${CMAKE_SOURCE_DIR}
+		$ENV{SDL2_DIR}
+		PATH_SUFFIXES
+		lib64
+		lib
+		lib/x64
+		lib/x64/SDL2_mixer
+		PATHS
+		/opt
+	)
+
+# 32 bit
+else(CMAKE_SIZEOF_VOID_P EQUAL 8)
+	FIND_LIBRARY(SDL2_MIXER_LIBRARY SDL2_mixer
+		HINTS
+		${CMAKE_SOURCE_DIR}
+		$ENV{SDL2_DIR}
+		PATH_SUFFIXES
+		lib
+		lib/x86
+		lib/x86/SDL2_mixer
+		PATHS
+		/opt
+	)
+endif(CMAKE_SIZEOF_VOID_P EQUAL 8)
+
+include(FindPackageHandleStandardArgs)
+
+find_package_handle_standard_args(SDL2_mixer DEFAULT_MSG SDL2_MIXER_LIBRARY SDL2_MIXER_INCLUDE_DIR)
+
+mark_as_advanced(SDL2_MIXER_INCLUDE_DIR SDL2_MIXER_LIBRARY)
+
+set(SDL2_MIXER_LIBRARIES ${SDL2_MIXER_LIBRARY})
+set(SDL2_MIXER_INCLUDE_DIRS ${SDL2_MIXER_INCLUDE_DIR})

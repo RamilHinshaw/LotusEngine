@@ -102,6 +102,7 @@ void Game::PrintUniformValue(GLint program, std::string name)
 //GAME START CODE HERE!
 void Game::init()
 {
+
 	lua_init();
 	//--------------- INIT CODE BELOW ----------------------------------------------------------------------------
 
@@ -146,8 +147,9 @@ void Game::init()
 
 	//**********************************************************************************************
 
-
+	//CORE
 	Renderer::init();
+	Audio::init();
 
 	//BASICALLY STATIC, NOT PUSHED EVERY FRAME
 
@@ -285,6 +287,12 @@ void Game::update(float dt)
 		std::cout << zoom << std::endl;
 	}
 
+	if (Input::getKeyDown(KEY_M))
+	{
+		Audio::playMusic("./assets/audio/Music.wav", 1.0f, -1);
+	}
+
+
 
 	//**************************************************************************************************
 
@@ -330,8 +338,8 @@ void Game::update(float dt)
 void Game::draw(float dt)
 {
 	//Clear Screen
-	//glClearColor(0.0f,0.15f,0.3f,1.0f); //Clear with this color
-	glClearColor(0.0f,0.0f,0.0f,1.0f); //Clear with this color
+	glClearColor(0.0f,0.15f,0.3f,1.0f); //Clear with this color
+	// glClearColor(0.0f,0.0f,0.0f,1.0f); //Clear with this color
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //Clears colors and fill
 	//-----------------------------------------
 	lua_draw(dt);
@@ -390,9 +398,11 @@ void Game::dispose()
 	// {
 	// 	it->dispose();
 	// }
-
+	Renderer::flush();
+	Audio::flush();
 	Input::dispose();
 	window.dispose();
+	Mix_Quit();
 	SDL_Quit();
 	std::cout << "Game Cleaned" << std::endl;
 }

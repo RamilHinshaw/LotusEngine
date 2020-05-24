@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 2.8)
 
 project(LotusEngine)
 
+#Set which assets folder to use
+set (AssetsFolder "test")
+
 #Set the C++ version
 set (CMAKE_CXX_STANDARD 17)
 
@@ -57,6 +60,12 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 	# 	include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
 	# 	message(STATUS "SDL2_image Include Dir: " ${SDL2_IMAGE_INCLUDE_DIRS})
 	# endif()
+
+	find_package(SDL2_mixer REQUIRED)
+	if(SDL2_mixer_FOUND)
+		include_directories(${SDL2_MIXER_INCLUDE_DIRS})
+		message(STATUS "SDL2_mixer Include Dir: " ${SDL2_MIXER_INCLUDE_DIRS})
+	endif()
 
 	find_package(Lua REQUIRED)
 	if(LUA_FOUND)
@@ -118,6 +127,7 @@ set(
 
 	# ${SDL2_TTF_LIBRARIES} 
 	# ${SDL2_IMAGE_LIBRARIES}
+	${SDL2_MIXER_LIBRARIES}
 	${LUA_LIBRARIES}
 	# "lua5.3"   # HARD CODED FIX IN FindLua.cmake file
 	)
@@ -135,5 +145,5 @@ endif()
 #Copy Assets
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
-                       ${CMAKE_SOURCE_DIR}/examples/benchmark/assets $<TARGET_FILE_DIR:${PROJECT_NAME}>/assets)
+                       ${CMAKE_SOURCE_DIR}/examples/${AssetsFolder}/assets $<TARGET_FILE_DIR:${PROJECT_NAME}>/assets)
 
