@@ -30,6 +30,6 @@ class Display{
         SDL_GLContext glContext;
 
 		int m_height, m_width;
-		bool test; //need this here to prevent shader from glitching????
+		bool test; //need this here to prevent shader from glitching????(float xPos, float yPos, float size)
 
 };

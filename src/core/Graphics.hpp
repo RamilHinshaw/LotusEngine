@@ -9,6 +9,7 @@
 #include "../graphics/opengl/Texture.hpp"
 // #include "../graphics/Camera.hpp"
 #include "../graphics/Renderer.hpp"
+#include <glm/glm.hpp>
 
 class Graphics 
 {
@@ -20,7 +21,7 @@ class Graphics
 
         static void DrawSprite(float xPos, float yPos, float width, float height);
 
-        static void DrawSprite(float xPos, float yPos, float width, float height, float xScal, float yScal, float rotation, char color);
+        static void DrawSprite(float xPos, float yPos, float width, float height, float xScal, float yScal, float rotation, glm::vec3 color);
 
         static void DrawGrid();
 
@@ -28,7 +29,7 @@ class Graphics
 
         static void DrawSphere();
 
-        static void DrawText();
+        static void DrawText(float xPos, float yPos, float size);
 
 
 

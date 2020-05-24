@@ -105,7 +105,7 @@ void Game::init()
 	lua_init();
 	//--------------- INIT CODE BELOW ----------------------------------------------------------------------------
 
-	basicTexture = Texture("./assets/textures/floorAll.png");
+	basicTexture = Texture("./assets/textures/floor4.png");
 	basicShader = Shader("./assets/shaders/basicShaderES");
 
 	std::cout << "Image Size: " << basicTexture.getSize().x << "x" << basicTexture.getSize().y << std::endl;
@@ -142,38 +142,10 @@ void Game::init()
 	//TEST
 	basicShader.bind();
 
-	//2 MESH QUAD ************************************************************************************
-	    Vertex vertices[] = {
 
-					//Positions								//Colors						//Texture Coordinates	//TexID
-					Vertex(glm::vec3(-1.5,	-0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f), 	0.0f),
-					Vertex(glm::vec3(-0.5,	-0.5,	0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f), 	0.0f),
-					Vertex(glm::vec3(-0.5,	0.5,	0),	glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 0.0f), 	0.0f),
-					Vertex(glm::vec3(-1.5,	0.5,	0), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 1.0f), 	0.0f),
-
-					Vertex(glm::vec3(0.5,	-0.5,	0),	glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), 	glm::vec2(1.0f, 1.0f), 	1.0f),
-					Vertex(glm::vec3(1.5,	-0.5,	0),	glm::vec4(1.0f,	0.0f, 0.0f, 1.0f), 	glm::vec2(1.0f, 0.0f), 	1.0f),
-					Vertex(glm::vec3(1.5,	0.5,	0),	glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), 	glm::vec2(0.0f, 0.0f), 	1.0f),
-					Vertex(glm::vec3(0.5,	0.5,	0), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), 	glm::vec2(0.0f, 1.0f), 	1.0f),
-
-				};
-
-	//Turn into class container (indice holding 3 ints)
-	unsigned int indices[] = {
-		0, 2, 3,	//first triangle
-		0, 1, 2,	//second triangle
-
-		4, 6, 7,
-		4, 5, 6
-
-	};
 
 	//**********************************************************************************************
 
-	//Quad quad1 = new Quad( 0, 0, 32, 32)
-
-
-	// basicMesh = Mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
 
 	Renderer::init();
 
@@ -250,22 +222,22 @@ void Game::update(float dt)
 	//******* INPUT STATE TEMP *************************************************************************
 
 	if (Input::getKey(KEY_W))
-		camera->getTransform().translate(dt * glm::vec3(0.0f, 0.0f, 5.0f * sprintSpeed));
+		camera->getTransform().translate(dt * glm::vec3(0.0f, 0.0f, 32.0f * sprintSpeed));
 
 	if (Input::getKey(KEY_A))
-		camera->getTransform().translate(dt * glm::vec3(5.0f * sprintSpeed, 0.0f, 0.0f));
+		camera->getTransform().translate(dt * glm::vec3(32.0f * sprintSpeed, 0.0f, 0.0f));
 
 	if (Input::getKey(KEY_S))
-		camera->getTransform().translate(dt * glm::vec3(0.0f, 0.0f, -5.0f * sprintSpeed));
+		camera->getTransform().translate(dt * glm::vec3(0.0f, 0.0f, -32.0f * sprintSpeed));
 
 	if (Input::getKey(KEY_D))
-		camera->getTransform().translate(dt * glm::vec3(-5.0f * sprintSpeed, 0.0f, 0.0f));
+		camera->getTransform().translate(dt * glm::vec3(-32.0f * sprintSpeed, 0.0f, 0.0f));
 
 	if (Input::getKey(KEY_Q))
-		camera->getTransform().translate(dt * glm::vec3(0.0f, 5.0f * sprintSpeed, 0.0f));
+		camera->getTransform().translate(dt * glm::vec3(0.0f, 32.0f * sprintSpeed, 0.0f));
 
 	if (Input::getKey(KEY_E))
-		camera->getTransform().translate(dt * glm::vec3(0.0f, -5.0f * sprintSpeed, 0.0f));
+		camera->getTransform().translate(dt * glm::vec3(0.0f, -32.0f * sprintSpeed, 0.0f));
 
 	if (Input::getKeyDown(KEY_LSHIFT))
 	{
@@ -358,7 +330,8 @@ void Game::update(float dt)
 void Game::draw(float dt)
 {
 	//Clear Screen
-	glClearColor(0.0f,0.15f,0.3f,1.0f); //Clear with this color
+	//glClearColor(0.0f,0.15f,0.3f,1.0f); //Clear with this color
+	glClearColor(0.0f,0.0f,0.0f,1.0f); //Clear with this color
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //Clears colors and fill
 	//-----------------------------------------
 	lua_draw(dt);

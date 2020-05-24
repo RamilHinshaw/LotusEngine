@@ -19,7 +19,7 @@ const int SCREEN_HEIGHT= 600;
 int main(int argv, char** args)
 {	
 	//ToDo: Create Game Object/Game Creates Window also. ToDo: *should seperate logic here
-	Game game = Game("Lotus Game",SCREEN_WIDTH, SCREEN_HEIGHT);
+	Game game = Game("Lotus Game 0.1",SCREEN_WIDTH, SCREEN_HEIGHT);
 	
 	//Set target FPS
 	const double FPS = 60.0;

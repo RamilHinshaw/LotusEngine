@@ -46,7 +46,7 @@ void Graphics::DrawQuad(float xPos, float yPos)
     Renderer::batch(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
 }
 
-void Graphics::DrawSprite(float xPos, float yPos, float width, float height, float xScal, float yScal, float rotation, char color)
+void Graphics::DrawSprite(float xPos, float yPos, float width, float height, float xScal, float yScal, float rotation, glm::vec3 color)
 {
 
 }
@@ -88,7 +88,7 @@ void Graphics::DrawSphere()
     
 }
 
-void Graphics::DrawText()
+void Graphics::DrawText(float xPos, float yPos, float size)
 {
     
 }

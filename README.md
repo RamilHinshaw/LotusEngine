@@ -5,6 +5,21 @@
 
 ---
 
+## Roadmap (Current Version: 0.1)
+
+### Progress to 0,2
+	- Virtual Resolution
+	- Play Audio
+	- Text Renderer
+	- Lua Integration
+
+
+### Progress to 0.3
+	- Compile Dynamic Library for Engine
+	- Simple Editor
+	- Entity Component System
+	- Pack Files with zlib
+
 ## Build Instructions
 
 ### Linux with gcc
