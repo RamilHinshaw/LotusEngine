@@ -7,7 +7,7 @@
 
 ## Roadmap (Current Version: 0.1)
 
-### Progress to 0,2
+### Progress to 0.2
 	- Virtual Resolution
 	- Play Audio
 	- Text Renderer
@@ -16,9 +16,10 @@
 
 ### Progress to 0.3
 	- Compile Dynamic Library for Engine
-	- Simple Editor
+	- Simple Editor that interacts with dynamic library
 	- Entity Component System
-	- Pack Files with zlib
+	- Pack/Read Files with zlib
+	- LotusPlayer to read packed files
 
 ## Build Instructions
 
