@@ -29,6 +29,7 @@
 	- libglm-dev
 	- liblua5.1-0-dev
 	- libglew-dev
+	- libfreetype6-dev
 - git clone this project
 - git submodule init & git submodule update
 - cd into project and mkdir /build directory

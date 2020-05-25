@@ -2,6 +2,7 @@
 
 #include "opengl/Mesh.hpp"
 #include "opengl/MeshBuffer.hpp"
+#include "opengl/TextMeshBuffer.hpp"
 
 #include "opengl/Shader.hpp"
 #include "opengl/Texture.hpp"
@@ -43,7 +44,11 @@ class Renderer
         static std::vector<Texture> *batchedTextures;
         static std::vector<MeshBuffer> *batchedDynamicMeshes = new std::vector<MeshBuffer>;
         static std::vector<MeshBuffer> *batchedStaticMeshes;
+        static TextMeshBuffer textMeshBuffer; //Maybe an array based on bitmap types? or keep them in texture slots when generated?
+
+        //Use Resource manager here instead!?!?!? Or helps load it here
         static std::vector<Shader> shaders;
+        //And Textures!?!?!?
 
         //Window
        static Display activeWindow;

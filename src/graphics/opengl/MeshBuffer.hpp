@@ -16,7 +16,7 @@ extern "C"
 }
 
 #include "Vertex.hpp"
-#include "Texture.hpp"
+// #include "Texture.hpp"
 
 
 //NOTE: 45500 is max before segemtation fault (graphics card dependent i think)
@@ -41,7 +41,7 @@ class MeshBuffer
 
         void batch(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize);
 
-        void pushData();
+
         void draw();
 
         void flush();
@@ -50,6 +50,8 @@ class MeshBuffer
     private:
         // MeshBuffer(const Mesh& other);
         // void operator=(const Mesh& other);
+
+        void pushData();
 
         enum
         {
