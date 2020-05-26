@@ -11,7 +11,8 @@ extern "C"
 
 #include "Vertex.hpp"
 #include <map>
-#include <ft2build.h>
+// #include <ft2build.h>
+#include "../../thirdparty/freetype2/include/ft2build.h"
 #include FT_FREETYPE_H
 
 
@@ -38,7 +39,7 @@ public:
 
     TextMeshBuffer();
 
-    //void load(std::string font, unsigned int fontSize); //Unique from mesh buffer, must turn freetype to buffer and store it!
+    void load(std::string font, unsigned int fontSize); //Unique from mesh buffer, must turn freetype to buffer and store it!
     void batch();
 
     void draw(std::string text, float xPos, float yPos, float scaleFont, glm::vec3 color = glm::vec3(1.0f));

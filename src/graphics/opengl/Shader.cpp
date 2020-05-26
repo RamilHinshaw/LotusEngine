@@ -47,8 +47,7 @@ Shader::Shader(const std::string& fileName)
 
 void Shader::bind()
 {
-    // std::cout << "bind: " << m_program << std::endl;
-
+    std::cout << "bind: " << m_program << std::endl;
 
     glUseProgram(m_program);
 }

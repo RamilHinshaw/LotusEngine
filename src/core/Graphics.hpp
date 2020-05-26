@@ -10,6 +10,7 @@
 // #include "../graphics/Camera.hpp"
 #include "../graphics/Renderer.hpp"
 #include <glm/glm.hpp>
+#include "../thirdparty/freetype2/include/ft2build.h"
 
 class Graphics 
 {
@@ -29,7 +30,7 @@ class Graphics
 
         static void DrawSphere();
 
-        static void DrawText(float xPos, float yPos, float size);
+        void Graphics::DrawText(std::string text, float xPos, float yPos, float scale);
 
 
 

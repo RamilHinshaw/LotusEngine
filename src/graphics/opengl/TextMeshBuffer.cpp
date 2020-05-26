@@ -3,17 +3,22 @@
 #include "TextMeshBuffer.hpp"
 
 
-TextMeshBuffer::TextMeshBuffer(unsigned int width, unsigned int height)
+TextMeshBuffer::TextMeshBuffer()
 {
-    
+    //Setup OpenGl Here
 }
 
 void TextMeshBuffer::load(std::string font, unsigned int fontSize)
 {
+    //Turn ttf into bitmap texture to map onto
+}
+
+void TextMeshBuffer::batch()
+{
 
 }
 
-void TextMeshBuffer::renderText(std::string text, float x, float y, float scale, glm::vec3 color = glm::vec3(1.0f))
+void TextMeshBuffer::draw(std::string text, float xPos, float yPos, float scaleFont, glm::vec3 color = glm::vec3(1.0f))
 {
-
+    
 }

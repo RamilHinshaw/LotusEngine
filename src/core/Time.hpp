@@ -23,7 +23,7 @@ class Time
         static float preciseTime();
 
     private:
-    
+        Time(){}
         static void updateFrameCounter();
         // Time();
         // ~Time();

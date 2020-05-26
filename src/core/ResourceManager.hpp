@@ -12,20 +12,27 @@ class ResourceManager
 {
     public:
 
+        static Texture LoadTexture(const std::string &file);
+        static Texture GetTexture(const std::string &file);
+        static void Clearextures();
 
-    static Texture LoadTexture(const std::string &file);
+        static Texture LoadShader(const std::string &file);
+        static Texture GetShader(const std::string &file);
+        static void ClearShaders();
 
-    static Texture GetTexture(const std::string &file);
+        static Texture LoadFont(const std::string &file);
+        static Texture GetFont(const std::string &file);
+        static void ClearTextures();
 
-    static void Clear();
+        static void Clear(); //Flushes everything!
 
 
 
-
-    static std::map<std::string, Shader>  Shaders;
 
     private:
-    ResourceManager(){}
+        ResourceManager(){}
 
+        static std::map<std::string, Texture>  Textures;
+        static std::map<std::string, Shader>  Shaders;
 
 };
