@@ -30,7 +30,7 @@ class Graphics
 
         static void DrawSphere();
 
-        void Graphics::DrawText(std::string text, float xPos, float yPos, float scale);
+        static void DrawText(std::string text, float xPos, float yPos, float scale);
 
 
 

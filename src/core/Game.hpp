@@ -28,7 +28,7 @@ extern "C" //Should not being seeing this in game.hpp (lower level functions)
 
 
 // #include "../graphics/MeshObject2D.hpp"
-#include "../graphics/Quad.hpp"
+// #include "../graphics/Quad.hpp"
 #include "../common/Rect.hpp"
 
 #include <glm/glm.hpp>
@@ -90,7 +90,7 @@ class Game{
 		// const Uint8 *buttonState = SDL_GameControllerGetButton
 		//const Uint8 *mouseState = SDL_GetMouseState(NULL, NULL);
 // 
-		std::vector<Quad> *quads = new std::vector<Quad>;
+		// std::vector<Quad> *quads = new std::vector<Quad>;
 
 		//LUA / SOL
 		//ToDo swap with sol::protected_function

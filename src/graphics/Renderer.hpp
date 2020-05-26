@@ -37,14 +37,22 @@ class Renderer
         static void batch(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize);
         static void staticBatch(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize);
 
+        //Text Batch
+        static void textBatch(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize);
+
         static void setActiveWindow(const Display &window);
         static Display getActiveWindow();
+
+        static void dispose();
+    private:
+        Renderer(){}
 
 };
         static std::vector<Texture> *batchedTextures;
         static std::vector<MeshBuffer> *batchedDynamicMeshes = new std::vector<MeshBuffer>;
         static std::vector<MeshBuffer> *batchedStaticMeshes;
-        static TextMeshBuffer textMeshBuffer; //Maybe an array based on bitmap types? or keep them in texture slots when generated?
+        //static TextMeshBuffer textMeshBuffer; //Maybe an array based on bitmap types? or keep them in texture slots when generated?
+        // static MeshBuffer textMeshBuffer;
 
         //Use Resource manager here instead!?!?!? Or helps load it here
         static std::vector<Shader> shaders;
@@ -53,3 +61,7 @@ class Renderer
         //Window
        static Display activeWindow;
 
+
+       //TEST!!!
+        // static Texture basicTexture;
+		// static Shader basicShader;

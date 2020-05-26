@@ -12,6 +12,7 @@
 	- Play Audio
 	- Text Renderer
 	- Lua Integration
+	- Renderer System
 
 
 ### Progress to 0.3

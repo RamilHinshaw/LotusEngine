@@ -13,16 +13,16 @@ class ResourceManager
     public:
 
         static Texture LoadTexture(const std::string &file);
-        static Texture GetTexture(const std::string &file);
-        static void Clearextures();
+        // static Texture GetTexture(const std::string &file);
+        static void ClearTextures();
 
         static Texture LoadShader(const std::string &file);
-        static Texture GetShader(const std::string &file);
+        // static Texture GetShader(const std::string &file);
         static void ClearShaders();
 
         static Texture LoadFont(const std::string &file);
-        static Texture GetFont(const std::string &file);
-        static void ClearTextures();
+        // static Texture GetFont(const std::string &file);
+        static void ClearFonts();
 
         static void Clear(); //Flushes everything!
 

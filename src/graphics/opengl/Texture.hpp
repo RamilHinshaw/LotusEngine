@@ -20,7 +20,7 @@ class Texture
         virtual ~Texture();
 
         //Should have this inherent from some class since this is common
-        void bind(unsigned int unit); //Unit for multiple textures
+        void bind(); //Unit for multiple textures
         void dispose();
         glm::vec2 getSize();
         //SetMipMap();
@@ -31,7 +31,7 @@ class Texture
         int m_width, m_height, m_channels;
         // char giveByteToOpenglGOD; //This is here to fix some VERY odd opengl bug, prevents textures from being weird, must appease the opengl god | Error
 
-        GLuint m_texture;
+        GLuint m_texture; //Texture ID in OpenGL
 
         //void operator={const Texture& other) {}
 };

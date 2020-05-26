@@ -26,18 +26,29 @@ void Renderer::init()
 	// };
 
     // batchedDynamicMeshes->at(0).batch(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
+    
+	// basicTexture = Texture("./assets/textures/floor4.png");
+	// basicShader = Shader("./assets/shaders/basicShaderES");
+    // basicShader.bind();
+	// basicTexture.bind();
 }
 
 void Renderer::render()
 {
     //ToDo: Render based on priorities!
-        // Shader
-            // Texture
-                // Mesh
+        // Shader1 bind
+            // Texture1 bind
+                // Mesh1 draw
+            // Texture2 bind
+                // Mesh2 draw                
+        // Shader2 bind
+            // Texture3 bind
+                // Mesh3 draw        
 
 
 
     batchedDynamicMeshes->at(0).draw();
+    // textMeshBuffer.draw();
     
     flush();
 }
@@ -79,6 +90,11 @@ void Renderer::staticBatch(Vertex vertices[], unsigned int verticeSize, unsigned
     
 }
 
+void textBatch(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize)
+{
+    // textMeshBuffer.batch(vertices, verticeSize, indices, indiceSize);
+}
+
 void Renderer::setActiveWindow(const Display &window)
 {
     activeWindow = window;
@@ -87,4 +103,10 @@ void Renderer::setActiveWindow(const Display &window)
 Display Renderer::getActiveWindow()
 {
     return activeWindow;
+}
+
+void Renderer::dispose()
+{
+    // basicShader.dispose();
+	// basicTexture.dispose();
 }

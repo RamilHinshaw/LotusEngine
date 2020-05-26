@@ -68,7 +68,8 @@ glm::vec2 Texture::getSize()
     return glm::vec2(m_width, m_height);
 }
 
-void Texture::bind(unsigned int unit)
+void Texture::bind()
 {
+    std::cout << "bind texture: " << m_texture << std::endl;
     glBindTexture(GL_TEXTURE_2D, m_texture);
 }

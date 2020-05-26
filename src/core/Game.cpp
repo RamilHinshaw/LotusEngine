@@ -142,7 +142,7 @@ void Game::init()
 
 	//TEST
 	basicShader.bind();
-
+	basicTexture.bind();
 
 
 	//**********************************************************************************************
@@ -376,6 +376,7 @@ void Game::draw(float dt)
 
 	// IF DYNAMIC MESH
 	Renderer::render();
+	Renderer::dispose();
 	// THEN FLUSH AND UPDATE HERE!
 
 	basicShader.setMat4("u_transform", glm::mat4(1.0f));
