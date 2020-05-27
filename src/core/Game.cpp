@@ -362,7 +362,9 @@ void Game::draw(float dt)
 
 	// Graphics::DrawSprite(0 * 32, 1 * 32, 32, 32);
 	// Graphics::DrawSprite(0 * 32, 2 * 32, 32, 32);	
-	Graphics::DrawText("Hello World!", 0, 0);
+	Graphics::DrawText("Hello World!", 0, 0 * 32);
+	Graphics::DrawText("the quick brown fox jumped over the lazy dog.!?", 0, 1 * 32);
+	Graphics::DrawText("THE QUICK BROWN FOX JUMPED OVER THE LAZY DOG.!?", 0, 2 * 32);
 
 	double targetRefreshRate = 1.0/60.0f;
 
