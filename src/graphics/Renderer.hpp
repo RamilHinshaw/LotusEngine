@@ -52,7 +52,8 @@ class Renderer
         static std::vector<MeshBuffer> *batchedDynamicMeshes = new std::vector<MeshBuffer>;
         static std::vector<MeshBuffer> *batchedStaticMeshes;
         //static TextMeshBuffer textMeshBuffer; //Maybe an array based on bitmap types? or keep them in texture slots when generated?
-        // static MeshBuffer textMeshBuffer;
+        static std::vector<MeshBuffer> *batchedTextMeshes = new std::vector<MeshBuffer>;
+        // static MeshBuffer *textMeshBuffer = new MeshBuffer();
 
         //Use Resource manager here instead!?!?!? Or helps load it here
         static std::vector<Shader> shaders;

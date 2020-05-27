@@ -5,6 +5,7 @@
 void Renderer::init()
 {
     batchedDynamicMeshes->push_back( MeshBuffer() );   
+    batchedTextMeshes->push_back( MeshBuffer() );   
 
     flush();
 
@@ -48,6 +49,7 @@ void Renderer::render()
 
 
     batchedDynamicMeshes->at(0).draw();
+    // batchedTextMeshes->at(0).draw();
     // textMeshBuffer.draw();
     
     flush();
@@ -93,6 +95,8 @@ void Renderer::staticBatch(Vertex vertices[], unsigned int verticeSize, unsigned
 void textBatch(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize)
 {
     // textMeshBuffer.batch(vertices, verticeSize, indices, indiceSize);
+
+    batchedTextMeshes->at(0).batch(vertices, verticeSize, indices, indiceSize);
 }
 
 void Renderer::setActiveWindow(const Display &window)

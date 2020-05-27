@@ -9,6 +9,7 @@
 
 MeshBuffer::MeshBuffer()
 {
+    // std::cout << "1" << std::endl;
     //VAO
     glGenVertexArrays(1, &m_VAO); //Created space on gpu for VAO of 1 dimension
 
@@ -59,6 +60,8 @@ MeshBuffer::MeshBuffer()
     // **********************
     glBindBuffer(GL_ARRAY_BUFFER, 0); //Can safetly unbound this but keep EBO
     glBindVertexArray(0); //Release  
+
+    std::cout << "VBO Mesh: " << m_VBO << std::endl;
 }
 
 // MeshBuffer::MeshBuffer(Vertex vertices[], unsigned int verticeSize, unsigned int indices[], unsigned int indiceSize)

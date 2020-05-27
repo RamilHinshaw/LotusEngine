@@ -80,6 +80,7 @@ Game::Game(const char *title, int width, int height)
 	// glEnable(GL_DEPTH_TEST);  //ToDo: Put somewhere else
 
 
+
  
 }
 
@@ -106,10 +107,12 @@ void Game::init()
 	lua_init();
 	//--------------- INIT CODE BELOW ----------------------------------------------------------------------------
 
-	basicTexture = Texture("./assets/textures/floor4.png");
-	basicShader = Shader("./assets/shaders/basicShaderES");
+	// basicTexture = Texture("./assets/textures/floor4.png");
+	basicShader = Shader("./assets/shaders/textShader");
 
-	std::cout << "Image Size: " << basicTexture.getSize().x << "x" << basicTexture.getSize().y << std::endl;
+	//std::cout << "Image Size: " << basicTexture.getSize().x << "x" << basicTexture.getSize().y << std::endl;
+
+
 
 	//DISPLAY SETTINGS
 	float winWidth = 800.0f;
@@ -142,7 +145,11 @@ void Game::init()
 
 	//TEST
 	basicShader.bind();
-	basicTexture.bind();
+	// basicTexture.bind();
+
+	Graphics::TestLoadFont("./assets/fonts/Arial.ttf", 32);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);  
 
 
 	//**********************************************************************************************
@@ -347,13 +354,13 @@ void Game::draw(float dt)
 
 
 
-	Graphics::DrawSprite(0 * 32, 0 * 32, 32, 32);
-	Graphics::DrawSprite(1 * 32, 0 * 32, 32, 32);
-	Graphics::DrawSprite(2 * 32, 0 * 32, 32, 32);	
+	// Graphics::DrawSprite(0 * 32, 0 * 32, 32, 32);
+	// Graphics::DrawSprite(1 * 32, 0 * 32, 32, 32);
+	// Graphics::DrawSprite(2 * 32, 0 * 32, 32, 32);	
 
-	Graphics::DrawSprite(0 * 32, 1 * 32, 32, 32);
-	Graphics::DrawSprite(0 * 32, 2 * 32, 32, 32);	
-	// Graphics::DrawQuad(3,0);
+	// Graphics::DrawSprite(0 * 32, 1 * 32, 32, 32);
+	// Graphics::DrawSprite(0 * 32, 2 * 32, 32, 32);	
+	Graphics::DrawText("EEEEEE", 0, 0);
 
 	double targetRefreshRate = 1.0/60.0f;
 

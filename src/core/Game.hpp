@@ -82,7 +82,7 @@ class Game{
 
 		Camera* camera;
 
-		Texture basicTexture;
+		// Texture basicTexture;
 		Shader basicShader;
 		// Mesh basicMesh;
 

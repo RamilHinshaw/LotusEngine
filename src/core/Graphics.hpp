@@ -10,7 +10,13 @@
 // #include "../graphics/Camera.hpp"
 #include "../graphics/Renderer.hpp"
 #include <glm/glm.hpp>
+
 #include "../thirdparty/freetype2/include/ft2build.h"
+// #include "../thirdparty/freetype2/include/freetype/fterrors.h"
+#include "../thirdparty/freetype2/include/freetype/freetype.h"
+#include FT_FREETYPE_H
+
+#include <map>
 
 class Graphics 
 {
@@ -30,8 +36,18 @@ class Graphics
 
         static void DrawSphere();
 
-        static void DrawText(std::string text, float xPos, float yPos, float scale);
+        static void DrawText(std::string text, float xPos, float yPos, float scale = 1.0f);
 
-
+        static void TestLoadFont(std::string path, unsigned int fontSize);
 
 };
+
+struct Character {
+    unsigned int TextureID; // ID handle of the glyph texture
+    glm::ivec2   Size;      // size of glyph
+    glm::ivec2   Bearing;   // offset from baseline to left/top of glyph
+    unsigned int Advance;   // horizontal offset to advance to next glyph
+};
+
+static std::map<char, Character> Characters; 
+
