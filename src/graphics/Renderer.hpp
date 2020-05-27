@@ -13,6 +13,8 @@
 
 #include "../core/Display.hpp"
 
+#include "Camera.hpp"
+
 
 #pragma once
 
@@ -24,7 +26,7 @@ class Renderer
 {
     public:
         static void init(); //Load after resource manager!
-        static void render(); //Render All Verticies to buffer
+        static void render(Camera *camera); //Render All Verticies to buffer
         static void sort(); //Sort State Changes
         static void flush(); //Clears Buffer in dynamic
         static void staticFlush(); //Clears Buffer in static
@@ -65,4 +67,4 @@ class Renderer
 
        //TEST!!!
         // static Texture basicTexture;
-		// static Shader basicShader;
+		static Shader basicShader;

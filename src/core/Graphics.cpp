@@ -118,11 +118,6 @@ void Graphics::DrawText(std::string text, float xPos, float yPos, float scale)
             0, 1, 2,	//second triangle
         };
 
-        // Vertex(glm::vec3( (0.0f + xPos) ,  (-1.0f - yPos ) - height+1, 0),	        glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f), 	0.0f),      //Bot Left
-        // Vertex(glm::vec3( (1.0f + xPos) + width-1,  (-1.0f - yPos ) - height+1, 0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f), 	0.0f),      //Bot Right
-        // Vertex(glm::vec3( (1.0f + xPos) + width-1,  (0.0f - yPos)  , 0),	        glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 0.0f), 	0.0f),      //Top Right
-        // Vertex(glm::vec3( (0.0f + xPos) ,  (0.0f - yPos)  , 0),                      glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 1.0f), 	0.0f)   //Top Left
-
         glBindTexture(GL_TEXTURE_2D, ch.TextureID);
 
         //Then pass to dynamic mesh buffer
@@ -154,7 +149,7 @@ void Graphics::TestLoadFont(std::string path, unsigned int fontSize)
 
     // disable byte-alignment restriction
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1); 
-    unsigned int texture;
+    unsigned int textureID;
 
     for (GLubyte c = 0; c < 128; c++) // lol see what I did there 
     {
@@ -165,10 +160,9 @@ void Graphics::TestLoadFont(std::string path, unsigned int fontSize)
             continue;
         }
 
-        // generate texture
-    
-        glGenTextures(1, &texture);
-        glBindTexture(GL_TEXTURE_2D, texture);
+        // generate texture    
+        glGenTextures(1, &textureID);
+        glBindTexture(GL_TEXTURE_2D, textureID);
         glTexImage2D(
             GL_TEXTURE_2D,
             0,
@@ -189,7 +183,7 @@ void Graphics::TestLoadFont(std::string path, unsigned int fontSize)
        
         // now store character for later use
         Character character = {
-            texture,
+            textureID,
             glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
             glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
             face->glyph->advance.x
@@ -199,7 +193,7 @@ void Graphics::TestLoadFont(std::string path, unsigned int fontSize)
 
     glBindTexture(GL_TEXTURE_2D, 0);
 
-    std::cout << "Texture Text Bind: " << texture << std::endl;
+    //std::cout << "Texture Text Bind: " << textureID << std::endl;
     // destroy FreeType once we're finished
     FT_Done_Face(face);
     FT_Done_FreeType(ft);

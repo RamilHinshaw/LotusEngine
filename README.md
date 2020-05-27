@@ -14,6 +14,12 @@
 	- Lua Integration
 	- Renderer System
 
+### Progress to 0.25
+	- Refactor code
+	- Inline Necessary Functions
+	- C++ 14 Standards
+	- Smart Pointers
+	- Decrease Singleton Abuse
 
 ### Progress to 0.3
 	- Compile Dynamic Library for Engine
@@ -21,6 +27,8 @@
 	- Entity Component System
 	- Pack/Read Files with zlib
 	- LotusPlayer to read packed files
+	
+---
 
 ## Build Instructions
 

@@ -108,7 +108,7 @@ void Game::init()
 	//--------------- INIT CODE BELOW ----------------------------------------------------------------------------
 
 	// basicTexture = Texture("./assets/textures/floor4.png");
-	basicShader = Shader("./assets/shaders/textShader");
+	// basicShader = Shader("./assets/shaders/textShader");
 
 	//std::cout << "Image Size: " << basicTexture.getSize().x << "x" << basicTexture.getSize().y << std::endl;
 
@@ -144,7 +144,7 @@ void Game::init()
 
 
 	//TEST
-	basicShader.bind();
+	// basicShader.bind();
 	// basicTexture.bind();
 
 	Graphics::TestLoadFont("./assets/fonts/Arial.ttf", 32);
@@ -360,7 +360,7 @@ void Game::draw(float dt)
 
 	// Graphics::DrawSprite(0 * 32, 1 * 32, 32, 32);
 	// Graphics::DrawSprite(0 * 32, 2 * 32, 32, 32);	
-	Graphics::DrawText("EEEEEE", 0, 0);
+	Graphics::DrawText("Hello World!", 0, 0);
 
 	double targetRefreshRate = 1.0/60.0f;
 
@@ -382,13 +382,13 @@ void Game::draw(float dt)
 
 
 	// IF DYNAMIC MESH
-	Renderer::render();
+	Renderer::render(camera);
 	Renderer::dispose();
 	// THEN FLUSH AND UPDATE HERE!
 
-	basicShader.setMat4("u_transform", glm::mat4(1.0f));
-    basicShader.setMat4("u_view", camera->getTransform().getModel());
-    basicShader.setMat4("u_projection", camera->getProjection());    
+	// basicShader.setMat4("u_transform", glm::mat4(1.0f));
+    // basicShader.setMat4("u_view", camera->getTransform().getModel());
+    // basicShader.setMat4("u_projection", camera->getProjection());    
 
 	// basicMesh.draw();
 

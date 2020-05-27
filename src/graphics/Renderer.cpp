@@ -30,11 +30,12 @@ void Renderer::init()
     
 	// basicTexture = Texture("./assets/textures/floor4.png");
 	// basicShader = Shader("./assets/shaders/basicShaderES");
-    // basicShader.bind();
+    basicShader = Shader("./assets/shaders/textShader");
+    basicShader.bind();
 	// basicTexture.bind();
 }
 
-void Renderer::render()
+void Renderer::render(Camera *camera)
 {
     //ToDo: Render based on priorities!
         // Shader1 bind
@@ -46,6 +47,11 @@ void Renderer::render()
             // Texture3 bind
                 // Mesh3 draw        
 
+
+    //Shader Projection from this camera Camera
+    basicShader.setMat4("u_transform", glm::mat4(1.0f));
+    basicShader.setMat4("u_view", camera->getTransform().getModel());
+    basicShader.setMat4("u_projection", camera->getProjection());  
 
 
     batchedDynamicMeshes->at(0).draw();
