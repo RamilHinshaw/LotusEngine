@@ -30,8 +30,8 @@ void Renderer::init()
     
 	// basicTexture = Texture("./assets/textures/floor4.png");
 	// basicShader = Shader("./assets/shaders/basicShaderES");
-    basicShader = Shader("./assets/shaders/textShader");
-    basicShader.bind();
+    basicShader = new Shader("./assets/shaders/textShader");
+    basicShader->bind();
 	// basicTexture.bind();
 }
 
@@ -49,9 +49,9 @@ void Renderer::render(Camera *camera)
 
 
     //Shader Projection from this camera Camera
-    basicShader.setMat4("u_transform", glm::mat4(1.0f));
-    basicShader.setMat4("u_view", camera->getTransform().getModel());
-    basicShader.setMat4("u_projection", camera->getProjection());  
+    basicShader->setMat4("u_transform", glm::mat4(1.0f));
+    basicShader->setMat4("u_view", camera->getTransform().getModel());
+    basicShader->setMat4("u_projection", camera->getProjection());  
 
 
     batchedDynamicMeshes->at(0).draw();
@@ -119,4 +119,11 @@ void Renderer::dispose()
 {
     // basicShader.dispose();
 	// basicTexture.dispose();
+}
+
+//TEST
+
+Shader* Renderer::getShader()
+{
+    return basicShader;
 }

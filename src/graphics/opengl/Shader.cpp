@@ -73,6 +73,11 @@ void Shader::setSampler2d(const std::string &name, int value) const
     glUniform1i(glGetUniformLocation(m_program, name.c_str()), value); 
 }
 
+void Shader::setSampler2dArray(const std::string &name, int arraySize, int values[]) const
+{ 
+    glUniform1iv(glGetUniformLocation(m_program, name.c_str()), arraySize, values); 
+}
+
 // ------------------------------------------------------------------------
 void Shader::setFloat(const std::string &name, float value) const
 { 

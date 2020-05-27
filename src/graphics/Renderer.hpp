@@ -46,6 +46,9 @@ class Renderer
         static Display getActiveWindow();
 
         static void dispose();
+
+        //TEST!
+        static Shader* getShader();
     private:
         Renderer(){}
 
@@ -67,4 +70,4 @@ class Renderer
 
        //TEST!!!
         // static Texture basicTexture;
-		static Shader basicShader;
+		static Shader *basicShader;

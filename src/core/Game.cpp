@@ -147,6 +147,10 @@ void Game::init()
 	// basicShader.bind();
 	// basicTexture.bind();
 
+	//CORE
+	Renderer::init();
+	Audio::init();
+
 	Graphics::TestLoadFont("./assets/fonts/Arial.ttf", 32);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);  
@@ -154,9 +158,7 @@ void Game::init()
 
 	//**********************************************************************************************
 
-	//CORE
-	Renderer::init();
-	Audio::init();
+
 
 	//BASICALLY STATIC, NOT PUSHED EVERY FRAME
 

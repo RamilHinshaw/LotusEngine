@@ -107,10 +107,10 @@ void Graphics::DrawText(std::string text, float xPos, float yPos, float scale)
         Vertex vertices[] = {
 
             //Positions		X,Y             				                            //Colors						    //Texture Coordinates	//TexID
-            Vertex(glm::vec3( (0.0f + xPos) ,  (-1.0f - yPos ) - height+1, 0),	        glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 1.0f), 	0.0f),      //Bot Left 3
-            Vertex(glm::vec3( (1.0f + xPos) + width-1,  (-1.0f - yPos ) - height+1, 0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f), 	0.0f),      //Bot Right 1
-            Vertex(glm::vec3( (1.0f + xPos) + width-1,  (0.0f - yPos)  , 0),	        glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f), 	0.0f),      //Top Right 0
-            Vertex(glm::vec3( (0.0f + xPos) ,  (0.0f - yPos)  , 0),                      glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 0.0f), 	0.0f)   //Top Left 2
+            Vertex(glm::vec3( (0.0f + xPos) ,  (-1.0f - yPos ) - height+1, 0),	        glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 1.0f), 	ch.TextureID),      //Bot Left 3
+            Vertex(glm::vec3( (1.0f + xPos) + width-1,  (-1.0f - yPos ) - height+1, 0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f), 	ch.TextureID),      //Bot Right 1
+            Vertex(glm::vec3( (1.0f + xPos) + width-1,  (0.0f - yPos)  , 0),	        glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f), 	ch.TextureID),      //Top Right 0
+            Vertex(glm::vec3( (0.0f + xPos) ,  (0.0f - yPos)  , 0),                     glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 0.0f), 	ch.TextureID)   //Top Left 2
         };
 
         unsigned int indices[] = {
@@ -118,7 +118,9 @@ void Graphics::DrawText(std::string text, float xPos, float yPos, float scale)
             0, 1, 2,	//second triangle
         };
 
-        glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+        // std::cout << ch.TextureID << std::endl;
+
+        //Renderer::getShader()->setSampler2d("u_texture", ch.TextureID-1);
 
         //Then pass to dynamic mesh buffer
         Renderer::batch(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
@@ -136,6 +138,8 @@ void Graphics::TestLoadFont(std::string path, unsigned int fontSize)
 {
     Characters.clear();
 
+
+
     FT_Library ft;    
     if (FT_Init_FreeType(&ft)) // all functions return a value different than 0 whenever an error occurred
         std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
@@ -149,7 +153,16 @@ void Graphics::TestLoadFont(std::string path, unsigned int fontSize)
 
     // disable byte-alignment restriction
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1); 
-    unsigned int textureID;
+
+
+    //TEXTURE ARRAY TEST ********
+    // unsigned int textureArraySize = 128;    // Get maximum number in slots (must be same width and height)
+    unsigned int textureID[128]; //This is shared for all images in same slot,
+    glGenTextures(128, textureID);   // HERE WE SPECIFY SLOTS IN THAT TEXTURE ID and textureID is assigned from GPU
+
+    // unsigned int temp_texture;
+    // glGenTextures(1, &temp_texture);
+    
 
     for (GLubyte c = 0; c < 128; c++) // lol see what I did there 
     {
@@ -161,8 +174,8 @@ void Graphics::TestLoadFont(std::string path, unsigned int fontSize)
         }
 
         // generate texture    
-        glGenTextures(1, &textureID);
-        glBindTexture(GL_TEXTURE_2D, textureID);
+        glActiveTexture(GL_TEXTURE0 + c); //Start with index slot 0 then increase!
+        glBindTexture(GL_TEXTURE_2D, textureID[c]);
         glTexImage2D(
             GL_TEXTURE_2D,
             0,
@@ -180,16 +193,27 @@ void Graphics::TestLoadFont(std::string path, unsigned int fontSize)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+
        
         // now store character for later use
         Character character = {
-            textureID,
+            textureID[c],
             glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
             glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
             face->glyph->advance.x
         };
         Characters.insert(std::pair<char, Character>(c, character));
     }    
+
+    int textureIDArray[128]; //Used to pass to sampler
+    for (int i = 0; i < 128; i++)
+    {
+        textureIDArray[i] = i;
+        // std::cout << textureIDArray[i] << std::endl;
+    }
+
+   Renderer::getShader()->setSampler2dArray("u_texture", 128, textureIDArray);
 
     glBindTexture(GL_TEXTURE_2D, 0);
 

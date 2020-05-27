@@ -1,7 +1,7 @@
 #version 300 es
 precision mediump float;
 
-out vec4 FragColor; //Define from OpenGL
+out vec4 FragColor;
 
 in vec4 o_color;
 in vec2 o_texCoord;
@@ -31,7 +31,7 @@ void main()
         if (texColor.a < 0.1)
             discard;
 
-        FragColor = texColor; //Both Texture and Color Tint
+        FragColor = texColor;
     }
 
 }
