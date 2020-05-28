@@ -91,14 +91,19 @@ void Graphics::DrawSphere()
 void Graphics::DrawText(std::string text, float xPos, float yPos, float scale)
 {
     glActiveTexture(GL_TEXTURE0);
+    int i = 0;
+    float origYpos = yPos;
 
     std::string::const_iterator c;
     for (c = text.begin(); c != text.end(); c++)
     {
         Character ch = Characters[*c];
 
-        float xpos = xPos + ch.Bearing.x * scale;
-        float ypos = yPos + (Characters['H'].Bearing.y - ch.Bearing.y) * scale;
+        // xPos = xPos + ch.Bearing.x * scale;
+        //yPos = yPos + (Characters['H'].Size.y - ch.Bearing.y) * scale;
+        // yPos = yPos - (ch.Size.y - ch.Bearing.y) * scale;
+        yPos = (yPos + (Characters['H'].Size.y - ch.Size.y) + (ch.Size.y - ch.Bearing.y)) * scale;
+        // std::cout << "CH: " << i++ << " size.y: " << ch.Size.y << " | Bearing.y: " << ch.Bearing.y << std::endl;
 
         float width = ch.Size.x * scale;
         float height = ch.Size.y * scale;
@@ -107,10 +112,10 @@ void Graphics::DrawText(std::string text, float xPos, float yPos, float scale)
         Vertex vertices[] = {
 
             //Positions		X,Y             				                            //Colors						    //Texture Coordinates	//TexID
-            Vertex(glm::vec3( (0.0f + xPos) ,  (-1.0f - yPos ) - height+1, 0),	        glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 1.0f), 	ch.TextureID),      //Bot Left 3
-            Vertex(glm::vec3( (1.0f + xPos) + width-1,  (-1.0f - yPos ) - height+1, 0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f), 	ch.TextureID),      //Bot Right 1
-            Vertex(glm::vec3( (1.0f + xPos) + width-1,  (0.0f - yPos)  , 0),	        glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f), 	ch.TextureID),      //Top Right 0
-            Vertex(glm::vec3( (0.0f + xPos) ,  (0.0f - yPos)  , 0),                     glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 0.0f), 	ch.TextureID)   //Top Left 2
+            Vertex(glm::vec3( (0.0f + xPos) ,  (-1.0f - yPos ) - height+1, 0),	        glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 1.0f), 	ch.TextureID),  //Top-Left
+            Vertex(glm::vec3( (1.0f + xPos) + width-1,  (-1.0f - yPos ) - height+1, 0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f), 	ch.TextureID),  //Top-Right
+            Vertex(glm::vec3( (1.0f + xPos) + width-1,  (0.0f - yPos)  , 0),	        glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f), 	ch.TextureID),  //Bot-Right
+            Vertex(glm::vec3( (0.0f + xPos) ,  (0.0f - yPos)  , 0),                     glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 0.0f), 	ch.TextureID)   //Bot-Left
         };
 
         unsigned int indices[] = {
@@ -129,6 +134,7 @@ void Graphics::DrawText(std::string text, float xPos, float yPos, float scale)
 
         // now advance cursors for next glyph
         xPos += (ch.Advance >> 6) * scale; // bitshift by 6 to get value in pixels (1/64th times 2^6 = 64)
+        yPos = origYpos;
     }
 
 }
