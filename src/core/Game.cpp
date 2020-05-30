@@ -302,6 +302,16 @@ void Game::update(float dt)
 		Audio::playMusic("./assets/audio/Music.wav", 1.0f, -1);
 	}
 
+	if (Input::getKeyDown(KEY_9))
+	{
+		Renderer::getShader()->setBool("u_showTexture", true);
+	}
+
+	if (Input::getKeyDown(KEY_0))
+	{
+		Renderer::getShader()->setBool("u_showTexture", false);
+	}
+
 
 
 	//**************************************************************************************************

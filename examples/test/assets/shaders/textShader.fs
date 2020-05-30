@@ -7,7 +7,7 @@ in vec4 o_color;
 in vec2 o_texCoord;
 in float o_texID;
 
-uniform sampler2D u_texture[128];
+uniform sampler2D u_texture;
 uniform bool u_showTexture;
 uniform vec2 u_texRect;
 
@@ -31,9 +31,9 @@ void main()
         // if (texColor.a < 0.1)
         //     discard;
         
-        int textureSlot = int(o_texID)-1;
+        // int textureSlot = int(o_texID)-1;
 
-        vec4 sampled = vec4(1.0, 1.0, 1.0, texture(u_texture[textureSlot], o_texCoord).r);
+        vec4 sampled = vec4(1.0, 1.0, 1.0, texture(u_texture, o_texCoord).r);
         FragColor = vec4(o_color.xyz, 1.0) * sampled;
 
         // FragColor = texColor;
