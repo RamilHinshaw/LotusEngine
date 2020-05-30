@@ -1,6 +1,7 @@
 #include "Graphics.hpp"
 
 #include <iostream>
+#include <algorithm> //For font Load function
 
 void Graphics::DrawTest(float xPos, float yPos)
 {
@@ -108,26 +109,35 @@ void Graphics::DrawText(std::string text, float xPos, float yPos, float scale)
         float width = ch.Size.x * scale;
         float height = ch.Size.y * scale;
 
+        int intChar = int(*c);
+        float uvOffsetStart = ((intChar-32) * ch.Size.x) / AtlusWidth;
+        float charUVWidth = ch.Size.x / AtlusWidth;
+
         //Set verticies based on parameters
         Vertex vertices[] = {
 
-            //Positions		X,Y             				                            //Colors						    //Texture Coordinates	//TexID
-            Vertex(glm::vec3( (0.0f + xPos) ,  (-1.0f - yPos ) - height+1, 0),	        glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 1.0f), 	ch.TextureID),  //Top-Left
-            Vertex(glm::vec3( (1.0f + xPos) + width-1,  (-1.0f - yPos ) - height+1, 0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f), 	ch.TextureID),  //Top-Right
-            Vertex(glm::vec3( (1.0f + xPos) + width-1,  (0.0f - yPos)  , 0),	        glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f), 	ch.TextureID),  //Bot-Right
-            Vertex(glm::vec3( (0.0f + xPos) ,  (0.0f - yPos)  , 0),                     glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 0.0f), 	ch.TextureID)   //Bot-Left
+            //Positions		X,Y             				                            //Colors						    //Texture Coordinates	                //TexID
+            Vertex(glm::vec3( (0.0f + xPos) ,  (-1.0f - yPos ) - height+1, 0),	        glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 1.0f), 	0),  //Top-Left
+            Vertex(glm::vec3( (1.0f + xPos) + width-1,  (-1.0f - yPos ) - height+1, 0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f), 	0),  //Top-Right
+            Vertex(glm::vec3( (1.0f + xPos) + width-1,  (0.0f - yPos)  , 0),	        glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f), 	0),  //Bot-Right
+            Vertex(glm::vec3( (0.0f + xPos) ,  (0.0f - yPos)  , 0),                     glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 0.0f), 	0)   //Bot-Left
         };
+
+        // uvOffsetStart,              
+        // uvOffsetStart + charUVWidth,
+        // uvOffsetStart + charUVWidth,
+        // uvOffsetStart,              
 
         unsigned int indices[] = {
             0, 2, 3,	//first triangle
             0, 1, 2,	//second triangle
         };
 
-        // std::cout << ch.TextureID << std::endl;
+        // std::cout << charUVWidth << std::endl;
 
         //Renderer::getShader()->setSampler2d("u_texture", ch.TextureID-1);
 
-        //Then pass to dynamic mesh buffer
+        //Then pass to dynamic mesh buffer  
         Renderer::batch(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
 
         // std::cout << "Added to Batch!" << std::endl;
@@ -140,12 +150,10 @@ void Graphics::DrawText(std::string text, float xPos, float yPos, float scale)
 }
 
 //ToDo: Have resource manager later handle this!
+//Create Atlus, Create Empty Texture, Fill Empty Texture
 void Graphics::TestLoadFont(std::string path, unsigned int fontSize)
 {
     Characters.clear();
-
-
-
     FT_Library ft;    
     if (FT_Init_FreeType(&ft)) // all functions return a value different than 0 whenever an error occurred
         std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
@@ -161,69 +169,62 @@ void Graphics::TestLoadFont(std::string path, unsigned int fontSize)
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1); 
 
 
-    //TEXTURE ARRAY TEST ********
-    // unsigned int textureArraySize = 128;    // Get maximum number in slots (must be same width and height)
-    unsigned int textureID[128]; //This is shared for all images in same slot,
-    glGenTextures(128, textureID);   // HERE WE SPECIFY SLOTS IN THAT TEXTURE ID and textureID is assigned from GPU
-
-    // unsigned int temp_texture;
-    // glGenTextures(1, &temp_texture);
+    FT_GlyphSlot g = face->glyph;
+    //int textureID[96];
+    unsigned int atlusWidth = 0;
+    unsigned int atlusHeight = 0;
     
-
-    for (GLubyte c = 0; c < 128; c++) // lol see what I did there 
+    //Create Atlus!
+    for (GLubyte i = 32; i < 128; i++) // lol see what I did there 
     {
         // load character glyph 
-        if (FT_Load_Char(face, c, FT_LOAD_RENDER))
+        if (FT_Load_Char(face, i, FT_LOAD_RENDER))
         {
             std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
             continue;
         }
 
-        // generate texture    
-        glActiveTexture(GL_TEXTURE0 + c); //Start with index slot 0 then increase!
-        glBindTexture(GL_TEXTURE_2D, textureID[c]);
-        glTexImage2D(
-            GL_TEXTURE_2D,
-            0,
-            GL_RED,
-            face->glyph->bitmap.width,
-            face->glyph->bitmap.rows,
-            0,
-            GL_RED,
-            GL_UNSIGNED_BYTE,
-            face->glyph->bitmap.buffer
-            );
-
-        // set texture options
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-
-       
-        // now store character for later use
-        Character character = {
-            textureID[c],
-            glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
-            glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-            face->glyph->advance.x
-        };
-        Characters.insert(std::pair<char, Character>(c, character));
-    }    
-
-    int textureIDArray[128]; //Used to pass to sampler
-    for (int i = 0; i < 128; i++)
-    {
-        textureIDArray[i] = i;
-        // std::cout << textureIDArray[i] << std::endl;
+          atlusWidth += g->bitmap.width;
+          atlusHeight = std::max(atlusHeight, g->bitmap.rows);   
     }
 
-   Renderer::getShader()->setSampler2dArray("u_texture", 128, textureIDArray);
+    AtlusWidth = atlusWidth; //Saved for UV calculations later    
+    std::cout << "Atlus Width: " << AtlusWidth << std::endl;
 
-    glBindTexture(GL_TEXTURE_2D, 0);
+    //CREATE EMPTY TEXTURE
+    GLuint tex;
+    glActiveTexture(GL_TEXTURE0);
+    glGenTextures(1, &tex);
+    glBindTexture(GL_TEXTURE_2D, tex);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, atlusWidth, atlusHeight, 0, GL_RED, GL_UNSIGNED_BYTE, 0);
 
-    //std::cout << "Texture Text Bind: " << textureID << std::endl;
+    //FILL EMPTY TEXTURE WITH FONT BITMAPS
+    int xOffset = 0;
+
+    for(int i = 32; i < 128; i++) 
+    {
+        if(FT_Load_Char(face, i, FT_LOAD_RENDER))
+            continue;
+
+        //Create texture in one big row
+        glTexSubImage2D(GL_TEXTURE_2D, 0, xOffset, 0, g->bitmap.width, g->bitmap.rows, GL_RED, GL_UNSIGNED_BYTE, g->bitmap.buffer);
+
+        // now store character for later use
+        Character character = 
+        {
+            glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),    //Size XY
+            glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),      //Bearing XT
+            face->glyph->advance.x,                                             //Horizontal Advance X,
+            xOffset                                                             //Horizontal offset in atlus for this character
+        };
+        Characters.insert(std::pair<char, Character>(i, character));
+    }
+
+    xOffset += g->bitmap.width;
+
+    // glBindTexture(GL_TEXTURE_2D, 0);
+
     // destroy FreeType once we're finished
     FT_Done_Face(face);
     FT_Done_FreeType(ft);
