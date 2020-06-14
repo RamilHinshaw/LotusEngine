@@ -28,11 +28,11 @@ void Renderer::init()
 
     // batchedDynamicMeshes->at(0).batch(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
     
-	// basicTexture = Texture("./assets/textures/floor4.png");
-	// basicShader = Shader("./assets/shaders/basicShaderES");
-    basicShader = new Shader("./assets/shaders/textShader");
+	basicTexture = Texture("./assets/textures/player.png");
+	basicShader = new Shader("./assets/shaders/basicShaderES");
+    // basicShader = new Shader("./assets/shaders/textShader");
     basicShader->bind();
-	// basicTexture.bind();
+	basicTexture.bind();
 }
 
 void Renderer::render(Camera *camera)

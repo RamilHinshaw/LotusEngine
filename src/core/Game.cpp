@@ -148,11 +148,15 @@ void Game::init()
 	// basicTexture.bind();
 
 	//CORE
-	Renderer::init();
+
 	Audio::init();
 
 	// Graphics::TestLoadFont("./assets/fonts/8-Bit Madness.ttf", 32);
-	Graphics::TestLoadFont("./assets/fonts/Arial.ttf", 32);
+
+	Renderer::init();
+	Graphics::TestLoadFont("./assets/fonts/Arial.ttf", 32);	//This test generates its own texture and binds it so renderer::init goes last to get my texture
+
+
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);  
 
@@ -299,7 +303,7 @@ void Game::update(float dt)
 
 	if (Input::getKeyDown(KEY_M))
 	{
-		Audio::playMusic("./assets/audio/Music.wav", 1.0f, -1);
+		Audio::playMusic("./assets/audio/Music.wav", 0.025f, -1);
 	}
 
 	if (Input::getKeyDown(KEY_9))
@@ -373,7 +377,11 @@ void Game::draw(float dt)
 
 	// Graphics::DrawSprite(0 * 32, 1 * 32, 32, 32);
 	// Graphics::DrawSprite(0 * 32, 2 * 32, 32, 32);	
-	Graphics::DrawText("the quick brown fox jumped over the lazy dog!", 0, 0 * 32);
+
+	//USED TO TEST TEXTURE ATLUS
+	Graphics::DrawSprite(0, 0 , 128*4, 128*4);
+	// Graphics::DrawText("the quick brown fox jumped over the lazy dog!", 0, 0 * 32);
+	
 	// Graphics::DrawText("the quick brown fox jumped over the lazy dog.!?", 0, 1 * 32);
 	// Graphics::DrawText("THE QUICK BROWN FOX JUMPED OVER THE LAZY DOG.!?", 0, 2 * 32);
 

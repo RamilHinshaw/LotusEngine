@@ -9,7 +9,7 @@ Texture::Texture()
 Texture::Texture(const std::string& fileName)
 {
     // int width, height, channels;
-    stbi_set_flip_vertically_on_load(true); //Global not thread safe!
+    // stbi_set_flip_vertically_on_load(true); //Global not thread safe!
     unsigned char* imageData = stbi_load(fileName.c_str(),
                                          &m_width,
                                          &m_height,

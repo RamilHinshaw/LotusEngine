@@ -69,5 +69,5 @@ class Renderer
 
 
        //TEST!!!
-        // static Texture basicTexture;
+        static Texture basicTexture;
 		static Shader *basicShader;

@@ -58,10 +58,10 @@ void Graphics::DrawSprite(float xPos, float yPos, float width, float height)
     Vertex vertices[] = {
 
             //Positions		X,Y             				                            //Colors						    //Texture Coordinates	//TexID
-            Vertex(glm::vec3((0.0f + xPos) ,  (-1.0f - yPos ) - height+1, 0),	        glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f), 	0.0f),      //Bot Left
-            Vertex(glm::vec3( (1.0f + xPos) + width-1,  (-1.0f - yPos ) - height+1, 0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f), 	0.0f),      //Bot Right
-            Vertex(glm::vec3( (1.0f + xPos) + width-1,  (0.0f - yPos)  , 0),	        glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 0.0f), 	0.0f),      //Top Right
-            Vertex(glm::vec3((0.0f + xPos) ,  (0.0f - yPos)  , 0),                      glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 1.0f), 	0.0f)   //Top Left
+            Vertex(glm::vec3((0.0f + xPos) ,  (-1.0f - yPos ) - height+1, 0),	        glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 1.0f), 	0.0f),      //Top Left
+            Vertex(glm::vec3( (1.0f + xPos) + width-1,  (-1.0f - yPos ) - height+1, 0),	glm::vec4(1.0f,	1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 1.0f), 	0.0f),      //Top Right
+            Vertex(glm::vec3( (1.0f + xPos) + width-1,  (0.0f - yPos)  , 0),	        glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(1.0f, 0.0f), 	0.0f),      //Bot Right
+            Vertex(glm::vec3((0.0f + xPos) ,  (0.0f - yPos)  , 0),                      glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 	glm::vec2(0.0f, 0.0f), 	0.0f)   //Bot Left
         };
 
     unsigned int indices[] = {
@@ -141,6 +141,7 @@ void Graphics::DrawText(std::string text, float xPos, float yPos, float scale)
         Renderer::batch(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
 
         // std::cout << "Added to Batch!" << std::endl;
+	Renderer::init();
 
         // now advance cursors for next glyph
         xPos += (ch.Advance >> 6) * scale; // bitshift by 6 to get value in pixels (1/64th times 2^6 = 64)
@@ -151,6 +152,7 @@ void Graphics::DrawText(std::string text, float xPos, float yPos, float scale)
 
 //ToDo: Have resource manager later handle this!
 //Create Atlus, Create Empty Texture, Fill Empty Texture
+#define MAXWIDTH 256
 void Graphics::TestLoadFont(std::string path, unsigned int fontSize)
 {
     Characters.clear();
@@ -163,52 +165,79 @@ void Graphics::TestLoadFont(std::string path, unsigned int fontSize)
     if (FT_New_Face(ft, path.c_str(), 0, &face))
         std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
 
-    FT_Set_Pixel_Sizes(face, 0, fontSize);
+	FT_Set_Pixel_Sizes(face, 0, fontSize);
+		FT_GlyphSlot g = face->glyph;
 
-    // disable byte-alignment restriction
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1); 
+		unsigned int roww = 0;
+		unsigned int rowh = 0;
+		unsigned int w = 0;
+		unsigned int h = 0;
+
+		 //memset(c, 0, sizeof c);
+
+		/* Find minimum size for a texture holding all visible ASCII characters */
+		for (int i = 32; i < 128; i++) {
+			if (FT_Load_Char(face, i, FT_LOAD_RENDER)) {
+				fprintf(stderr, "Loading character %c failed!\n", i);
+				continue;
+			}
+			if (roww + g->bitmap.width + 1 >= MAXWIDTH) {
+				w = std::max(w, roww);
+				h += rowh;
+				roww = 0;
+				rowh = 0;
+			}
+			roww += g->bitmap.width + 1;
+			rowh = std::max(rowh, g->bitmap.rows);
+		}
+
+		w = std::max(w, roww);
+		h += rowh;
+
+		/* Create a texture that will be used to hold all ASCII glyphs */
+        GLuint tex;
+		glActiveTexture(GL_TEXTURE0);
+        glGenTextures(1, &tex);
+		glBindTexture(GL_TEXTURE_2D, tex);
+		//glUniform1i(uniform_tex, 0);
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, w, h, 0, GL_ALPHA, GL_UNSIGNED_BYTE, 0);
+
+		/* We require 1 byte alignment when uploading texture data */
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+		/* Clamping to edges is important to prevent artifacts when scaling */
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
+		/* Linear filtering usually looks best for text */
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		/* Paste all glyph bitmaps into the texture, remembering the offset */
+		int ox = 0;
+		int oy = 0;
+
+		rowh = 0;
+        int xOffset = 0;
 
 
-    FT_GlyphSlot g = face->glyph;
-    //int textureID[96];
-    unsigned int atlusWidth = 0;
-    unsigned int atlusHeight = 0;
-    
-    //Create Atlus!
-    for (GLubyte i = 32; i < 128; i++) // lol see what I did there 
-    {
-        // load character glyph 
-        if (FT_Load_Char(face, i, FT_LOAD_RENDER))
+		for (int i = 32; i < 128; i++) 
         {
-            std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
-            continue;
-        }
+			if (FT_Load_Char(face, i, FT_LOAD_RENDER)) {
+				fprintf(stderr, "Loading character %c failed!\n", i);
+				continue;
+			}
 
-          atlusWidth += g->bitmap.width;
-          atlusHeight = std::max(atlusHeight, g->bitmap.rows);   
-    }
+			if (ox + g->bitmap.width + 1 >= MAXWIDTH) {
+				oy += rowh;
+				rowh = 0;
+				ox = 0;
+			}
 
-    AtlusWidth = atlusWidth; //Saved for UV calculations later    
-    std::cout << "Atlus Width: " << AtlusWidth << std::endl;
-
-    //CREATE EMPTY TEXTURE
-    GLuint tex;
-    glActiveTexture(GL_TEXTURE0);
-    glGenTextures(1, &tex);
-    glBindTexture(GL_TEXTURE_2D, tex);
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, atlusWidth, atlusHeight, 0, GL_RED, GL_UNSIGNED_BYTE, 0);
-
-    //FILL EMPTY TEXTURE WITH FONT BITMAPS
-    int xOffset = 0;
-
-    for(int i = 32; i < 128; i++) 
-    {
-        if(FT_Load_Char(face, i, FT_LOAD_RENDER))
-            continue;
-
-        //Create texture in one big row
-        glTexSubImage2D(GL_TEXTURE_2D, 0, xOffset, 0, g->bitmap.width, g->bitmap.rows, GL_RED, GL_UNSIGNED_BYTE, g->bitmap.buffer);
+        glTexSubImage2D(GL_TEXTURE_2D, 0, ox, oy, g->bitmap.width, g->bitmap.rows, GL_ALPHA, GL_UNSIGNED_BYTE, g->bitmap.buffer);
+        rowh = std::max(rowh, g->bitmap.rows);
+        ox += g->bitmap.width + 1;
 
         // now store character for later use
         Character character = 
@@ -218,6 +247,7 @@ void Graphics::TestLoadFont(std::string path, unsigned int fontSize)
             face->glyph->advance.x,                                             //Horizontal Advance X,
             xOffset                                                             //Horizontal offset in atlus for this character
         };
+
         Characters.insert(std::pair<char, Character>(i, character));
     }
 
