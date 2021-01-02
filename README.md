@@ -62,5 +62,5 @@ OR
 - copy mingw32 into build then run "mingw32-make.exe .."
 
 ---
-<p align="center">Copyright &copy; 2019-present Ramil Hinshaw</p>
+<p align="center">Copyright &copy; 2019-2021 Ramil Hinshaw</p>
 <p align="center">My Original Source code under MIT & Images under CC BY-SA 4.0 License, Lotus Logo not included.</p>
